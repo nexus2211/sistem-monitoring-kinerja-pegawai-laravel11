@@ -26,6 +26,10 @@ return new class extends Migration
                 table: 'bagian',
                 indexName: 'pegawai_bagian_id'
             );
+            $table->foreignId('shift_id')->constrained(
+                table: 'shift',
+                indexName: 'pegawai_shift_id'
+            );
             $table->string('foto')->nullable();
             $table->timestamps();
         });

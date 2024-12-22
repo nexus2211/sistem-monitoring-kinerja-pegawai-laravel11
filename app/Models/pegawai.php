@@ -10,7 +10,7 @@ class pegawai extends Model
 {
     use HasFactory;
     protected $table = "pegawai";
-    protected $fillable = ["nip","nama_pegawai","alamat","gender","tgl_lahir","jabatan_id","bagian_id","foto"];
+    protected $fillable = ["nip","nama_pegawai","alamat","gender","tgl_lahir","jabatan_id","bagian_id","shift_id","foto"];
 
     // Aksesors dan Mutator untuk 'gender'
     public function getGenderAttribute($value)
@@ -27,5 +27,10 @@ class pegawai extends Model
     public function bagian(): BelongsTo
     {
         return $this->belongsTo(Bagian::class);
+    }
+
+    public function shift(): BelongsTo
+    {
+        return $this->belongsTo(Shift::class);
     }
 }

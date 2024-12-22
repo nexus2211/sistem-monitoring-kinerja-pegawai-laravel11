@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\shift;
 use App\Models\bagian;
 use App\Models\jabatan;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,6 +27,7 @@ class PegawaiFactory extends Factory
             'tgl_lahir' => fake()->date(),
             'jabatan_id' => jabatan::factory(),
             'bagian_id' => bagian::factory(),
+            'shift_id' => shift::factory(),
             'foto' => fake()->sentence(3),
         ];
     }

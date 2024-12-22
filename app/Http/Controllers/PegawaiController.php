@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bagian;
-use App\Models\pegawai;
-use App\Models\jabatan;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\shift;
+use App\Models\bagian;
+use App\Models\jabatan;
+use App\Models\pegawai;
+use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
 {
@@ -17,8 +18,8 @@ class PegawaiController extends Controller
 
         $max_data = 5;
 
-        $pegawai = Pegawai::with(['jabatan','bagian'])->latest()->get();
-       // dd($pegawai);
+        $pegawai = Pegawai::with(['jabatan','bagian','shift'])->latest()->get();
+    //    dd($pegawai);
 
         return view('pegawai.pegawai', compact('pegawai'));
     }
@@ -26,8 +27,9 @@ class PegawaiController extends Controller
     public function PegawaitampilTambah(){
         $jabatan = Jabatan::all();
         $bagian = Bagian::all();
+        $shift = Shift::all();
 
-        return view('pegawai.tambah', compact('jabatan','bagian'));
+        return view('pegawai.tambah', compact('jabatan','bagian','shift'));
     }
 
     public function JabatanIndex(){
@@ -35,7 +37,7 @@ class PegawaiController extends Controller
         $max_data = 5;
 
         $jabatan = Jabatan::get();
-       //dd($jabatan);
+       
 
         return view('pegawai.jabatan.jabatan', compact('jabatan'));
     }
@@ -45,9 +47,19 @@ class PegawaiController extends Controller
         $max_data = 5;
 
         $bagian = Bagian::get();
-       //dd($jabatan);
+       
 
         return view('pegawai.bagian.bagian', compact('bagian'));
+    }
+
+    public function ShiftIndex(){
+
+        $max_data = 5;
+
+        $shift = Shift::get();
+       
+
+        return view('pegawai.shift.shift', compact('shift'));
     }
 
     // INSERT DATA
@@ -87,6 +99,7 @@ class PegawaiController extends Controller
             'tgl_lahir' => $tglFormat,
             'jabatan_id' => $request->jabatan,
             'bagian_id' => $request->bagian,
+            'shift_id' => $request->shift,
             'foto' => isset($image_name)?$image_name:null,
             // 'foto' => $request->foto,
         ];
@@ -144,6 +157,29 @@ class PegawaiController extends Controller
         return redirect()->route('bagian');
     }
 
+    public function ShiftStore(Request $request)
+    {
+        $request->validate([
+            'shift'  => 'required|min:3|max:20',
+            
+        ],[
+            'task.required'=>'Task wajib diisi',
+            'task.min'=>'Input minimal memiliki 3 karakter',
+            'task.max'=>'Input maximal memiliki 25 karakter',
+        ]);
+
+        $data = [
+            'shift' => $request->shift,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_akhir' => $request->waktu_akhir,
+        ];
+
+        // dd($data);
+        shift::create($data);
+
+        return redirect()->route('shift');
+    }
+
     // EDIT DATA
 
     public function PegawaiEdit($id) {
@@ -151,8 +187,9 @@ class PegawaiController extends Controller
 
         $jabatan = Jabatan::all();
         $bagian = Bagian::all();
+        $shift = Shift::all();
 
-        return view('pegawai.edit', compact('pegawai','jabatan','bagian'));
+        return view('pegawai.edit', compact('pegawai','jabatan','bagian','shift'));
     }
 
     public function PegawaiUpdate(Request $request, string $id){
@@ -191,6 +228,7 @@ class PegawaiController extends Controller
             'tgl_lahir' => $tglFormat,
             'jabatan_id' => $request->input('jabatan'),
             'bagian_id' => $request->input('bagian'),
+            'shift_id' => $request->input('shift'),
             'foto' => isset($image_name)?$image_name:$pegawai->foto,
         ];
 
@@ -258,6 +296,36 @@ class PegawaiController extends Controller
         return redirect()->route('bagian');
     }
 
+    public function ShiftEdit($id) {
+        $shift = Shift::find($id);
+       
+        return view('pegawai.shift.edit', compact('shift'));
+    }
+
+    public function ShiftUpdate(Request $request, string $id)
+    {
+        $shift = Shift::find($id);
+        $request->validate([
+            'shift'  => 'required|min:3|max:20',
+            
+        ],[
+            'task.required'=>'Task wajib diisi',
+            'task.min'=>'Input minimal memiliki 3 karakter',
+            'task.max'=>'Input maximal memiliki 25 karakter',
+        ]);
+
+        $data = [
+            'shift' => $request->shift,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_akhir' => $request->waktu_akhir,
+        ];
+
+        // dd($data);
+        shift::where('id', $id)->update($data);
+
+        return redirect()->route('shift');
+    }
+
     //DELETE DATA
 
     public function PegawaiDelete (Request $request, string $id){
@@ -276,5 +344,11 @@ class PegawaiController extends Controller
         $bagian = Bagian::find($id);
         Bagian::where('id', $id)->delete();
         return redirect()->route('bagian');
+    }
+
+    public function ShiftDelete (Request $request, string $id){
+        $shift = Shift::find($id);
+        Shift::where('id', $id)->delete();
+        return redirect()->route('shift');
     }
 }

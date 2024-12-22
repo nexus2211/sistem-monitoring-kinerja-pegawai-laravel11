@@ -47,6 +47,8 @@
                                     <option value="2">Perempuan</option>
                                 </select>
                               </div>
+                            <label for="">Foto</label>
+                            <input type="file" name="foto" class="form-control mb-2">
                             {{-- <input type="text" name="gender" class="form-control mb-2"> --}}
                         </div>
                         <div class="col-md-6">
@@ -67,6 +69,7 @@
                                 @endforeach
                             </select>
                             </div>
+
                             <label for="">Bagian</label>
                             <div class="input-group mb-3">
                             <select class="form-control" name="bagian" required>
@@ -76,8 +79,17 @@
                                 @endforeach
                             </select>
                             </div>
-                            <label for="">Foto</label>
-                            <input type="file" name="foto" class="form-control mb-2">
+
+                            <label for="">Shift</label>
+                            <div>
+                            <select class="form-control" name="shift" required>
+                                <option selected disabled>Pilih Shift..</option>
+                                @foreach($shift as $data_shift)
+                                    <option value="{{ $data_shift->id }}">{{ $data_shift->shift }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                            
                            
                         </div>
                     </div>

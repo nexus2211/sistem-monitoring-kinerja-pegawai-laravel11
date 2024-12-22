@@ -56,6 +56,7 @@
                       {{-- <th>Tanggal Lahir</th> --}}
                       <th>Jabatan</th>
                       <th>Bagian</th>
+                      <th>Shift</th>
                       {{-- <th>Foto</th> --}}
                       <th>Aksi</th>
                       
@@ -73,6 +74,7 @@
                         {{-- <td class="text-center">{{ $data->tgl_lahir }}</td> --}}
                         <td>{{ $data->jabatan->jabatan }}</td>
                         <td>{{ $data->bagian->bagian }}</td>
+                        <td>{{ $data->shift->shift }}</td>
                         {{-- <td>{{ $data->foto }}</td> --}}
                         <td class="d-flex align-items-center" style="width: 50px;">
                             <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2 ">Edit</a>

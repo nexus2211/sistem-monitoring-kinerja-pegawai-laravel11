@@ -23,7 +23,7 @@ class AuthController extends Controller
         ];
 
         User::create($data);
-        return redirect()->route('pegawai')->with('success','Data berhasil disimpan!');
+        return redirect()->route('login')->with('success','Data berhasil disimpan!');
     }
 
     public function loginView() {

@@ -12,12 +12,13 @@
             <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
           </li>
           <li class="menu-header">Master Data</li>
-          <li class="nav-item dropdown {{ Request::routeIs('pegawai','jabatan','bagian') ? 'active' : '' }}">
+          <li class="nav-item dropdown {{ Request::routeIs('pegawai','jabatan','bagian','shift') ? 'active' : '' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-user"></i> <span>Data Pegawai</span></a>
             <ul class="dropdown-menu">
               <li class="{{ request()->routeIs('pegawai') ? 'active' : '' }}"><a class="nav-link" href="{{ route('pegawai') }}">List Pegawai</a></li>
               <li class="{{ request()->routeIs('jabatan') ? 'active' : '' }}"><a class="nav-link" href="{{ route('jabatan') }}">List Jabatan</a></li>
               <li class="{{ request()->routeIs('bagian') ? 'active' : '' }}"><a class="nav-link" href="{{ route('bagian') }}">List Bagian</a></li>
+              <li class="{{ request()->routeIs('shift') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shift') }}">List Shift</a></li>
             </ul>
           </li>
           <li><a class="nav-link" href="{{ route('pegawai') }}"><i class="far fa-book"></i> <span>List Pegawai</span></a></li>

@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             'type' => '2',
         ]);
 
-        Jabatan::factory(5)->create();
-        Bagian::factory(5)->create();
+        // Jabatan::factory(5)->create();
+        // Bagian::factory(5)->create();
 
         Pegawai::factory(5)->create();
     }

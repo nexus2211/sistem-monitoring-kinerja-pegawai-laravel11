@@ -45,6 +45,13 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::get('/bagian/edit/{id}','BagianEdit')->name('bagian.edit');
     Route::put('/bagian/edit/{id}','BagianUpdate')->name('bagian.update');
 
+    // SHIFT ROUTE
+    Route::get('/shift','ShiftIndex')->name('shift');
+    Route::post('/shift','ShiftStore')->name('shift.post');
+    Route::delete('/shift/{id}','ShiftDelete')->name('shift.delete');
+    Route::get('/shift/edit/{id}','ShiftEdit')->name('shift.edit');
+    Route::put('/shift/edit/{id}','ShiftUpdate')->name('shift.update');
+
 });
 
 
