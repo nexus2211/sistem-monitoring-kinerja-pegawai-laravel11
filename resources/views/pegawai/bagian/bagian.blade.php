@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title-body', 'List bagian')
+{{-- @section('title-body', 'List bagian') --}}
 
 @push('style')
   
@@ -7,11 +7,16 @@
 
 @endpush
 
+@section('konten-header')
+<div class="section-header">
+  <h1>List Bagian</h1>
+</div>
+@endsection
 @section('konten-main')
 
     <div class="row">
         <div class="col-md-8">
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
                 <h4>Tabel Data bagian</h4>
           </div>
@@ -51,7 +56,7 @@
           </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card card-primary">
                 <div class="card-header">
                     <h4>Tambah Data Bagian</h4>
                 </div>

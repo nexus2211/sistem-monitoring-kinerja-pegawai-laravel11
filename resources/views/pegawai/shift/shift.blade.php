@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title-body', 'List Shift')
+{{-- @section('title-body', 'List Shift') --}}
 
 @push('style')
 
@@ -8,12 +8,16 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 
 @endpush
-
+@section('konten-header')
+<div class="section-header">
+  <h1>List Shift</h1>
+</div>
+@endsection
 @section('konten-main')
 
     <div class="row">
         <div class="col-md-8">
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
                 <h4>Tabel Data Shift</h4>
           </div>
@@ -55,7 +59,7 @@
           </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card card-primary">
                 <div class="card-header">
                     <h4>Tambah Data Shift</h4>
                 </div>

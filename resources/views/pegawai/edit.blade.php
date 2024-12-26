@@ -4,7 +4,11 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endpush
 
-@section('title-body', 'Edit Pegawai')
+@section('konten-header')
+<div class="section-header">
+  <h1>Edit Pegawai</h1>
+</div>
+@endsection
 @section('konten-main')
 
 <div>

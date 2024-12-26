@@ -4,7 +4,11 @@
 
 @endpush
 
-@section('title-body', 'Edit Bagian')
+@section('konten-header')
+<div class="section-header">
+  <h1>Edit Bagian</h1>
+</div>
+@endsection
 @section('konten-main')
 
 <div>

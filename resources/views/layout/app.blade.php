@@ -40,9 +40,10 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          <div class="section-header">
+          {{-- <div class="section-header">
             <h1>@yield('title-body')</h1>
-          </div>
+          </div> --}}
+          @yield('konten-header')
 
           <div class="section-body">
             

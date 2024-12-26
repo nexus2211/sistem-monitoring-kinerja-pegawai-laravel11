@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendancesController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
@@ -54,10 +55,7 @@ Route::controller(PegawaiController::class)->group(function () {
 
 });
 
-
+Route::get('/attendances/list', [AttendancesController::class, 'AttendanceInList'])->name('listAttendances');
+Route::get('/attendances', [AttendancesController::class, 'AttendanceIn'])->name('attendances.in');
+Route::post('/attendances', [AttendancesController::class, 'AttendanceInStore'])->name('attendances.inPost');
 // Route::get('/pegawai', [PegawaiController::class, 'PegawaiIndex'])->name('pegawai');
-// Route::get('/pegawai/tambah', [PegawaiController::class, 'PegawaitampilTambah'])->name('pegawai.tambah');
-// Route::post('/pegawai/tambah', [PegawaiController::class, 'PegawaiStore'])->name('pegawai.post');
-// Route::get('/pegawai/edit/{id}', [PegawaiController::class, 'PegawaiEdit'])->name('pegawai.edit');
-// Route::put('/pegawai/edit/{id}', [PegawaiController::class, 'PegawaiUpdate'])->name('pegawai.update');
-// Route::delete('/pegawai/{id}', [PegawaiController::class, 'PegawaiDelete'])->name('pegawai.delete');

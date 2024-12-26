@@ -1,37 +1,23 @@
 @extends('layout.app')
-@section('title-body', 'List Pegawai')
+{{-- @section('title-body', 'List Pegawai') --}}
 
 @push('style')
-  {{-- <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}"> --}}
-  {{-- <link rel="stylesheet" href="{{ asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">  --}}
-  {{-- <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> --}}
+  
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 
 @endpush
 
+@section('konten-header')
+<div class="section-header" >
+  <h1>List Pegawai</h1>
+</div>
+@endsection
+
 @section('konten-main')
-
-
-
-    {{-- <div class="d-flex mt-2 mb-2">
-        <div class="card border-success">
-            <div class="card-body">
-                <b>Selamat datang,</b>
-            </div>
-            
-        </div>
-        <div class="ms-auto">
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-    </div> --}}
-    
 
     <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
                 <h4>Tabel Data Pegawai</h4>
                 <div class="card-header-action">
@@ -99,11 +85,7 @@
 @endsection
 
 @push('scripts')
-{{-- <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script> --}}
-{{-- <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script> --}}
-{{-- <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>  --}}
 
-{{-- <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script> --}}
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 {{-- <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script> --}}
 
