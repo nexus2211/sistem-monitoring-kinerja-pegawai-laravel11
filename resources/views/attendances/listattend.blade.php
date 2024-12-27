@@ -25,8 +25,8 @@
                 <div class="col">
                   <div class="card bg-success text-white">
                     <div class="card-body">
-                      <h5>Hadir : {{ $presentCount }}</h5>
-                      Terlambat :
+                      <h5>Hadir : {{ $presentLateCount }}</h5>
+                      Terlambat : {{ $lateCount }}
                     </div>
                   </div>
                 </div>

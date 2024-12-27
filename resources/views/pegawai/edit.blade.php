@@ -91,7 +91,7 @@
                             <select class="form-control" name="shift" required>
                                 <option selected disabled>Pilih Shift..</option>
                                 @foreach($shift as $data_shift)
-                                    <option value="{{ $data_shift->id }}">{{ $data_shift->shift }}</option>
+                                    <option value="{{ $data_shift->id }}" {{ $data_shift->id == $pegawai->shift_id ? 'selected' : '' }}>{{ $data_shift->shift }}</option>
                                 @endforeach
                             </select>
                             </div>

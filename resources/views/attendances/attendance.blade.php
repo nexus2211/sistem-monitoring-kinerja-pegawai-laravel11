@@ -26,6 +26,9 @@
                                  
                         </select>
                 </div>
+                <div>
+                    <button class="btn btn-success mt-2"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
+                </div>
             </div>
         </div>
     </div>
@@ -35,6 +38,15 @@
                 <h4>Detail Absensi</h4>
             </div>
             <div class="card-body">
+                @if (session('gagal'))
+                <div class="alert alert-danger">
+                    <h5>{{ session('gagal') }}</h4>
+                </div>
+                @elseif (session('success'))
+                <div class="alert alert-success">
+                    <h5>{{ session('success') }}</h4>
+                </div>
+                @endif
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -55,6 +67,7 @@
                             @endforeach
                                  
                         </select>
+                        
                     </div>
 
                     <label for="">Status</label>
