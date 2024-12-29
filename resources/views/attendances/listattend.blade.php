@@ -87,7 +87,7 @@
                           <td>{{ $dataP->jabatan->jabatan }}</td>
                           <td>{{ $dataP->bagian->bagian }}</td>
                           <td>{{ $dataP->shift->shift }}</td>
-                          <td><div class="badge badge-danger">Absen</div></td>
+                          <td><div class="badge badge-danger">Belum Hadir</div></td>
                           <td>-</td>
                           <td>-</td>
                         </tr>

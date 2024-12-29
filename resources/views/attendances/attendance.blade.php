@@ -84,11 +84,30 @@
                         </select>
                     </div>
 
-                    <label for="">Note <i class="text-danger">*</i></label>
-                    <input type="text" name="note" id="" class="form-control mb-2">
-
-                    <label for="">Lampiran</label>
-                    <input type="text" name="lampiran" id="" class="form-control mb-2">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-primary">
+                                    <i class="fa fas fa-compress-arrows-alt""></i>
+                                </div>
+                                <div class="card-warp">
+                                    <div class="card-header">Absen Masuk</div>
+                                    <div class="card-body"><h5>Belum Absen</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-warning">
+                                    <i class="fa fas fa-expand-arrows-alt"></i>
+                                </div>
+                                <div class="card-warp">
+                                    <div class="card-header">Absen Keluar</div>
+                                    <div class="card-body"><h5>Belum Absen</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="d-flex justify-content-end">
 

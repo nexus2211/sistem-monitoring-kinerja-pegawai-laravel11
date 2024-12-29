@@ -35,16 +35,13 @@
                       <th class="text-center">
                         #
                       </th>
-                      <th>NIP</th>
+                      <th class="text-center">NIP</th>
                       <th>Nama Pegawai</th>
                       <th>Alamat</th>
-                      {{-- <th>Gender</th> --}}
-                      {{-- <th>Tanggal Lahir</th> --}}
                       <th>Jabatan</th>
                       <th>Bagian</th>
                       <th>Shift</th>
-                      {{-- <th>Foto</th> --}}
-                      <th>Aksi</th>
+                      <th style="width: 150px;">Aksi</th>
                       
                     </tr>
                   </thead>
@@ -62,7 +59,7 @@
                         <td>{{ $data->bagian->bagian }}</td>
                         <td>{{ $data->shift->shift }}</td>
                         {{-- <td>{{ $data->foto }}</td> --}}
-                        <td class="d-flex align-items-center" style="width: 50px;">
+                        <td class="d-flex align-items-start" style="width: 50px;">
                             <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2 ">Edit</a>
                             <form action="{{ route('pegawai.delete', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                               @csrf

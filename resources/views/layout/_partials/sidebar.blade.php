@@ -21,7 +21,7 @@
               <li class="{{ request()->routeIs('shift') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shift') }}">List Shift</a></li>
             </ul>
           </li>
-          <li><a class="nav-link" href="{{ route('pegawai') }}"><i class="far fa-book"></i> <span>List Pegawai</span></a></li>
+          <li><a class="nav-link" href="{{ route('attendances.in') }}"><i class="fa far fa-clipboard"></i> <span>Absensi</span></a></li>
     
         </ul>
 

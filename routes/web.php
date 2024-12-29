@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AttendancesController;
+use App\Http\Controllers\Admin\AttendancesController;
+use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\auth\AuthController;
-use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Admin\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -58,4 +59,7 @@ Route::controller(PegawaiController::class)->group(function () {
 Route::get('/attendances/list', [AttendancesController::class, 'AttendanceInList'])->name('listAttendances');
 Route::get('/attendances', [AttendancesController::class, 'AttendanceIn'])->name('attendances.in');
 Route::post('/attendances', [AttendancesController::class, 'AttendanceInStore'])->name('attendances.inPost');
+
+
+Route::resource('barcode', BarcodeController::class);
 // Route::get('/pegawai', [PegawaiController::class, 'PegawaiIndex'])->name('pegawai');

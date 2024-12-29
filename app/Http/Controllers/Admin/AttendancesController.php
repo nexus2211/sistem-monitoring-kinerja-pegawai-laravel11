@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\attendance;
 use App\Models\pegawai;
 use App\Models\shift;
@@ -65,7 +66,7 @@ class AttendancesController extends Controller
             return redirect()->route('attendances.in')->with('gagal','Pegawai sudah absen hari ini!');
         }
 
-        //Mengambul data pegawai dan shift
+        //Mengambil data pegawai dan shift
         $pegawaiShift = Pegawai::where('id', $request->pegawai)->value('shift_id');
         $shift = Shift::where('id', $pegawaiShift)->first();
         
@@ -81,7 +82,7 @@ class AttendancesController extends Controller
 
         if($waktumulaiTelat <= $formattedTime && $formattedDate <= $waktuakhirCarbon){
             $statusHadir = 'late';
-        }else if($waktumulaiTelat >= $formattedTime && $formattedDate >= $waktuakhirCarbon) {
+        }else if($waktumulaiTelat >= $formattedTime && $formattedDate <= $waktuakhirCarbon) {
             $statusHadir = 'present';
         }else {
             // $statusHadir = 'absent';
@@ -94,8 +95,8 @@ class AttendancesController extends Controller
             'date' => $formattedDate,
             'waktu_masuk' => $formattedTime,
             'status' => $statusHadir,
-            'note' => $request->note,
-            'attachment' => $request->lampiran
+            'note' => null,
+            'attachment' => null
         ];
 
         // dd($absen_hari_ini);
