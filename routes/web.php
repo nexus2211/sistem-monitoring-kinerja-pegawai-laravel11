@@ -62,4 +62,6 @@ Route::post('/attendances', [AttendancesController::class, 'AttendanceInStore'])
 
 
 Route::resource('barcode', BarcodeController::class);
+Route::get('/download-qrcode}', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
+Route::get('/downloadAll-qrcode}', [BarcodeController::class ,'downloadAll'])->name('barcode.downloadAll');
 // Route::get('/pegawai', [PegawaiController::class, 'PegawaiIndex'])->name('pegawai');

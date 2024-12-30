@@ -22,6 +22,7 @@
             </ul>
           </li>
           <li><a class="nav-link" href="{{ route('attendances.in') }}"><i class="fa far fa-clipboard"></i> <span>Absensi</span></a></li>
+          <li><a class="nav-link" href="{{ route('barcode.index') }}"><i class="fa far fa-qrcode"></i> <span>QR Code</span></a></li>
     
         </ul>
 

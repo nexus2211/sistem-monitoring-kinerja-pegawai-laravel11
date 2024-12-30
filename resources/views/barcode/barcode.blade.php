@@ -8,7 +8,7 @@
 
 @section('konten-header')
 <div class="section-header" >
-  <h1>Barcode</h1>
+  <h1>QR Code</h1>
 </div>
 @endsection
 
@@ -17,7 +17,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h4>List Barcode</h4>
+                <h4>List QR Code</h4>
                 <div class="card-header-action">
                     <form action="{{ route('barcode.index') }}" method="get">
                         
@@ -35,7 +35,7 @@
             <div class="card-body">
                 <div class="container">
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-success" href=""><i class="fa fas fa-download"></i> Download Semua</a>
+                    <a class="btn btn-success" href="{{ route('barcode.downloadAll') }}"><i class="fa fas fa-download"></i> Download Semua</a>
                 </div>
                 <div class="row mt-4">
                         @foreach ($pegawai as $data)
@@ -44,7 +44,7 @@
                                 <div class="card-header">
                                     <h4 class="text-dark">{{ $data->nama_pegawai }}</h4>
                                     <div class="card-header-action">
-                                        <a class="btn btn-success" href="#"><i class="fas fa-download"></i></a>
+                                        <a class="btn btn-success" href="{{ route('barcode.download', ['pegawai_id' => $data->id]) }}"><i class="fas fa-download"></i></a>
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
