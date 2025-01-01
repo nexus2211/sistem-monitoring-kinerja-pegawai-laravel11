@@ -21,7 +21,15 @@
               <li class="{{ request()->routeIs('shift') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shift') }}">List Shift</a></li>
             </ul>
           </li>
-          <li><a class="nav-link" href="{{ route('attendances.in') }}"><i class="fa far fa-clipboard"></i> <span>Absensi</span></a></li>
+
+          <li class="nav-item dropdown {{ Request::routeIs('attendances.in') ? 'active' : '' }}">
+            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far far fa-clipboard"></i> <span>Absensi</span></a>
+            <ul class="dropdown-menu">
+              <li class="{{ request()->routeIs('attendances.in') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Masuk</a></li>
+              <li class="{{ request()->routeIs('attendances') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Keluar</a></li>
+            </ul>
+          </li>
+          
           <li><a class="nav-link" href="{{ route('barcode.index') }}"><i class="fa far fa-qrcode"></i> <span>QR Code</span></a></li>
     
         </ul>

@@ -20,6 +20,25 @@ class AttendancesController extends Controller
         return view('attendances.attendance' , compact('pegawai','shift'));
     }
 
+    public function validasi(Request $request){
+
+        // dd($request->all());
+        $qr = $request->qr_code;
+        $data = '6474765401146968'; 
+        
+        if($qr == $data){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Berhasil Melakukan Absensi'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 400,
+                'message' => 'Gagal Melakukan Absensi'
+            ]);
+        }
+    }
+
     public function AttendanceInList() {
 
         $today = Carbon::today();
@@ -54,22 +73,29 @@ class AttendancesController extends Controller
         $formattedDate = $currentDateTime->format('Y-m-d');
         $formattedTime = $currentDateTime->format('H:i:s');
 
+        $qr = $request->qr_code;
+
         // Ambil pegawai
-        $pegawai = Pegawai::find($request->pegawai);
+        $pegawaiInput = Pegawai::find($request->pegawai);
+        $pegawai = Pegawai::where('nip', $qr)->first();
+
 
         // Cek apakah pegawai sudah absen pada hari ini
-        $absen_hari_ini = Attendance::where('pegawai_id', $pegawai->id)
+        $absen_hari_ini = Attendance::where('pegawai_id', $pegawai->id ?? $pegawaiInput->id)
             ->whereDate('date', $currentDateTime->toDateString())
             ->first();
+
+            // dd($absen_hari_ini);
 
         if ($absen_hari_ini) {
             return redirect()->route('attendances.in')->with('gagal','Pegawai sudah absen hari ini!');
         }
 
         //Mengambil data pegawai dan shift
-        $pegawaiShift = Pegawai::where('id', $request->pegawai)->value('shift_id');
+        $pegawaiShift = Pegawai::where('id', $pegawai->id ?? $pegawaiInput->id)->value('shift_id');
         $shift = Shift::where('id', $pegawaiShift)->first();
         
+
         //Parsin waktu menggunakan carbon
         $waktumulaiCarbon = Carbon::parse($shift->waktu_mulai);
         $waktuakhirCarbon = Carbon::parse($shift->waktu_akhir);
@@ -91,11 +117,11 @@ class AttendancesController extends Controller
 
         $data = [
             
-            'pegawai_id' => $request->pegawai,
+            'pegawai_id' => $pegawai->id ?? $pegawaiInput->id,
             'date' => $formattedDate,
             'waktu_masuk' => $formattedTime,
             'status' => $statusHadir,
-            'note' => null,
+            'note' => $request->note ?? null,
             'attachment' => null
         ];
 
@@ -103,5 +129,6 @@ class AttendancesController extends Controller
 
         attendance::create($data);
         return redirect()->route('attendances.in')->with('success','Pegawai Berhasil Absensi!');
+        
     }
 }

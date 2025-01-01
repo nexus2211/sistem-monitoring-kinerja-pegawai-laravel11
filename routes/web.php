@@ -59,6 +59,7 @@ Route::controller(PegawaiController::class)->group(function () {
 Route::get('/attendances/list', [AttendancesController::class, 'AttendanceInList'])->name('listAttendances');
 Route::get('/attendances', [AttendancesController::class, 'AttendanceIn'])->name('attendances.in');
 Route::post('/attendances', [AttendancesController::class, 'AttendanceInStore'])->name('attendances.inPost');
+Route::post('/validasi', [AttendancesController::class, 'validasi'])->name('validasi');
 
 
 Route::resource('barcode', BarcodeController::class);

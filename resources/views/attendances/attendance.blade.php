@@ -3,7 +3,7 @@
 @section('title-body', 'Attendances')
 
 @push('styles')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
 
@@ -16,7 +16,7 @@
                 <h4>Scan Barcode</h4>
             </div>
             <div class="card-body">
-                <label for="">Shift</label>
+                {{-- <label for="">Shift</label>
                         <div class="input-group mb-3">
                         <select class="form-control" name="shift" required>
                             <option selected disabled>Pilih Shift.</option>
@@ -25,17 +25,19 @@
                             @endforeach
                                  
                         </select>
-                </div>
-                <div>
-                    <button class="btn btn-success mt-2"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
-                </div>
+                </div> --}}
+                <div id="reader" width="600px"></div>
+                <input type="hidden" name="result" id="result">
+                {{-- <div>
+                    <button class="btn btn-success mt-3"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
+                </div> --}}
             </div>
         </div>
     </div>
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>Detail Absensi</h4>
+                <h4>Pegawai Tidak Hadir/Izin</h4>
             </div>
             <div class="card-body">
                 @if (session('gagal'))
@@ -56,6 +58,7 @@
                     </ul>
                 </div>
                 @endif
+                
                 <form action="{{ route('attendances.inPost') }}" method="post">
                     @csrf
                     <label for="">Pegawai</label>
@@ -75,8 +78,8 @@
                         <select class="form-control" name="status" required>
                             <option selected disabled>Pilih Status..</option>
                       
-                            <option value="present">Hadir</option>
-                            <option value="late">Telat</option>
+                            {{-- <option value="present">Hadir</option>
+                            <option value="late">Telat</option> --}}
                             <option value="excused">Izin</option>
                             <option value="sick">Sakit</option>
                             <option value="absent">Absen</option>
@@ -84,34 +87,13 @@
                         </select>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-primary">
-                                    <i class="fa fas fa-compress-arrows-alt""></i>
-                                </div>
-                                <div class="card-warp">
-                                    <div class="card-header">Absen Masuk</div>
-                                    <div class="card-body"><h5>Belum Absen</h5></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-warning">
-                                    <i class="fa fas fa-expand-arrows-alt"></i>
-                                </div>
-                                <div class="card-warp">
-                                    <div class="card-header">Absen Keluar</div>
-                                    <div class="card-body"><h5>Belum Absen</h5></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <label for="">Note <i class="text-danger"> *</i></label>
+                    <input type="text" class="form-control" name="note">
+                    
+                    
                     <div class="d-flex justify-content-end">
 
-                        <button class="btn btn-primary mt-2">Submit</button>
+                        <button class="btn btn-success mt-3"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
                     </div>
                 </form>
             </div>
@@ -125,4 +107,52 @@
 
 @push('scripts')
 
+{{-- HTML5 QRCODE --}}
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script>
+ // $('#result').val('test');
+        function onScanSuccess(decodedText, decodedResult) {
+            // Set hasil pemindaian ke input tersembunyi
+            $('#result').val(decodedText);
+            // Hentikan pemindaian setelah berhasil
+            html5QrcodeScanner.clear().then(_ => {
+                // Lakukan logika yang diperlukan, misalnya mengarahkan ke rute
+                let form = $('<form>', {
+                    'action': "{{ route('attendances.inPost') }}", // Ganti dengan rute yang sesuai
+                    'method': 'POST'
+                });
+
+                // Tambahkan CSRF token
+                form.append($('<input>', {
+                    'type': 'hidden',
+                    'name': '_token',
+                    'value': $('meta[name="csrf-token"]').attr('content')
+                }));
+
+                // Tambahkan data QR Code
+                form.append($('<input>', {
+                    'type': 'hidden',
+                    'name': 'qr_code',
+                    'value': decodedText
+                }));
+
+                // Tambahkan form ke body dan submit
+                $(document.body).append(form);
+                form.submit();
+            }).catch(error => {
+                alert('something wrong');
+            });
+        }
+        function onScanFailure(error) {
+            // Handle scan failure, usually better to ignore and keep scanning.
+            // for example:
+            // console.warn(`Code scan error = ${error}`);
+        }
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: { width: 250, height: 250 }, disableFlip: true },
+            /* verbose= */ false
+        );
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
 @endpush

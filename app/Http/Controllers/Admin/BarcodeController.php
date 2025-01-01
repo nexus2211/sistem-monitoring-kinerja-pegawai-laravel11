@@ -35,7 +35,7 @@ class BarcodeController extends Controller
     public function downloadQr(Request $request){
 
        $pegawai_id = pegawai::find($request->pegawai_id);      
-       $qrCode = QrCode::format('png')->size(300)->generate($pegawai_id->nip);
+       $qrCode = QrCode::format('png')->size(500)->margin(2)->generate($pegawai_id->nip);
        $filename = 'qrcode_'. $pegawai_id->nip . '_' . $pegawai_id->nama_pegawai . '.png';   
     
 
@@ -59,7 +59,7 @@ class BarcodeController extends Controller
         if ($zip->open(public_path($zipFileName), ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($pegawai as $employee) {
                 // Buat QR Code untuk setiap pegawai
-                $qrCode = QrCode::format('png')->size(300)->generate($employee->nip);
+                $qrCode = QrCode::format('png')->size(500)->margin(2)->generate($employee->nip);
                 // Nama file untuk QR Code
                 $fileName = 'qrcode_' . $employee->nip . '_' . $employee->nama_pegawai . '.png';
                 // Tambahkan QR Code ke file ZIP
