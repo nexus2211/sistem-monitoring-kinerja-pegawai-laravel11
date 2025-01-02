@@ -22,11 +22,11 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown {{ Request::routeIs('attendances.in') ? 'active' : '' }}">
+          <li class="nav-item dropdown {{ Request::routeIs('attendances.in','attendances.out') ? 'active' : '' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far far fa-clipboard"></i> <span>Absensi</span></a>
             <ul class="dropdown-menu">
               <li class="{{ request()->routeIs('attendances.in') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Masuk</a></li>
-              <li class="{{ request()->routeIs('attendances') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Keluar</a></li>
+              <li class="{{ request()->routeIs('attendances.out') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.out') }}">Absen Keluar</a></li>
             </ul>
           </li>
           

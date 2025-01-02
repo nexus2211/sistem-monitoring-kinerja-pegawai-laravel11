@@ -59,6 +59,8 @@ Route::controller(PegawaiController::class)->group(function () {
 Route::get('/attendances/list', [AttendancesController::class, 'AttendanceInList'])->name('listAttendances');
 Route::get('/attendances', [AttendancesController::class, 'AttendanceIn'])->name('attendances.in');
 Route::post('/attendances', [AttendancesController::class, 'AttendanceInStore'])->name('attendances.inPost');
+Route::get('/attendances/out', [AttendancesController::class, 'AttendanceOut'])->name('attendances.out');
+Route::post('/attendances/out', [AttendancesController::class, 'AttendanceOutStore'])->name('attendances.outPost');
 Route::post('/validasi', [AttendancesController::class, 'validasi'])->name('validasi');
 
 

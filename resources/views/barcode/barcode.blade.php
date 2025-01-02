@@ -20,7 +20,6 @@
                 <h4>List QR Code</h4>
                 <div class="card-header-action">
                     <form action="{{ route('barcode.index') }}" method="get">
-                        
                         <div class="input-group" >
                             <input name="cari_pegawai" type="text" placeholder="Cari Pegawai" class="form-control">
                             <div class="input-group-btn">

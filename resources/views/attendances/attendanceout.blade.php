@@ -8,7 +8,7 @@
 
 @section('konten-header')
 <div class="section-header" >
-  <h1>Absensi Masuk</h1>
+  <h1>Absensi Keluar</h1>
 </div>
 @endsection
 
@@ -42,8 +42,21 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>Pegawai Tidak Hadir/Izin</h4>
-                <div class="card-header-action"><a href="{{ route('listAttendances') }}" class="btn btn-success"><i class="fa far fa-clipboard"></i> List Absensi Hari Ini</a></div>
+                <h4>List Pegawai Absensi Hari Ini</h4>
+
+                <div class="card-header-action">
+                    <form action="#" method="get">
+                        <div class="input-group" >
+                            <input name="cari_pegawai" type="text" placeholder="Cari Pegawai" class="form-control">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary">
+                                    <i class="fa fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
             <div class="card-body">
                 @if (session('gagal'))
@@ -65,43 +78,60 @@
                 </div>
                 @endif
                 
-                <form action="{{ route('attendances.inPost') }}" method="post">
-                    @csrf
-                    <label for="">Pegawai</label>
-                        <div class="input-group mb-3">
-                        <select class="form-control" name="pegawai" required>
-                            <option selected disabled>Pilih Pegawai.</option>
-                            @foreach ($pegawai as $data)
-                            <option value="{{ $data->id }}">{{ $data->nama_pegawai }}</option>
-                            @endforeach
-                                 
-                        </select>
-                        
-                    </div>
-
-                    <label for="">Status</label>
-                        <div class="input-group mb-3">
-                        <select class="form-control" name="status" required>
-                            <option selected disabled>Pilih Status..</option>
-                      
-                            {{-- <option value="present">Hadir</option>
-                            <option value="late">Telat</option> --}}
-                            <option value="excused">Izin</option>
-                            <option value="sick">Sakit</option>
-                            <option value="absent">Absen</option>
-                              
-                        </select>
-                    </div>
-
-                    <label for="">Note <i class="text-danger"> *</i></label>
-                    <input type="text" class="form-control" name="note">
+                <div class="table-responsive mt-2">
+                    <table class="table table-striped" id="table-1">
+                      <thead>
+                        <tr>
+                          <th class="text-center">
+                            #
+                          </th>
+                          <th>NIP</th>
+                          <th>Nama Pegawai</th>
+                          <th>Status</th>
+                          <th>Waktu Masuk</th>
+                          <th>Waktu Keluar</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+    
+                        @foreach($pegawai as $no=>$dataP)
+                          @if($dataP->attendances->isEmpty())
+                            <tr>
+                              <td class="text-center">{{ $no+1 }}</td>
+                              <td>{{ $dataP->nip }}</td>
+                              <td>{{ $dataP->nama_pegawai }}</td>
+                              <td><div class="badge badge-danger">Tidak Hadir</div></td>
+                              <td>-</td>
+                              <td><div class="badge badge-warning">Belum Keluar</div></td>
+                            </tr>
+                          @else
+                          @foreach($dataP->attendances as $dataA)
+                        <tr>
+                            <td class="text-center">{{ $no+1 }}</td>
+                            <td>{{ $dataP->nip }}</td>
+                            <td>{{ $dataP->nama_pegawai }}</td>
+    
+                            <td><div class="badge {{ $dataA->status == 'present' ? 'badge-success' : 
+                            ($dataA->status == 'late' ? 'badge-warning' : ($dataA->status == 'excused' ? 'badge-info' : ($dataA->status == 'sick' ? 'badge-info' : 'badge-danger'))) }}">{{ $dataA->getStatusInIndonesian()}}</div></td>
+    
+                            <td>{{ $dataA->waktu_masuk }}</td>
+                            <td>{{ $dataA->waktu_keluar == null ? '-' : $dataA->waktu_keluar }}</td>
+ 
+                        </tr>
+                        @endforeach
+                        @endif
+                        @endforeach
+                      </tbody>
+                    </table>
                     
-                    
-                    <div class="d-flex justify-content-end">
-
-                        <button class="btn btn-success mt-3"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
+            </div>
+            <div class="card-footer">
+                <!-- Menampilkan link pagination -->
+                <div class="d-flex justify-content-end">
+                    {{ $pegawai->links() }} <!-- Ini akan menampilkan link pagination -->
                     </div>
-                </form>
+              </div>
             </div>
         </div>
     </div>
@@ -124,7 +154,7 @@
             html5QrcodeScanner.clear().then(_ => {
                 // Lakukan logika yang diperlukan, misalnya mengarahkan ke rute
                 let form = $('<form>', {
-                    'action': "{{ route('attendances.inPost') }}", // Ganti dengan rute yang sesuai
+                    'action': "{{ route('attendances.outPost') }}", // Ganti dengan rute yang sesuai
                     'method': 'POST'
                 });
 
