@@ -31,7 +31,7 @@
                                  
                         </select>
                 </div> --}}
-                <div id="reader" width="600px"></div>
+                <div  id="reader" width="600px"></div>
                 <input type="hidden" name="result" id="result">
                 {{-- <div>
                     <button class="btn btn-success mt-3"><i class="fa fa-reguler fa-envelope-open-text"></i>  Ajukan Izin</button>
@@ -144,7 +144,7 @@
 @push('scripts')
 
 {{-- HTML5 QRCODE --}}
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="{{ asset('assets/js/html5-qrcode.js') }}" type="text/javascript"></script>
 <script>
  // $('#result').val('test');
         function onScanSuccess(decodedText, decodedResult) {

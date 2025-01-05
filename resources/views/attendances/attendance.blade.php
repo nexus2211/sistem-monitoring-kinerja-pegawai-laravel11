@@ -114,7 +114,7 @@
 @push('scripts')
 
 {{-- HTML5 QRCODE --}}
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="{{ asset('assets/js/html5-qrcode.js') }}" type="text/javascript"></script>
 <script>
  // $('#result').val('test');
         function onScanSuccess(decodedText, decodedResult) {
