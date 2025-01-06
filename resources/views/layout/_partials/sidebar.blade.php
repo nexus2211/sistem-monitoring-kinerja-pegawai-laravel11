@@ -27,6 +27,7 @@
             <ul class="dropdown-menu">
               <li class="{{ request()->routeIs('attendances.in') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Masuk</a></li>
               <li class="{{ request()->routeIs('attendances.out') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.out') }}">Absen Keluar</a></li>
+              <li class="{{ request()->routeIs('detailAttendances') ? 'active' : '' }}"><a class="nav-link" href="{{ route('detailAttendances') }}">Rekap Data Absensi</a></li>
             </ul>
           </li>
           
