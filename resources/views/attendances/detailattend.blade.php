@@ -9,7 +9,7 @@
 
 @section('konten-header')
 <div class="section-header" >
-  <h1>List Presensi Masuk</h1>
+  <h1>Rekap Data Absensi</h1>
 </div>
 @endsection
 
@@ -21,7 +21,14 @@
               <h4>Absensi Minggu Ini</h4>
             </div>
             <div class="card-body">
-              
+              <div class="input-group">
+                <input type="text" name="cariPegawai" placeholder="Cari Pegawai.." class="form-control">
+                <div class="input-group-btn">
+                  <button class="btn btn-primary">
+                      <i class="fa fas fa-search"></i>
+                  </button>
+              </div>
+              </div>
               <div class="table-responsive mt-2">
                 <table class="table table-striped" id="table-1">
                   <thead>
@@ -66,49 +73,63 @@
                              
                               @php
                               // Mencari sttus absensi untuk tanggal tertentu
-                              $attendance = $dataP->attendances->firstWhere('formatted_date', $date);
-                            
+                              // $attendance = $dataP->attendances->firstWhere('formatted_date', $date);
+                              // Mengubah format tanggal untuk perbandingan
+                                $currentDate = \Carbon\Carbon::createFromFormat('d/m', $date)->format('Y-m-d');
+                                $dayOfWeek = \Carbon\Carbon::createFromFormat('Y-m-d', $currentDate)->dayOfWeek; // 0 = Minggu, 6 = Sabtu
                               @endphp
-                            <td>
-                              @if($attendance)
-                                @switch($attendance->status)
-                                  @case('present')
-                                      <div class="badge badge-success">Hadir</div>
-                                        @php
-                                          $presentCount++;
-                                        @endphp
-                                      @break
-                                  @case('late')
-                                      <div class="badge badge-warning">Telat</div>
-                                        @php
-                                          $lateCount++;
-                                        @endphp
-                                      @break
-                                  @case('excused')
-                                      <div class="badge badge-warning">Izin</div>
-                                        @php
-                                          $excusedCount++;
-                                        @endphp
-                                  @break
-                                      @case('sick')
-                                      <div class="badge badge-warning">Sakit</div>
-                                        @php
-                                          $sickCount++;
-                                        @endphp
-                                      @break
-                                  @case('absent')
-                                      <div class="badge badge-danger">Absen</div>
-                                        @php
-                                          $absentCount++;
-                                        @endphp
-                                      @break
-                      
-                                  @default
-                                      <div class="badge badge-secondary">N/A</div>
-                                @endswitch
+                            <td>  
+                              @if ($dayOfWeek == 0 || $dayOfWeek == 6)
+                                  <!-- Jika hari Minggu (0) atau Sabtu (6), tampilkan output khusus -->
+                                  -
                               @else
-                                <div class="badge badge-danger">Absen</div>
+                                  <!-- Cek apakah pegawai hadir pada tanggal ini -->
+                                  @php
+                                      $attendance = $dataP->attendances->firstWhere('formatted_date', $date);
+                                  @endphp
+                                  @if ($attendance)
+                                    @switch($attendance->status)
+                                      @case('present')
+                                          <div class="badge badge-success">H</div>
+                                            @php
+                                              $presentCount++;
+                                            @endphp
+                                          @break
+                                      @case('late')
+                                          <div class="badge badge-warning">T</div>
+                                            @php
+                                              $lateCount++;
+                                            @endphp
+                                          @break
+                                      @case('excused')
+                                          <div class="badge badge-info">I</div>
+                                            @php
+                                              $excusedCount++;
+                                            @endphp
+                                          @break
+                                      @case('sick')
+                                          <div class="badge badge-info">S</div>
+                                            @php
+                                              $sickCount++;
+                                            @endphp
+                                          @break
+                                      @case('absent')
+                                          <div class="badge badge-danger">-</div>
+                                            @php
+                                              $absentCount++;
+                                            @endphp
+                                          @break
+                                      @default
+                                          <div class="badge badge-secondary">N/A</div>
+                                  @endswitch
+                                  @else
+                                    <div class="badge badge-danger">A</div>
+                                      @php
+                                          $absentCount++;
+                                      @endphp
+                                  @endif
                               @endif
+                              
                             </td>
                             @endforeach
 

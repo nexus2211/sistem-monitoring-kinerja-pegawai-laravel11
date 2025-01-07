@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\attendance;
-use App\Models\pegawai;
-use App\Models\shift;
 use Carbon\Carbon;
+use App\Models\shift;
+use App\Models\pegawai;
+use App\Models\attendance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AttendancesController extends Controller
 {
@@ -78,17 +79,27 @@ class AttendancesController extends Controller
         // Mendapatkan tanggal awal dan akhir minggu ini
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
+        $dateNow = Carbon::now();
+        $dayOfWeek = $dateNow->dayOfWeek();
 
+        // dd($dayOfWeek);
+
+        // minggu ini
         $data = [];
         for ($i = 0; $i < 7; $i++) {
             $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
         }
 
+        // $data = $startOfWeek->range($endOfWeek)->toArray();
+
         // $attendances = Attendance::whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')])->with('pegawai')->get();
 
         $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfWeek,$endOfWeek){
             $query->whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')]);
+            // ->whereNotIn(DB::raw('DAYOFWEEK(date)'), [1, 7]); // 1 = Minggu, 7 = Sabtu;
         },'jabatan','bagian','shift'])->get();
+
+        // dd($pegawai);
 
         // Mengonversi status absensi ke format d/m
         foreach ($pegawai as $dataP) {
@@ -99,7 +110,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.detailattend', compact('data','pegawai'));
+        return view('attendances.detailattend', compact('data','pegawai','dateNow'));
     }
 
     public function AttendanceInStore(Request $request) {
@@ -109,6 +120,7 @@ class AttendancesController extends Controller
         $formattedTime = $currentDateTime->format('H:i:s');
 
         $qr = $request->qr_code;
+        
 
         // Ambil pegawai
         $pegawaiInput = Pegawai::find($request->pegawai);
@@ -119,8 +131,6 @@ class AttendancesController extends Controller
         $absen_hari_ini = Attendance::where('pegawai_id', $pegawai->id ?? $pegawaiInput->id)
             ->whereDate('date', $currentDateTime->toDateString())
             ->first();
-
-            
 
         if ($absen_hari_ini) {
             return redirect()->route('attendances.in')->with('gagal','Pegawai sudah absen hari ini!');
@@ -139,17 +149,19 @@ class AttendancesController extends Controller
         $menitTelat = 15; //menit
         $waktumulaiTelat =  $waktumulaiCarbon->addMinutes($menitTelat)->toTimeString();
 
-       
-
-        if($waktumulaiTelat <= $formattedTime && $formattedDate <= $waktuakhirCarbon){
+        if ($request->filled('status')) {
+            $statusHadir = $request->status;
+        }elseif($waktumulaiTelat <= $formattedTime && $formattedDate <= $waktuakhirCarbon){
             $statusHadir = 'late';
         }else if($waktumulaiTelat >= $formattedTime && $formattedDate <= $waktuakhirCarbon) {
             $statusHadir = 'present';
-        }else {
-            // $statusHadir = 'absent';
+        }else{
             return redirect()->route('attendances.in')->with('gagal','Diluar Jadwal Shift Pegawai');
         }
 
+        
+
+        // dd($statusHadir);
         $data = [
             
             'pegawai_id' => $pegawai->id ?? $pegawaiInput->id,
