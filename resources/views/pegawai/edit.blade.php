@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @push('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+{{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet"> --}}
 @endpush
 
 @section('konten-header')
@@ -61,7 +61,7 @@
                         <div class="col-md-6">
                             <label for="">Tanggal Lahir</label>
                             <div class="input-group date" data-provide="datepicker">
-                                <input readonly type="text" class="form-control" name="tgl_lahir" value="{{ $pegawai->tgl_lahir }}">
+                                <input type="date" class="form-control" name="tgl_lahir" value="{{ $pegawai->tgl_lahir }}">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -117,13 +117,13 @@
 
 {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 <script>
 
 $('.datepicker').datepicker({
     format: 'mm-dd-yyyy',
     startDate: '-3d' 
-}); 
+});  --}}
 
 </script> 
 @endpush

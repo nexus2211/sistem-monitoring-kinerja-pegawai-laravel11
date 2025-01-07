@@ -5,6 +5,8 @@
   
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 
+  
+
 @endpush
 
 @section('konten-header')
@@ -18,7 +20,7 @@
         <div class="col-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h4>Absensi Minggu Ini</h4>
+              <h4>Absensi Bulan Ini</h4>
               <div class="card-header-action">
                 <div>
                   <button class="btn btn-outline-info">Cetak Laporan <i class="fa fas fa-print"></i></button>
@@ -29,16 +31,17 @@
               <H5>Filter : </H5>
               <div class="form-group row">
                 <div class="col-sm-4">
-                    <label for="nip" class="col-form-label">Minggu Ke :</label>
-                    <input type="text" id="nip" name="nip" class="form-control">
+                    <label for="nip" class="col-form-label">Bulan Ke :</label>
+                    <input type="text" id="weekPicker" name="nip" class="form-control daterange-cus">
                 </div>
                 <div class="col-sm-4">
                     <label for="jabatan" class="col-form-label">Jabatan</label>
                     <div class="input-group mb-3">
                       <select class="custom-select form-control" name="jabatan">
                           <option selected disabled>Jabatan</option>
-                          <option value="1">Laki - Laki</option>
-                          <option value="2">Perempuan</option>
+                          @foreach($jabatan as $data_jabatan)
+                            <option value="{{ $data_jabatan->id }}">{{ $data_jabatan->jabatan }}</option>
+                          @endforeach
                       </select>
                     </div>
                 </div>
@@ -46,8 +49,9 @@
                     <label for="bagian" class="col-form-label">Bagian</label>
                     <select class="custom-select form-control" name="bagian">
                       <option selected disabled>Bagian</option>
-                      <option value="1">Laki - Laki</option>
-                      <option value="2">Perempuan</option>
+                        @foreach($bagian as $data_bagian)
+                          <option value="{{ $data_bagian->id }}">{{ $data_bagian->bagian }}</option>
+                        @endforeach
                   </select>
                 </div>
                 </div>
@@ -77,7 +81,7 @@
                         <th>Nama Pegawai</th>
                         <th>Jabatan</th>
                         <th>Bagian</th>
-                        @foreach($data as $no=>$dataP)
+                        @foreach($dataMonth as $no=>$dataP)
                         <th>{{ $dataP }}</th>
                         @endforeach
   
@@ -105,7 +109,7 @@
                                 $sickCount = 0;
                                 $absentCount = 0;
                               @endphp
-                              @foreach($data as $date)
+                              @foreach($dataMonth as $date)
                                
                                 @php
                                 // Mencari sttus absensi untuk tanggal tertentu
@@ -192,16 +196,15 @@
         </div>
       </div>
                 
-              
-              
-  
-
-
 @endsection
 
 @push('scripts')
 
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+
+
+
 {{-- <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script> --}}
 
 {{-- <script>
@@ -209,6 +212,29 @@
   $(document).ready( function () {
     $('#table-1').DataTable();
   } );
+</script> --}}
+
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#weekPicker').datepicker({
+          format: 'mm-dd-yyyy',
+          weekStart: 1, // Mulai minggu dari hari Senin
+          beforeShowDay: function(date) {
+              var day = date.getDay();
+              return [(day !== 0)]; // Nonaktifkan hari Minggu
+          },
+          autoclose: true
+      }).on('changeDate', function(e) {
+          var startDate = new Date(e.date);
+          var endDate = new Date(startDate);
+          endDate.setDate(startDate.getDate() + (6 - startDate.getDay())); // Menentukan akhir minggu
+          $('#weekPicker').val(startDate.toLocaleDateString() + ' - ' + endDate.toLocaleDateString());
+      });
+  });
 </script> --}}
 
 @endpush

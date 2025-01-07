@@ -9,6 +9,8 @@ use App\Models\attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\bagian;
+use App\Models\jabatan;
 
 class AttendancesController extends Controller
 {
@@ -74,15 +76,14 @@ class AttendancesController extends Controller
         return view('attendances.listattend', compact('pegawai','pegawaiCount','presentCount','presentLateCount','excusedCount','sickCount','lateCount','absentCount'));
     }
 
-    public function AttendancesDetail() {
+    public function AttendancesDetail(Request $request) {
 
         // Mendapatkan tanggal awal dan akhir minggu ini
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
-        $dateNow = Carbon::now();
-        $dayOfWeek = $dateNow->dayOfWeek();
-
-        // dd($dayOfWeek);
+        $search = $request->input('cari_pegawai');
+        $jabatanFilter = $request->input('jabatan');
+        $bagianFilter = $request->input('bagian');
 
         // minggu ini
         $data = [];
@@ -90,16 +91,31 @@ class AttendancesController extends Controller
             $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
         }
 
-        // $data = $startOfWeek->range($endOfWeek)->toArray();
+        // Mendapatkan tanggal awal dan akhir Bulan ini
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
 
-        // $attendances = Attendance::whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')])->with('pegawai')->get();
+        // Bulan ini
+        $dataMonth = [];
+        for ($i = 0; $i < 31; $i++) {
+            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+        }
 
+
+        //Query Database
         $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfWeek,$endOfWeek){
             $query->whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')]);
-            // ->whereNotIn(DB::raw('DAYOFWEEK(date)'), [1, 7]); // 1 = Minggu, 7 = Sabtu;
-        },'jabatan','bagian','shift'])->get();
+        },'jabatan','bagian','shift'])->when($search, function($query, $search){
+            return $query->where('nama_pegawai','like',"%{$search}%")
+            ->orWhere('nip','like',"%{$search}%");
+        })->when($jabatanFilter, function($query) use ($jabatanFilter) {
+            return $query->where('jabatan_id', $jabatanFilter); // Ganti 'jabatan_id' dengan nama kolom yang sesuai
+        })->when($bagianFilter, function($query) use ($bagianFilter) {
+            return $query->where('bagian_id', $bagianFilter); // Ganti 'jabatan_id' dengan nama kolom yang sesuai
+        })->paginate(5);
 
-        // dd($pegawai);
+        $jabatan = jabatan::all();
+        $bagian = bagian::all();
 
         // Mengonversi status absensi ke format d/m
         foreach ($pegawai as $dataP) {
@@ -110,7 +126,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.detailattend', compact('data','pegawai','dateNow'));
+        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','dataMonth'));
     }
 
     public function AttendanceInStore(Request $request) {

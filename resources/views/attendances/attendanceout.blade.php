@@ -127,9 +127,9 @@
                     
             </div>
             <div class="card-footer">
-                <!-- Menampilkan link pagination -->
-                <div class="d-flex justify-content-end">
-                    {{ $pegawai->links() }} <!-- Ini akan menampilkan link pagination -->
+                    <!-- Menampilkan link pagination -->
+                    <div class="d-flex justify-content-end">
+                        {{ $pegawai->links() }} <!-- Ini akan menampilkan link pagination -->
                     </div>
               </div>
             </div>
