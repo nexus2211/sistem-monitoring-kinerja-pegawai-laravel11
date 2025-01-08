@@ -103,18 +103,29 @@ class AttendancesController extends Controller
         }
         
         // Jika ada minggu yang dipilih, hitung tanggal akhir minggu
+        $data = [];
         $endOfWeekss = null;
-        if ($request->has('week')) {
+
+        for ($i = 0; $i < 7; $i++) {
+            $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
+        }
+
+        if ($request->has('weekInputs')) {
             $selectedWeekStart = Carbon::parse($weekInput);
-            $endOfWeekss = $selectedWeekStart->endOfWeek()->format('Y-m-d'); // Hitung akhir minggu
+            $endOfWeekss = $selectedWeekStart->endOfWeek(Carbon::MONDAY)->format('Y-m-d'); // Hitung akhir minggu
+
+            $data = [];
+            for ($i = 0; $i < 7; $i++) {
+                $data[] = $selectedWeekStart->copy()->addDays($i)->format('d/m');
+            }
         }
         // dd($endOfWeekss);
 
         // minggu ini
-        $data = [];
-        for ($i = 0; $i < 7; $i++) {
-            $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
-        }
+        // $data = [];
+        // for ($i = 0; $i < 7; $i++) {
+        //     $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
+        // }
 
 
         //Query Database
@@ -151,33 +162,45 @@ class AttendancesController extends Controller
         $search = $request->input('cari_pegawai');
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
-
+        $monthInput = $request->input('monthInputs');
         // Mendapatkan tanggal awal dan akhir Bulan ini
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
 
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
-        $thisMonthLabel = $startOfMonth->format('M, Y'); // Label untuk minggu ini
-        $thisMonthValue = $startOfMonth->format('Y-m-d'); // Nilai untuk minggu ini
+        $thisMonthLabel = $startOfMonth->format('F, Y'); // Label untuk minggu ini
+        $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
 
-        
-
-        // Bulan ini
-        $dataMonth = [];
-        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
-            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
-        }
 
         $months = [];
         while ($startOfLastYear->lte($startOfMonth)) {
             $months[] = [
-                'label' => $startOfLastYear->format('M, Y'),
-                'value' => $startOfLastYear->format('Y-m-d'),
+                'label' => $startOfLastYear->format('F, Y'),
+                'value' => $startOfLastYear->format('Y-m-01'),
                 'has_events' => false, // Default tidak ada event
-                'is_current' => $startOfLastYear->format('M, Y') === $thisMonthLabel
+                'is_current' => $startOfLastYear->format('F, Y') === $thisMonthLabel
             ];
             $startOfLastYear->addMonth();
         }
+        
+
+        // Bulan ini
+        $dataMonth = [];
+        $endOfMonthss = null;
+        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
+            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+        }
+
+        if ($request->has('monthInputs')) {
+            $selectedMonthStart = Carbon::parse($monthInput);
+            $endOfMonthss = range(1, $selectedMonthStart->daysInMonth); // Hitung akhir minggu
+
+            $dataMonth = [];
+            for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
+                $dataMonth[] = $selectedMonthStart->copy()->addDays($i)->format('d/m');
+            }
+        }
+
 
 
         //Query Database
