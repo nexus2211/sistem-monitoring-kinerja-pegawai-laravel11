@@ -185,20 +185,26 @@ class AttendancesController extends Controller
         
 
         // Bulan ini
-        $dataMonth = [];
         $endOfMonthss = null;
-        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
-            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+        $daysInMonth = $startOfMonth->daysInMonth;
+        $dataMonth = [];
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            // $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+            $date = $startOfMonth->copy()->day($i); // Mengatur tanggal ke hari ke-i
+            $dataMonth[] = $date->format('d/m');
         }
 
         if ($request->has('monthInputs')) {
             $selectedMonthStart = Carbon::parse($monthInput);
             $endOfMonthss = range(1, $selectedMonthStart->daysInMonth); // Hitung akhir minggu
+            $daysInMonth = $selectedMonthStart->daysInMonth;
 
             $dataMonth = [];
-            for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
-                $dataMonth[] = $selectedMonthStart->copy()->addDays($i)->format('d/m');
-            }
+            for ($i = 1; $i <= $daysInMonth; $i++) {
+                // $dataMonth[] = $selectedMonthStart->copy()->addDays($i)->format('d/m');
+                $date = $selectedMonthStart->copy()->day($i); // Mengatur tanggal ke hari ke-i
+                $dataMonth[] = $date->format('d/m'); 
+            }   
         }
 
 

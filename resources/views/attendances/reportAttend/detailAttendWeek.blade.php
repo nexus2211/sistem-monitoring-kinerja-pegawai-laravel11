@@ -34,8 +34,9 @@
                 <div class="col-sm-4">
                     <label for="nip" class="col-form-label">Minggu Ke :</label>
                     <select class="custom-select form-control" name="weekInputs" id="week">
+                          <option selected disabled>Pilih Minggu</option>
                           @foreach($weeks as $week)
-                                <option value="{{ $week['value'] }}" @if($week['is_current']) selected @endif>{{ $week['label'] }}</option>
+                                <option value="{{ $week['value'] }}">{{ $week['label'] }}</option>
                           @endforeach
                     </select>
                 </div>
