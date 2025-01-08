@@ -81,24 +81,39 @@ class AttendancesController extends Controller
         // Mendapatkan tanggal awal dan akhir minggu ini
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
+        $startOfLastYear = Carbon::now()->subYear()->startOfYear();
+        $thisWeekLabel = $startOfWeek->format('W, Y'); // Label untuk minggu ini
+        $thisWeekValue = $startOfWeek->format('Y-m-d'); // Nilai untuk minggu ini
+
+
         $search = $request->input('cari_pegawai');
+        $weekInput = $request->input('weekInputs');
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
+
+        $weeks = [];
+        while ($startOfLastYear->lte($startOfWeek)) {
+            $weeks[] = [
+                'label' => $startOfLastYear->format('W, Y'),
+                'value' => $startOfLastYear->format('Y-m-d'),
+                'has_events' => false, // Default tidak ada event
+                'is_current' => $startOfLastYear->format('W, Y') === $thisWeekLabel
+            ];
+            $startOfLastYear->addWeek();
+        }
+        
+        // Jika ada minggu yang dipilih, hitung tanggal akhir minggu
+        $endOfWeekss = null;
+        if ($request->has('week')) {
+            $selectedWeekStart = Carbon::parse($weekInput);
+            $endOfWeekss = $selectedWeekStart->endOfWeek()->format('Y-m-d'); // Hitung akhir minggu
+        }
+        // dd($endOfWeekss);
 
         // minggu ini
         $data = [];
         for ($i = 0; $i < 7; $i++) {
             $data[] = $startOfWeek->copy()->addDays($i)->format('d/m');
-        }
-
-        // Mendapatkan tanggal awal dan akhir Bulan ini
-        $startOfMonth = Carbon::now()->startOfMonth();
-        $endOfMonth = Carbon::now()->endOfMonth();
-
-        // Bulan ini
-        $dataMonth = [];
-        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
-            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
         }
 
 
@@ -114,6 +129,8 @@ class AttendancesController extends Controller
             return $query->where('bagian_id', $bagianFilter); 
         })->paginate(10);
 
+    
+
         $jabatan = jabatan::all();
         $bagian = bagian::all();
 
@@ -126,7 +143,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian'));
+        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks'));
     }
 
     Public function AttendancesDetailMonth(Request $request) {
@@ -135,15 +152,31 @@ class AttendancesController extends Controller
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
 
-
         // Mendapatkan tanggal awal dan akhir Bulan ini
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
+
+        $startOfLastYear = Carbon::now()->subYear()->startOfYear();
+        $thisMonthLabel = $startOfMonth->format('M, Y'); // Label untuk minggu ini
+        $thisMonthValue = $startOfMonth->format('Y-m-d'); // Nilai untuk minggu ini
+
+        
 
         // Bulan ini
         $dataMonth = [];
         for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
             $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+        }
+
+        $months = [];
+        while ($startOfLastYear->lte($startOfMonth)) {
+            $months[] = [
+                'label' => $startOfLastYear->format('M, Y'),
+                'value' => $startOfLastYear->format('Y-m-d'),
+                'has_events' => false, // Default tidak ada event
+                'is_current' => $startOfLastYear->format('M, Y') === $thisMonthLabel
+            ];
+            $startOfLastYear->addMonth();
         }
 
 
@@ -171,7 +204,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian'));
+        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months'));
     }
 
     public function AttendanceInStore(Request $request) {

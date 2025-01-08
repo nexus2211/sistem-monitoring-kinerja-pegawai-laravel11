@@ -33,7 +33,11 @@
               <div class="form-group row">
                 <div class="col-sm-4">
                     <label for="nip" class="col-form-label">Bulan Ke :</label>
-                    <input type="text" id="weekPicker" name="nip" class="form-control daterange-cus">
+                    <select class="custom-select form-control" name="monthInputs" id="month">
+                          @foreach($months as $month)
+                                <option value="{{ $month['value'] }}" @if($month['is_current']) selected @endif>{{ $month['label'] }}</option>
+                          @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-4">
                     <label for="jabatan" class="col-form-label">Jabatan</label>
