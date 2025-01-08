@@ -97,7 +97,7 @@ class AttendancesController extends Controller
 
         // Bulan ini
         $dataMonth = [];
-        for ($i = 0; $i < 31; $i++) {
+        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
             $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
         }
 
@@ -109,10 +109,10 @@ class AttendancesController extends Controller
             return $query->where('nama_pegawai','like',"%{$search}%")
             ->orWhere('nip','like',"%{$search}%");
         })->when($jabatanFilter, function($query) use ($jabatanFilter) {
-            return $query->where('jabatan_id', $jabatanFilter); // Ganti 'jabatan_id' dengan nama kolom yang sesuai
+            return $query->where('jabatan_id', $jabatanFilter);
         })->when($bagianFilter, function($query) use ($bagianFilter) {
-            return $query->where('bagian_id', $bagianFilter); // Ganti 'jabatan_id' dengan nama kolom yang sesuai
-        })->paginate(5);
+            return $query->where('bagian_id', $bagianFilter); 
+        })->paginate(10);
 
         $jabatan = jabatan::all();
         $bagian = bagian::all();
@@ -126,7 +126,52 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','dataMonth'));
+        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian'));
+    }
+
+    Public function AttendancesDetailMonth(Request $request) {
+
+        $search = $request->input('cari_pegawai');
+        $jabatanFilter = $request->input('jabatan');
+        $bagianFilter = $request->input('bagian');
+
+
+        // Mendapatkan tanggal awal dan akhir Bulan ini
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        // Bulan ini
+        $dataMonth = [];
+        for ($i = 0; $i <= $endOfMonth->day - 1; $i++) {
+            $dataMonth[] = $startOfMonth->copy()->addDays($i)->format('d/m');
+        }
+
+
+        //Query Database
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfMonth,$endOfMonth){
+            $query->whereBetween('date', [$startOfMonth->format('Y-m-d'),$endOfMonth->format('Y-m-d')]);
+        },'jabatan','bagian','shift'])->when($search, function($query, $search){
+            return $query->where('nama_pegawai','like',"%{$search}%")
+            ->orWhere('nip','like',"%{$search}%");
+        })->when($jabatanFilter, function($query) use ($jabatanFilter) {
+            return $query->where('jabatan_id', $jabatanFilter);
+        })->when($bagianFilter, function($query) use ($bagianFilter) {
+            return $query->where('bagian_id', $bagianFilter); 
+        })->paginate(10);
+
+        $jabatan = jabatan::all();
+        $bagian = bagian::all();
+
+        // Mengonversi status absensi ke format d/m
+        foreach ($pegawai as $dataP) {
+            foreach ($dataP->attendances as $attendance) {
+                $attendance->formatted_date = Carbon::parse($attendance->date)->format('d/m');
+            }
+
+        }
+
+       
+        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian'));
     }
 
     public function AttendanceInStore(Request $request) {

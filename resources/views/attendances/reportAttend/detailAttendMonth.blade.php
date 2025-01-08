@@ -28,6 +28,7 @@
               </div>
             </div>
             <div class="card-body">
+              <form action="#" method="get">
               <H5>Filter : </H5>
               <div class="form-group row">
                 <div class="col-sm-4">
@@ -60,13 +61,14 @@
                   {{-- <div class="col-md-6"> --}}
                     <div class="col-md-4 ">
                     <div class="input-group">
-                      <input type="text" name="cariPegawai" placeholder="Cari Pegawai.." class="form-control">
+                      <input type="text" name="cari_pegawai" placeholder="Cari Pegawai.." class="form-control">
                       <div class="input-group-append">
                         <button class="btn btn-primary">
                             <i class="fa fas fa-search"></i>
                         </button>
                       </div>
                     </div>
+                  </form>
                   </div>
                 </div>
                 <div class="table-responsive mt-2">

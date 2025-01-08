@@ -63,7 +63,8 @@ Route::controller(AttendancesController::class)->group(function () {
     Route::post('/attendances','AttendanceInStore')->name('attendances.inPost');
     Route::get('/attendances/out','AttendanceOut')->name('attendances.out');
     Route::post('/attendances/out','AttendanceOutStore')->name('attendances.outPost');
-    Route::get('/attendances/detail','AttendancesDetail')->name('detailAttendances');
+    Route::get('/attendances/detail/week','AttendancesDetail')->name('detailAttendances');
+    Route::get('/attendances/detail/month','AttendancesDetailMonth')->name('detailAttendancesMonth');
 
 });
 
