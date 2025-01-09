@@ -25,9 +25,6 @@
                 </div>
           </div>
             <div class="card-body">
-              {{-- <div class="d-flex justify-content-start">
-                <a href="" class="btn btn-sm btn-success"><b>+</b> Tambah Data</a>
-            </div> --}}
               <div class="table-responsive">
                 <table class="table table-striped" id="table-1">
                   <thead>

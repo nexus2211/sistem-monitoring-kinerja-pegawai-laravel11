@@ -22,16 +22,17 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown {{ Request::routeIs('attendances.in','attendances.out','detailAttendances') ? 'active' : '' }}">
+          <li class="nav-item dropdown {{ Request::routeIs('attendances.in','attendances.out') ? 'active' : '' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far far fa-clipboard"></i> <span>Absensi</span></a>
             <ul class="dropdown-menu">
               <li class="{{ request()->routeIs('attendances.in') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.in') }}">Absen Masuk</a></li>
               <li class="{{ request()->routeIs('attendances.out') ? 'active' : '' }}"><a class="nav-link" href="{{ route('attendances.out') }}">Absen Keluar</a></li>
-              <li class="{{ request()->routeIs('detailAttendances') ? 'active' : '' }}"><a class="nav-link" href="{{ route('detailAttendances') }}">Rekap Data Absensi</a></li>
             </ul>
           </li>
+
+          <li class="{{ Request::routeIs('rekapdata','detailAttendances','listAttendances','detailAttendancesMonth') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rekapdata') }}"><i class="fa far fa-table"></i> <span>Rekap Data</span></a></li>
           
-          <li><a class="nav-link" href="{{ route('barcode.index') }}"><i class="fa far fa-qrcode"></i> <span>QR Code</span></a></li>
+          <li class="{{ Request::routeIs('barcode.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('barcode.index') }}"><i class="fa far fa-qrcode"></i> <span>QR Code</span></a></li>
     
         </ul>
 

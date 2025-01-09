@@ -33,6 +33,8 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::put('/pegawai/edit/{id}', 'PegawaiUpdate')->name('pegawai.update');
     Route::delete('/pegawai/{id}','PegawaiDelete')->name('pegawai.delete');
 
+    Route::get('/export-pegawai/view/pdf','viewpdfPegawai')->name('export-pegawai');
+
     // JABATAN ROUTE
     Route::get('/jabatan','JabatanIndex')->name('jabatan');
     Route::post('/jabatan','JabatanStore')->name('jabatan.post');
@@ -66,12 +68,19 @@ Route::controller(AttendancesController::class)->group(function () {
     Route::get('/attendances/detail/week','AttendancesDetail')->name('detailAttendances');
     Route::get('/attendances/detail/month','AttendancesDetailMonth')->name('detailAttendancesMonth');
 
+    Route::get('/export-absensi-minggu/view/pdf','viewpdfAbsenWeek')->name('export-absensi-minggu');
+    Route::get('/export-absensi-bulan/view/pdf','viewpdfAbsenMonth')->name('export-absensi-bulan');
+
 });
 
+
+Route::get('/rekapdata', function () {
+    return view('layout.rekapData');
+})->name('rekapdata');
 
 
 
 Route::resource('barcode', BarcodeController::class);
-Route::get('/download-qrcode}', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
-Route::get('/downloadAll-qrcode}', [BarcodeController::class ,'downloadAll'])->name('barcode.downloadAll');
+Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
+Route::get('/downloadAll-qrcode', [BarcodeController::class ,'downloadAll'])->name('barcode.downloadAll');
 // Route::get('/pegawai', [PegawaiController::class, 'PegawaiIndex'])->name('pegawai');

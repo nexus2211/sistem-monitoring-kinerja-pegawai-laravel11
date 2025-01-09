@@ -352,4 +352,11 @@ class PegawaiController extends Controller
         Shift::where('id', $id)->delete();
         return redirect()->route('shift');
     }
+
+    public function viewpdfPegawai(){
+        $mpdf = new \Mpdf\Mpdf();
+        $pegawai = Pegawai::with(['jabatan','bagian','shift'])->orderBy('nip', 'asc')->get();
+        $mpdf->WriteHTML(view("import-export.export-pegawai", compact('pegawai')));
+        $mpdf->Output('pdf-pegawai','D');
+    }
 }

@@ -90,6 +90,9 @@ class AttendancesController extends Controller
         $weekInput = $request->input('weekInputs');
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
+        
+        $weekInputStatus = Carbon::parse($weekInput)->format('W, Y');
+        $weekInputPdf = Carbon::parse($weekInput)->format('Y-m-d');
 
         $weeks = [];
         while ($startOfLastYear->lte($startOfWeek)) {
@@ -119,6 +122,7 @@ class AttendancesController extends Controller
                 $data[] = $selectedWeekStart->copy()->addDays($i)->format('d/m');
             }
         }
+
         // dd($endOfWeekss);
 
         // minggu ini
@@ -154,8 +158,9 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks'));
+        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks','weekInputStatus','weekInput','weekInputPdf'));
     }
+
 
     Public function AttendancesDetailMonth(Request $request) {
 
@@ -170,6 +175,7 @@ class AttendancesController extends Controller
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
         $thisMonthLabel = $startOfMonth->format('F, Y'); // Label untuk minggu ini
         $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
+        $monthInputPdf = Carbon::parse($monthInput)->format('Y-m-d');
 
 
         $months = [];
@@ -233,7 +239,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months'));
+        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months','monthInputPdf'));
     }
 
     public function AttendanceInStore(Request $request) {
@@ -385,5 +391,151 @@ class AttendancesController extends Controller
         attendance::where('pegawai_id', $pegawai->id)->update($data);
         return redirect()->route('attendances.out')->with('success','Absensi Keluar Berhasil');
         
+    }
+
+    public function viewpdfAbsenWeek(Request $request){
+        $mpdf = new \Mpdf\Mpdf();
+
+        // Mendapatkan tanggal awal dan akhir minggu ini
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $startOfLastYear = Carbon::now()->subYear()->startOfYear();
+        $thisWeekLabel = $startOfWeek->format('W, Y'); // Label untuk minggu ini
+        $thisWeekValue = $startOfWeek->format('Y-m-d'); // Nilai untuk minggu ini
+
+        $search = $request->input('cari_pegawai');
+        $weekInput = $request->input('start_date');
+        $jabatanFilter = $request->input('jabatan');
+        $bagianFilter = $request->input('bagian');
+
+        $weekInputStatus = Carbon::parse($weekInput)->format('W, Y');
+     
+
+        $weeks = [];
+        while ($startOfLastYear->lte($startOfWeek)) {
+            $weeks[] = [
+                'label' => $startOfLastYear->format('W, Y'),
+                'value' => $startOfLastYear->format('Y-m-d'),
+                'has_events' => false, // Default tidak ada event
+                'is_current' => $startOfLastYear->format('W, Y') === $thisWeekLabel
+            ];
+            $startOfLastYear->addWeek();
+        }
+        
+        // Jika ada minggu yang dipilih, hitung tanggal akhir minggu
+        $data = [];
+        $endOfWeekss = null;
+        if ($request->has('start_date')) {
+            $selectedWeekStart = Carbon::parse($weekInput)->startOfWeek();
+
+            $data = [];
+            for ($i = 0; $i < 7; $i++) {
+                $data[] = $selectedWeekStart->copy()->addDays($i)->format('d/m');
+            }
+        }
+
+        //Query Database
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfWeek,$endOfWeek){
+            $query->whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')]);
+        },'jabatan','bagian','shift'])->when($search, function($query, $search){
+            return $query->where('nama_pegawai','like',"%{$search}%")
+            ->orWhere('nip','like',"%{$search}%");
+        })->when($jabatanFilter, function($query) use ($jabatanFilter) {
+            return $query->where('jabatan_id', $jabatanFilter);
+        })->when($bagianFilter, function($query) use ($bagianFilter) {
+            return $query->where('bagian_id', $bagianFilter); 
+        })->paginate(10);
+
+
+        // Mengonversi status absensi ke format d/m
+        foreach ($pegawai as $dataP) {
+            foreach ($dataP->attendances as $attendance) {
+                $attendance->formatted_date = Carbon::parse($attendance->date)->format('d/m');
+            }
+
+        }
+
+
+        $mpdf->WriteHTML(view("import-export.export-absensi-minggu", compact('data','pegawai','weeks','weekInput','weekInputStatus')));
+        $mpdf->Output();
+        // $mpdf->Output('pdf-absen-minggu','D');
+    }
+
+    Public function viewpdfAbsenMonth(Request $request) {
+
+        $mpdf = new \Mpdf\Mpdf();
+
+        $search = $request->input('cari_pegawai');
+        $jabatanFilter = $request->input('jabatan');
+        $bagianFilter = $request->input('bagian');
+        $monthInput = $request->input('start_date');
+        // Mendapatkan tanggal awal dan akhir Bulan ini
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $startOfLastYear = Carbon::now()->subYear()->startOfYear();
+        $thisMonthLabel = $startOfMonth->format('F, Y'); // Label untuk minggu ini
+        $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
+
+
+        $months = [];
+        while ($startOfLastYear->lte($startOfMonth)) {
+            $months[] = [
+                'label' => $startOfLastYear->format('F, Y'),
+                'value' => $startOfLastYear->format('Y-m-01'),
+                'has_events' => false, // Default tidak ada event
+                'is_current' => $startOfLastYear->format('F, Y') === $thisMonthLabel
+            ];
+            $startOfLastYear->addMonth();
+        }
+        
+
+        // Bulan ini
+        $endOfMonthss = null;
+        $daysInMonth = $startOfMonth->daysInMonth;
+        $dataMonth = [];
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $date = $startOfMonth->copy()->day($i); // Mengatur tanggal ke hari ke-i
+            $dataMonth[] = $date->format('d/m');
+        }
+
+        if ($request->has('start_date')) {
+            $selectedMonthStart = Carbon::parse($monthInput);
+            $endOfMonthss = range(1, $selectedMonthStart->daysInMonth); // Hitung akhir minggu
+            $daysInMonth = $selectedMonthStart->daysInMonth;
+
+            $dataMonth = [];
+            for ($i = 1; $i <= $daysInMonth; $i++) {
+                $date = $selectedMonthStart->copy()->day($i); // Mengatur tanggal ke hari ke-i
+                $dataMonth[] = $date->format('d/m'); 
+            }   
+        }
+
+
+
+        //Query Database
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfMonth,$endOfMonth){
+            $query->whereBetween('date', [$startOfMonth->format('Y-m-d'),$endOfMonth->format('Y-m-d')]);
+        },'jabatan','bagian','shift'])->when($search, function($query, $search){
+            return $query->where('nama_pegawai','like',"%{$search}%")
+            ->orWhere('nip','like',"%{$search}%");
+        })->when($jabatanFilter, function($query) use ($jabatanFilter) {
+            return $query->where('jabatan_id', $jabatanFilter);
+        })->when($bagianFilter, function($query) use ($bagianFilter) {
+            return $query->where('bagian_id', $bagianFilter); 
+        })->paginate(10);
+
+
+        // Mengonversi status absensi ke format d/m
+        foreach ($pegawai as $dataP) {
+            foreach ($dataP->attendances as $attendance) {
+                $attendance->formatted_date = Carbon::parse($attendance->date)->format('d/m');
+            }
+
+        }
+
+       
+        $mpdf->WriteHTML(view("import-export.export-absensi-bulan", compact('dataMonth','pegawai','months','monthInput')));
+        $mpdf->Output();
     }
 }

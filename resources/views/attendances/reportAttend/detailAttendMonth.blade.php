@@ -23,7 +23,10 @@
               <h4>Absensi Bulan Ini</h4>
               <div class="card-header-action">
                 <div>
-                  <button class="btn btn-outline-info">Cetak Laporan <i class="fa fas fa-print"></i></button>
+                  <form action="{{ route('export-absensi-bulan') }}" method="get">
+                    <input type="text" name="start_date" value="{{ $monthInputPdf }}">
+                    <button class="btn btn-outline-info"><i class="fa fas fa-print"></i> Cetak Laporan</button>
+                  </form>
                 </div>
               </div>
             </div>
