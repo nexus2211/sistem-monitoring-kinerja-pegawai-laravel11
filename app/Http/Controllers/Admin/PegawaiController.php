@@ -357,6 +357,6 @@ class PegawaiController extends Controller
         $mpdf = new \Mpdf\Mpdf();
         $pegawai = Pegawai::with(['jabatan','bagian','shift'])->orderBy('nip', 'asc')->get();
         $mpdf->WriteHTML(view("import-export.export-pegawai", compact('pegawai')));
-        $mpdf->Output('pdf-pegawai','D');
+        $mpdf->Output('pdf-pegawai','I');
     }
 }

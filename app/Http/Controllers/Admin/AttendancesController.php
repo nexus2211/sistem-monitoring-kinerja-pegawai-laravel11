@@ -175,6 +175,8 @@ class AttendancesController extends Controller
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
         $thisMonthLabel = $startOfMonth->format('F, Y'); // Label untuk minggu ini
         $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
+
+        $monthInputStatus = Carbon::parse($monthInput)->format('F, Y');
         $monthInputPdf = Carbon::parse($monthInput)->format('Y-m-d');
 
 
@@ -239,7 +241,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months','monthInputPdf'));
+        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months','monthInputPdf','monthInputStatus'));
     }
 
     public function AttendanceInStore(Request $request) {
@@ -457,7 +459,7 @@ class AttendancesController extends Controller
 
 
         $mpdf->WriteHTML(view("import-export.export-absensi-minggu", compact('data','pegawai','weeks','weekInput','weekInputStatus')));
-        $mpdf->Output();
+        $mpdf->Output('Absensi-Pegawai-Minggu-'. $weekInputStatus .'.pdf','I');
         // $mpdf->Output('pdf-absen-minggu','D');
     }
 
@@ -476,6 +478,8 @@ class AttendancesController extends Controller
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
         $thisMonthLabel = $startOfMonth->format('F, Y'); // Label untuk minggu ini
         $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
+
+        $monthInputStatus = Carbon::parse($monthInput)->format('F, Y');
 
 
         $months = [];
@@ -535,7 +539,8 @@ class AttendancesController extends Controller
         }
 
        
-        $mpdf->WriteHTML(view("import-export.export-absensi-bulan", compact('dataMonth','pegawai','months','monthInput')));
-        $mpdf->Output();
+        $mpdf->WriteHTML(view("import-export.export-absensi-bulan", compact('dataMonth','pegawai','months','monthInput','monthInputStatus')));
+        
+        $mpdf->Output('Absensi-Pegawai-Bulan-'. $monthInputStatus .'.pdf','I');
     }
 }

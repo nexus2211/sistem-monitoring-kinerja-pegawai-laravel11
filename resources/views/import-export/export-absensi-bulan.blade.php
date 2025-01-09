@@ -30,7 +30,7 @@
         text-align: center;
     }
 </style>
-<h4>Bulan ke : </h4>
+<h4>Bulan : {{ $monthInputStatus }}</h4>
 <table class="table table-striped" id="table-1">
     <thead>
       <tr>

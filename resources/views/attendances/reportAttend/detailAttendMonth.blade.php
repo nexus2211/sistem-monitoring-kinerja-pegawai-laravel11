@@ -24,7 +24,7 @@
               <div class="card-header-action">
                 <div>
                   <form action="{{ route('export-absensi-bulan') }}" method="get">
-                    <input type="text" name="start_date" value="{{ $monthInputPdf }}">
+                    <input type="hidden" name="start_date" value="{{ $monthInputPdf }}">
                     <button class="btn btn-outline-info"><i class="fa fas fa-print"></i> Cetak Laporan</button>
                   </form>
                 </div>
@@ -78,6 +78,11 @@
                   </form>
                   </div>
                 </div>
+                
+                <div class="d-flex justify-content-end">
+                  Bulan : {{ $monthInputStatus }}
+                </div>
+
                 <div class="table-responsive mt-2">
                   <table class="table table-striped" id="table-1">
                     <thead>
