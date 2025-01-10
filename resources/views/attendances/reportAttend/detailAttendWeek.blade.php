@@ -140,7 +140,7 @@
                                     <!-- Jika hari Minggu (0) atau Sabtu (6), tampilkan output khusus -->
                                     -
                                 @else
-                                    <!-- Cek apakah pegawai hadir pada tanggal ini -->
+                                    
                                     @php
                                         $attendance = $dataP->attendances->firstWhere('formatted_date', $date);
                                     @endphp

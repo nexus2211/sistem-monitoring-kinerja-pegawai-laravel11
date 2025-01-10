@@ -82,7 +82,7 @@ class AttendancesController extends Controller
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
-        $thisWeekLabel = $startOfWeek->format('W, Y'); // Label untuk minggu ini
+        $thisWeekLabel = $startOfWeek->format('W, o'); // Label untuk minggu ini
         $thisWeekValue = $startOfWeek->format('Y-m-d'); // Nilai untuk minggu ini
 
 
@@ -91,16 +91,18 @@ class AttendancesController extends Controller
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
         
-        $weekInputStatus = Carbon::parse($weekInput)->format('W, Y');
+        $weekInputStatus = Carbon::parse($weekInput)->format('W, o');
         $weekInputPdf = Carbon::parse($weekInput)->format('Y-m-d');
+        $weekInputS = Carbon::parse($weekInput)->startOfWeek()->format('Y-m-d');
+        $weekInputE = Carbon::parse($weekInput)->endOfWeek()->format('Y-m-d');
 
         $weeks = [];
         while ($startOfLastYear->lte($startOfWeek)) {
             $weeks[] = [
-                'label' => $startOfLastYear->format('W, Y'),
+                'label' => $startOfLastYear->format('W, o'),
                 'value' => $startOfLastYear->format('Y-m-d'),
                 'has_events' => false, // Default tidak ada event
-                'is_current' => $startOfLastYear->format('W, Y') === $thisWeekLabel
+                'is_current' => $startOfLastYear->format('W, o') === $thisWeekLabel
             ];
             $startOfLastYear->addWeek();
         }
@@ -114,14 +116,14 @@ class AttendancesController extends Controller
         }
 
         if ($request->has('weekInputs')) {
-            $selectedWeekStart = Carbon::parse($weekInput);
-            $endOfWeekss = $selectedWeekStart->endOfWeek(Carbon::MONDAY)->format('Y-m-d'); // Hitung akhir minggu
+            $selectedWeekStart = Carbon::parse($weekInput); 
 
             $data = [];
             for ($i = 0; $i < 7; $i++) {
                 $data[] = $selectedWeekStart->copy()->addDays($i)->format('d/m');
             }
         }
+        // $endOfWeekss = $selectedWeekStart->endOfWeek(Carbon::MONDAY)->format('Y-m-d'); // Hitung akhir minggu
 
         // dd($endOfWeekss);
 
@@ -133,8 +135,8 @@ class AttendancesController extends Controller
 
 
         //Query Database
-        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfWeek,$endOfWeek){
-            $query->whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')]);
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($weekInputS,$weekInputE){
+            $query->whereBetween('date', [$weekInputS,$weekInputE]);
         },'jabatan','bagian','shift'])->when($search, function($query, $search){
             return $query->where('nama_pegawai','like',"%{$search}%")
             ->orWhere('nip','like',"%{$search}%");
@@ -178,6 +180,8 @@ class AttendancesController extends Controller
 
         $monthInputStatus = Carbon::parse($monthInput)->format('F, Y');
         $monthInputPdf = Carbon::parse($monthInput)->format('Y-m-d');
+        $monthInputS = Carbon::parse($monthInput)->startOfmonth()->format('Y-m-d');
+        $monthInputE = Carbon::parse($monthInput)->endOfmonth()->format('Y-m-d');
 
 
         $months = [];
@@ -218,8 +222,8 @@ class AttendancesController extends Controller
 
 
         //Query Database
-        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfMonth,$endOfMonth){
-            $query->whereBetween('date', [$startOfMonth->format('Y-m-d'),$endOfMonth->format('Y-m-d')]);
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($monthInputS,$endOfMonth){
+            $query->whereBetween('date', [$monthInputS,$endOfMonth]);
         },'jabatan','bagian','shift'])->when($search, function($query, $search){
             return $query->where('nama_pegawai','like',"%{$search}%")
             ->orWhere('nip','like',"%{$search}%");
@@ -411,6 +415,8 @@ class AttendancesController extends Controller
         $bagianFilter = $request->input('bagian');
 
         $weekInputStatus = Carbon::parse($weekInput)->format('W, Y');
+        $weekInputS = Carbon::parse($weekInput)->startOfWeek()->format('Y-m-d');
+        $weekInputE = Carbon::parse($weekInput)->endOfWeek()->format('Y-m-d');
      
 
         $weeks = [];
@@ -437,8 +443,8 @@ class AttendancesController extends Controller
         }
 
         //Query Database
-        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfWeek,$endOfWeek){
-            $query->whereBetween('date', [$startOfWeek->format('Y-m-d'),$endOfWeek->format('Y-m-d')]);
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($weekInputS,$weekInputE){
+            $query->whereBetween('date', [$weekInputS,$weekInputE]);
         },'jabatan','bagian','shift'])->when($search, function($query, $search){
             return $query->where('nama_pegawai','like',"%{$search}%")
             ->orWhere('nip','like',"%{$search}%");
@@ -480,6 +486,8 @@ class AttendancesController extends Controller
         $thisMonthValue = $startOfMonth->format('Y-m-01'); // Nilai untuk minggu ini
 
         $monthInputStatus = Carbon::parse($monthInput)->format('F, Y');
+        $monthInputS = Carbon::parse($monthInput)->startOfmonth()->format('Y-m-d');
+        $monthInputE = Carbon::parse($monthInput)->endOfmonth()->format('Y-m-d');
 
 
         $months = [];
@@ -518,8 +526,8 @@ class AttendancesController extends Controller
 
 
         //Query Database
-        $pegawai = Pegawai::with(['attendances' => function($query) use ($startOfMonth,$endOfMonth){
-            $query->whereBetween('date', [$startOfMonth->format('Y-m-d'),$endOfMonth->format('Y-m-d')]);
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($monthInputS,$monthInputE){
+            $query->whereBetween('date', [$monthInputS,$monthInputE]);
         },'jabatan','bagian','shift'])->when($search, function($query, $search){
             return $query->where('nama_pegawai','like',"%{$search}%")
             ->orWhere('nip','like',"%{$search}%");
