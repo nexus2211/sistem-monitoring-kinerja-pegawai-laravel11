@@ -70,12 +70,17 @@ class PegawaiController extends Controller
         $request->validate([
             'nip'  => 'required|min:3|max:20',
             'nama_pegawai' => 'required|min:3|max:20',
-            'foto' => 'image|mimes:jpg,jpeg,png'
+            'foto' => 'image|mimes:jpg,jpeg,png',
+            'jabatan' => 'required',
+            'bagian' => 'required',
+            'shift' => 'required',
+            'gender' => 'required'
             
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'nip.required'=>'NIP Wajib Diisi',
+            'nama_pegawai.required'=>'Nama Pegawai Wajib Diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         // Tanggal Lahir
@@ -118,9 +123,10 @@ class PegawaiController extends Controller
             'jabatan'  => 'required|min:3|max:20',
             'deskripsi' => 'required|min:3|max:20',
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'jabatan.required'=>'Jabatan wajib diisi',
+            'deskripsi.required'=>'Deskripsi wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
@@ -141,9 +147,10 @@ class PegawaiController extends Controller
             'bagian'  => 'required|min:3|max:20',
             'deskripsi' => 'required|min:3|max:20',
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'bagian.required'=>'Task wajib diisi',
+            'deskripsi.required'=>'Task wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
@@ -164,9 +171,9 @@ class PegawaiController extends Controller
             'shift'  => 'required|min:3|max:20',
             
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'shift.required'=>'Task wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
@@ -198,11 +205,15 @@ class PegawaiController extends Controller
 
         $request->validate([
             'nip'  => 'required|min:3|max:20',
-            'nama_pegawai' => 'required|min:3|max:40',
+            'nama_pegawai' => 'required|min:3|max:20',
+            'foto' => 'image|mimes:jpg,jpeg,png',
+            
+            
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'nip.required'=>'NIP Wajib Diisi',
+            'nama_pegawai.required'=>'Nama Pegawai Wajib Diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $inputTgl = $request->input('tgl_lahir');
@@ -251,9 +262,10 @@ class PegawaiController extends Controller
             'jabatan'  => 'required|min:3|max:20',
             'deskripsi' => 'required|min:3|max:20',
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'jabatan.required'=>'Jabatan wajib diisi',
+            'deskripsi.required'=>'Deskripsi wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
@@ -280,9 +292,10 @@ class PegawaiController extends Controller
             'bagian'  => 'required|min:3|max:20',
             'deskripsi' => 'required|min:3|max:20',
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'bagian.required'=>'Task wajib diisi',
+            'deskripsi.required'=>'Task wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
@@ -310,9 +323,9 @@ class PegawaiController extends Controller
             'shift'  => 'required|min:3|max:20',
             
         ],[
-            'task.required'=>'Task wajib diisi',
-            'task.min'=>'Input minimal memiliki 3 karakter',
-            'task.max'=>'Input maximal memiliki 25 karakter',
+            'shift.required'=>'Task wajib diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
         ]);
 
         $data = [
