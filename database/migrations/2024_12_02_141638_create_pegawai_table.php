@@ -31,6 +31,7 @@ return new class extends Migration
                 indexName: 'pegawai_shift_id'
             );
             $table->string('foto')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Relasi ke tabel user
             $table->timestamps();
         });
     }

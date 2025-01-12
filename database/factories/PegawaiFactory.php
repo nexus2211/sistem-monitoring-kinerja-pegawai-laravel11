@@ -29,6 +29,7 @@ class PegawaiFactory extends Factory
             'bagian_id' => bagian::factory(),
             'shift_id' => shift::factory(),
             'foto' => fake()->sentence(3),
+            'user_id' => null,
         ];
     }
 }

@@ -8,6 +8,8 @@ use App\Models\pegawai;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        Pegawai::factory(5)->create();
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -25,9 +29,30 @@ class DatabaseSeeder extends Seeder
             'type' => '2',
         ]);
 
+        $pegawais = pegawai::all();
+
+        foreach ($pegawais as $pegawai) {
+            // Buat email berdasarkan nama pegawai
+            $email = strtolower(str_replace(' ', '', $pegawai->nama_pegawai)) . '@email.com';
+
+            // Buat user baru
+            $user = User::factory()->create([
+                'name' => $pegawai->nama_pegawai,
+                'email' => $email,
+                'password' => bcrypt('password'), // Ganti dengan password yang diinginkan
+                'type' => '0',
+                // 'created_at' => now(),
+                // 'updated_at' => now(),
+            ]);
+
+            $pegawai->user_id = $user->id;
+            $pegawai->save();
+
+        }
+
         // Jabatan::factory(5)->create();
         // Bagian::factory(5)->create();
 
-        Pegawai::factory(5)->create();
+        
     }
 }
