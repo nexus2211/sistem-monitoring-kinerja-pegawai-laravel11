@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AttendancesController;
 use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -78,7 +79,7 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
-
+Route::resource('/manageuser', UserController::class);
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');

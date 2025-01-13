@@ -64,11 +64,9 @@
                   </select>
                 </div>
                 </div>
-              {{-- </form> --}}
-                <div class="row">
-                  {{-- <div class="col-md-6"> --}}
-                    <div class="col-md-4 ">
-                      {{-- <form action="#" method="get"> --}}
+
+                <div class="row">                  
+                    <div class="col-md-4 ">                     
                         <div class="input-group">
                           <input type="text" name="cari_pegawai" placeholder="Cari Pegawai.." class="form-control">
                           <div class="input-group-append">
@@ -77,9 +75,9 @@
                             </button>
                           </div>
                         </div>
-                      </form>
+                      </div>
                   </div>
-                </div>
+                </form>
                 
                 <div class="d-flex justify-content-end">
                   Minggu Ke : {{ $weekInputStatus }}

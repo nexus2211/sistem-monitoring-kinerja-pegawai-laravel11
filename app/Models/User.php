@@ -60,7 +60,7 @@ class User extends Authenticatable
         );
     }
 
-    public function pegawais()
+    public function pegawai()
     {
         return $this->hasMany(Pegawai::class);
     }
