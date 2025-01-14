@@ -31,8 +31,8 @@
                         <H5>Filter : </H5>
                             <div class="form-group row">
                                 <div class="col-sm-4">
-                                    <label for="nip" class="col-form-label">Role Akun </label>
-                                    <select class="custom-select form-control" name="weekInputs" id="week">
+                                    <label for="role" class="col-form-label">Role Akun </label>
+                                    <select class="custom-select form-control" name="roleInputs" id="role">
                                         <option selected disabled>Tipe Akun</option>
                                         @foreach($uniqueTypes as $data)
                                                 <option value="{{ $data }}">{{ $data }}</option>
