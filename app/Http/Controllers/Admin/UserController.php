@@ -11,13 +11,21 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $dataUser = pegawai::with('User','jabatan','bagian')->get();
-        $uniqueTypes = $dataUser->pluck('user.type')->unique();
+        $search = $request->input('cari_pegawai');
+        $jabatanFilter = $request->input('jabatan');
+        $bagianFilter = $request->input('bagian');
+
+        $dataUser = pegawai::with('user','jabatan','bagian')->paginate(10);
+        $uniqueTypes = pegawai::with('user')->get()->pluck('user.type')->unique();
+        // $uniqueTypes = $dataUser->pluck('user.type')->unique();
         $jabatan = jabatan::get();
         $bagian = bagian::get();
-        // dd($dataUser);
+
+
+
+        
         return view('auth.manageAuth.user', compact('dataUser','jabatan','bagian','uniqueTypes'));
     }
 }

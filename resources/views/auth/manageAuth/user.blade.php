@@ -98,6 +98,13 @@
                         </table>
                     </div>
                 </div>
+
+                <div>
+                    <div class="d-flex justify-content-end mt-2">
+                        {{ $dataUser->links() }}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

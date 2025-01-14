@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\shift;
 use App\Models\bagian;
 use App\Models\jabatan;
 use App\Models\pegawai;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PegawaiController extends Controller
 {
@@ -19,7 +21,7 @@ class PegawaiController extends Controller
 
         $max_data = 5;
 
-        $pegawai = Pegawai::with(['jabatan','bagian','shift'])->latest()->get();
+        $pegawai = Pegawai::with(['jabatan','bagian','shift'])->get();
     //    dd($pegawai);
 
         return view('pegawai.pegawai', compact('pegawai'));
@@ -112,7 +114,23 @@ class PegawaiController extends Controller
 
         // dd($data);
 
-        pegawai::create($data);
+        $pegawaiCreate = pegawai::create($data);
+
+        // Membuat user email dan password
+        $pegawaiId = $pegawaiCreate->id;
+        $email = strtolower(str_replace(' ', '', $request->nama_pegawai)) . '@email.com';
+
+        $user = User::create([
+            'name' => $request->nama_pegawai,
+            'email' => $email,
+            'password' => bcrypt('password'),
+            'type' => '0',
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+        ]);
+
+        $pegawaiCreate->user_id = $user->id;
+        $pegawaiCreate->save();
 
         return redirect()->route('pegawai');
     }
@@ -344,7 +362,19 @@ class PegawaiController extends Controller
 
     public function PegawaiDelete (Request $request, string $id){
         $pegawai = Pegawai::find($id);
-        pegawai::where('id', $id)->delete();
+        // pegawai::where('id', $id)->delete();
+
+        if ($pegawai) {
+            // Hapus user yang terkait     
+            if ($pegawai->user_id) {    
+                User::where('id', $pegawai->user_id)->delete();    
+            }        
+            // Hapus pegawai 
+            $pegawai->delete();  
+        } else { 
+
+        }
+
         return redirect()->route('pegawai');
     }
 
