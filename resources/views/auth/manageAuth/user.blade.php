@@ -68,6 +68,14 @@
                             </div>
                     </form>
                 </div>
+
+                <div class="row">
+                    <div class="btn-group col-sm-4" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-success mr-2"><i class="fa fas fa-plus"></i> Tambah Data</button>
+                        <button type="button" class="btn btn-outline-info"><i class="fa fas fa-print"></i> Download Report</button>
+                    </div>
+                </div>
+
                 <div>
                     <div class="table-responsive mt-2">
                         <table class="table table-striped">
@@ -80,6 +88,7 @@
                                     <th>Nama Pegawai</th>
                                     <th>jabatan</th>
                                     <th>Bagian</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +101,9 @@
                                         <td>{{ $data->nama_pegawai }}</td>
                                         <td>{{ $data->jabatan->jabatan }}</td>
                                         <td>{{ $data->bagian->bagian }}</td>
+                                        <td>
+                                            <a href="{{ route('manageuser.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

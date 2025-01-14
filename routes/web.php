@@ -79,7 +79,7 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
-Route::resource('/manageuser', UserController::class);
+Route::resource('manageuser', UserController::class);
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');

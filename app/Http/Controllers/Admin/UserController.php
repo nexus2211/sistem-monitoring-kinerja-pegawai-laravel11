@@ -17,8 +17,6 @@ class UserController extends Controller
         $jabatanFilter = $request->input('jabatan');
         $bagianFilter = $request->input('bagian');
         $roleFilter = $request->input('roleInputs');
-
-
         
 
         $dataUser = pegawai::with(['user','jabatan','bagian'])
@@ -57,11 +55,19 @@ class UserController extends Controller
         $jabatan = jabatan::get();
         $bagian = bagian::get();
 
-        
-
-
 
         
         return view('auth.manageAuth.user', compact('dataUser','jabatan','bagian','uniqueTypes'));
+    }
+
+    public function edit($id){
+
+        $pegawai = Pegawai::with('user')->find($id);
+
+        return view('auth.manageAuth.edit', compact('pegawai'));
+    }
+
+    public function update(Request $request, string $id){
+
     }
 }
