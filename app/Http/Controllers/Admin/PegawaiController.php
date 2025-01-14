@@ -226,7 +226,6 @@ class PegawaiController extends Controller
             'nama_pegawai' => 'required|min:3|max:20',
             'foto' => 'image|mimes:jpg,jpeg,png',
             
-            
         ],[
             'nip.required'=>'NIP Wajib Diisi',
             'nama_pegawai.required'=>'Nama Pegawai Wajib Diisi',

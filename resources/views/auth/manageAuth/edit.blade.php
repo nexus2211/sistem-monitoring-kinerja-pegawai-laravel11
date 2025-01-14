@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                     @endif
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('manageuser.update', $pegawai->id) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="row">

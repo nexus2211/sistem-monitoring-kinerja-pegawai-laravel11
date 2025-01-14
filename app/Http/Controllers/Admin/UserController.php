@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\bagian;
 use App\Models\jabatan;
 use App\Models\pegawai;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -69,5 +70,32 @@ class UserController extends Controller
 
     public function update(Request $request, string $id){
 
+        $pegawai = Pegawai::with('user')->find($id);
+
+        $validatedData = $request->validate([
+            'email' => 'required|email|unique:users,email,' . $pegawai->user->id,
+            'passNew' => 'nullable|min:8',
+            
+        ],[
+            'email.required'=>'Email Wajib Diisi',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input maximal memiliki 25 karakter',
+        ]);
+
+        $tipeRole = $request->input('roleInputs');
+        
+
+        // Update email dan tipe role pengguna
+        $pegawai->user->email = $validatedData['email'];
+        $pegawai->user->type = $tipeRole;
+
+        // Jika password diisi, hash dan simpan
+        if ($request->filled('passNew')) {
+            $pegawai->user->password = Hash::make($validatedData['passNew']);
+        }
+
+        $pegawai->user->save();
+
+        return redirect()->route('manageuser.index');
     }
 }
