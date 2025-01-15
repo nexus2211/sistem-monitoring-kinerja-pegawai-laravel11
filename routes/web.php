@@ -80,6 +80,7 @@ Route::get('/rekapdata', function () {
 })->name('rekapdata');
 
 Route::resource('manageuser', UserController::class);
+// Route::delete('/manageuser/{id}',[UserController::class, 'UserDelete'])->name('manageuser.UserDelete');
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');

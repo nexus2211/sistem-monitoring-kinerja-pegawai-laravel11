@@ -71,7 +71,7 @@
 
                 <div class="row">
                     <div class="btn-group col-sm-4" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-success mr-2"><i class="fa fas fa-plus"></i> Tambah Data</button>
+                        <a href="{{ route('manageuser.create') }}" class="btn btn-outline-success mr-2"><i class="fa fas fa-plus"></i> Tambah Data</a>
                         <button type="button" class="btn btn-outline-info"><i class="fa fas fa-print"></i> Download Report</button>
                     </div>
                 </div>
@@ -92,31 +92,59 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataUser as $no=>$data)    
-                                    <tr>
-                                        <td class="text-center">{{ $no+1 }}</td>
-                                        <td>{{ $data->user->email }}</td>
-                                        <td>{{ $data->user->type }}</td>
-                                        <td>{{ $data->nip }}</td>
-                                        <td>{{ $data->nama_pegawai }}</td>
-                                        <td>{{ $data->jabatan->jabatan }}</td>
-                                        <td>{{ $data->bagian->bagian }}</td>
-                                        <td>
-                                            <a href="{{ route('manageuser.edit', $data->id) }}" class="btn btn-warning">Edit</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @foreach ($dataUser as $no=>$data)                   
+                                <tr>
+                                    <td class="text-center">{{ $no+1 }}</td>
+                                    <td>{{ $data->user->email }}</td>
+                                    <td>{{ $data->user->type }}</td>
+                                    <td>{{ $data->nip }}</td>
+                                    <td>{{ $data->nama_pegawai }}</td>
+                                    <td>{{ $data->jabatan->jabatan }}</td>
+                                    <td>{{ $data->bagian->bagian }}</td>
+                                    <td>
+                                        <a href="{{ route('manageuser.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                                    </td>
+                                </tr>                                  
+                                @endforeach      
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-                <div>
-                    <div class="d-flex justify-content-end mt-2">
-                        {{ $dataUser->links() }}
-                    </div>
+    
+                <div class="d-flex justify-content-end mt-2">
+                    {{ $dataUser->links() }}
                 </div>
-
+                
+                <h6 class="mt-4">User Yang Tidak Terhubung Ke Pegawai : </h6>
+                    <div class="table-responsive mt-2">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach ($usersWithoutPegawai as $no=>$user)
+                                        <tr>
+                                            <td class="text-center">{{ $no+1 }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->type }}</td>
+                                            <td>
+                                                <form action="{{ route('manageuser.destroy', $user->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-sm btn-danger">Hapus</button>
+                                                  </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tr>                                      
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </div>
     </div>
