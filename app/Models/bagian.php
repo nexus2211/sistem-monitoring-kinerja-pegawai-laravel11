@@ -16,4 +16,9 @@ class bagian extends Model
     {
         return $this->hasMany(Pegawai::class);
     }
+
+    public function sop(): HasMany
+    {
+        return $this->hasMany(Sop::class);
+    }
 }

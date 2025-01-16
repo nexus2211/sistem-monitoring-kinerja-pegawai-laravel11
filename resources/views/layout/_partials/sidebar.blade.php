@@ -22,6 +22,8 @@
             </ul>
           </li>
 
+          <li class="{{ Request::routeIs('sop.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sop.index') }}"><i class="fa far fa-file"></i> <span>SOP Pegawai</span></a></li>
+
           <li class="{{ Request::routeIs('rekapdata','detailAttendances','listAttendances','detailAttendancesMonth') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rekapdata') }}"><i class="fa far fa-table"></i> <span>Rekap Data</span></a></li>
 
           <li class="menu-header">Attendances</li>

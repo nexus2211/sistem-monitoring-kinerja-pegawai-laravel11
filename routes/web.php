@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AttendancesController;
-use App\Http\Controllers\Admin\BarcodeController;
-use App\Http\Controllers\auth\AuthController;
-use App\Http\Controllers\Admin\PegawaiController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SopController;
+use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\BarcodeController;
+use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\Admin\AttendancesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,14 +80,12 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
-Route::get('/sop', function () {
-    return view('sop.sop');
-});
 
 Route::resource('manageuser', UserController::class);
-// Route::delete('/manageuser/{id}',[UserController::class, 'UserDelete'])->name('manageuser.UserDelete');
+Route::resource('sop', SopController::class);
+Route::get('/sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
 Route::get('/downloadAll-qrcode', [BarcodeController::class ,'downloadAll'])->name('barcode.downloadAll');
-// Route::get('/pegawai', [PegawaiController::class, 'PegawaiIndex'])->name('pegawai');
+

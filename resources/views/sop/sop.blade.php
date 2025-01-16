@@ -5,53 +5,67 @@
 @endpush
 
 @section('konten-header')
-    <div class="section-header">
-        <h1>SOP Pegawai</h1>
-    </div>
+<div class="section-header">
+    <h1>SOP Pegawai</h1>
+</div>
 @endsection
 
 @section('konten-main')
-    <div>
-        <div class="card card-primary">
-            <div class="card-header"><h4>SOP Form</h4></div>
-            <div class="card-body text-start">
-                <div class="container">
-                    <form action="#" method="post">
-                        <div class="form-group row">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="email">Title SOP</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="text" name="titleSop" class="form-control"> 
-                            </div>        
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="bagianSop">Untuk Bagian :</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="text" name="bagianSop" class="form-control"> 
-                            </div>        
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="contentSop">Content SOP</label>
-                            <div class="col-sm-12 col-md-7">
-                                {{-- <textarea name="contentSop" id="summernote" cols="65" rows="10"></textarea>  --}}
-                                <textarea class="summernote"></textarea>
-                            </div>        
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="email"></label>
-                            <div class="col-sm-12 col-md-7">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>        
-                        </div>
-                    </form>
-                </div>
+<div>
+    <div class="card card-primary">
+        <div class="card-header">
+            <h4>List SOP</h4>
+            <div class="card-header-action">
+                <a href="{{ route('sop.create') }}" class="btn btn-success"><i class="fa fas fa-plus"></i> Tambah data</a>
             </div>
         </div>
+        
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                  <thead>
+                    <tr>
+                      <th class="text-center">
+                        #
+                      </th>
+                      <th>Title Sop</th>
+                      <th>Deskripsi</th>
+                      <th>Bagian</th>
+                      <th>Content</th>
+                      <th style="width: 150px;">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($sop as $no=>$data)
+                      <tr>
+                            <td class="text-center">{{ $no+1 }}</td>
+                            <td>{{ $data->title }}</td>
+                            <td>{{ $data->desc }}</td>
+                            <td>{{ $data->bagian->bagian }}</td>
+                            <td><a href="{{ route('sop.pdf', $data->id) }}" class="btn btn-danger btn-sm"><i class="fa fas fa-file-pdf"></i> Lihat PDF</a></td>
+
+                            <td class="d-flex align-items-start" style="width: 50px;">
+                              <a href="{{ route('sop.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2">Edit</a>
+                              <form action="{{ route('sop.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                              </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+        </div>
     </div>
+</div>
+    
 @endsection
 
 @push('scripts')
+
+<script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
 
 @endpush
