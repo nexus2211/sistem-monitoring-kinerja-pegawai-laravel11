@@ -3,7 +3,7 @@
 
 @push('style')
   
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+  {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" /> --}}
 
 @endpush
 
@@ -22,10 +22,10 @@
           </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-striped" id="table-2">
+                <table class="table table-striped" id="table-1">
                   <thead>
                     <tr>
-                     
+                      <th class="text-center">#</th>
                       <th>Jabatan</th>
                       <th>Deskripsi</th>
                       <th>Aksi</th>
@@ -36,7 +36,7 @@
 
                     @foreach($jabatan as $no=>$data)
                     <tr>
-                        
+                        <td>{{ $no+1 }}</td>
                         <td>{{ $data->jabatan }}</td>
                         <td>{{ $data->deskripsi }}</td>
                         <td class="d-flex align-items-center" style="width: 50px;">
@@ -81,16 +81,16 @@
 
 @push('scripts')
 
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+{{-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> --}}
 
+<script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
 
-
-<script>
+{{-- <script>
 
   $(document).ready( function () {
     $('#table-2').DataTable();
   } );
-</script>
+</script> --}}
 
 
 

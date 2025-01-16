@@ -5,7 +5,7 @@
 
 
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"> --}}
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" /> --}}
 
 @endpush
 @section('konten-header')
@@ -23,10 +23,10 @@
           </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-striped" id="table-2">
+                <table class="table table-striped" id="table-1">
                   <thead>
                     <tr>
-                     
+                      <th class="text-center">#</th>
                       <th>Shift</th>
                       <th>Waktu mulai</th>
                       <th>Waktu Akhir</th>
@@ -38,7 +38,7 @@
 
                     @foreach($shift as $no=>$data)
                     <tr>
-                        
+                        <td>{{ $no+1 }}</td>
                         <td>{{ $data->shift }}</td>
                         <td>{{ $data->waktu_mulai }}</td>
                         <td>{{ $data->waktu_akhir }}</td>
@@ -87,16 +87,16 @@
 @push('scripts')
 
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> --}}
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+{{-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> --}}
 
+<script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
 
-
-<script>
+{{-- <script>
 
   $(document).ready( function () {
     $('#table-2').DataTable();
   } );
-</script>
+</script> --}}
    
 
 

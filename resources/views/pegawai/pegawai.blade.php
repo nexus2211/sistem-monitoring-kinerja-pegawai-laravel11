@@ -3,7 +3,7 @@
 
 @push('style')
   
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+  {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" /> --}}
 
 @endpush
 
@@ -80,14 +80,15 @@
 
 @push('scripts')
 
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-{{-- <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script> --}}
+{{-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> --}}
 
-<script>
+  <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+
+{{-- <script>
 
   $(document).ready( function () {
     $('#table-1').DataTable();
   } );
-</script>
+</script> --}}
 
 @endpush

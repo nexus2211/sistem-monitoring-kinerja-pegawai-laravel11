@@ -79,6 +79,10 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
+Route::get('/sop', function () {
+    return view('sop.sop');
+});
+
 Route::resource('manageuser', UserController::class);
 // Route::delete('/manageuser/{id}',[UserController::class, 'UserDelete'])->name('manageuser.UserDelete');
 
