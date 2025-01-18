@@ -15,7 +15,7 @@
 
 <div class="row justify-content-center mt-3">
     <div class="col-12">
-        <div class="card">
+        <div class="card card-primary">
             <div class="card-header">
                 <h4>Form Tambah Tugas</h4>
             </div>
@@ -29,8 +29,7 @@
                             </ul>
                         </div>
                     @endif
-                <form action="#" method="post" enctype="multipart/form-data">
-                    
+                <form action="{{ route('task.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -54,9 +53,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <select class="form-control select2" name="bagianInput">
                                         <option selected disabled>Pilih Bagian..</option>
-                                        {{-- @foreach($bagian as $data_bagian)
+                                        @foreach($bagian as $data_bagian)
                                             <option value="{{ $data_bagian->id }}">{{ $data_bagian->bagian }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </div>        
                             </div>
@@ -76,38 +75,53 @@
                                 <div class="col-sm-12 col-md-4">
                                     <select class="form-control select2" name="sopInput">
                                         <option selected disabled>Pilih SOP..</option>
-                                        {{-- @foreach($bagian as $data_bagian)
-                                            <option value="{{ $data_bagian->id }}">{{ $data_bagian->bagian }}</option>
-                                        @endforeach --}}
+                                        @foreach($sop as $data_sop)
+                                            <option value="{{ $data_sop->id }}">{{ $data_sop->title }}</option>
+                                        @endforeach
                                     </select>
                                 </div>        
                             </div>
-   
+
+                                <div class="d-flex justify-content-end ">
+                                   <button class="btn btn-primary">Submit</button>
+                                </div>        
+
                             </div>
                         </div>
                     </div>                  
-                    <div class="d-flex justify-content-end d-flex">
-
-                        <button class="btn btn-primary">Submit</button>
-                    </div>
+                    
                 </form>
             </div>
 
-            <div class="card">
+            <div class="card card-primary">
                 <div class="card-header">
                     <h4>Table Tugas</h4>
                     <div class="card-header-action">
-                        <select class="form-control" name="bagianInput2">
-                            <option selected disabled>Pilih Bagian..</option>
-                            {{-- @foreach($bagian as $data_bagian)
-                                <option value="{{ $data_bagian->id }}">{{ $data_bagian->bagian }}</option>
-                            @endforeach --}}
-                        </select>
+                        
                     </div>
                 </div>
                 <div class="card-body ">
-                    
-                    <div class="table-responsive">
+                    <form action="#" method="get">
+                        <div class="form-group row d-flex justify-content-end">
+                            <div class="col-sm-3">
+                                <div class="input-group" >
+                                    <select class="form-control" name="bagianInput2">
+                                        <option selected disabled>Pilih Bagian..</option>
+                                        @foreach($bagian as $data_bagian)
+                                            <option value="{{ $data_bagian->id }}">{{ $data_bagian->bagian }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" >
+                                <button class="btn btn-sm btn-info form-control" name="btnfilter"><i class="fa fas fa-filter"></i> Filter</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive mt-2">
+                        <form action="{{ route('task.pegawai') }}" method="post" enctype="multipart/form-data">
+                            @csrf
                         <table class="table table-striped">
                             <tr>
                                 <th>
@@ -116,29 +130,49 @@
                                       <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                     </div>
                                   </th>
-                                  <th>Task Name</th>
-                                  <th>Progress</th>
-                                  <th>Members</th>
-                                  <th>Due Date</th>
-                                  <th>Status</th>
-                                  <th>Action</th>
+                                  <th>Nama Tugas</th>
+                                  <th>Keterangan</th>
+                                  <th>SOP</th>
+                                  <th>Bagian</th>
+                                  <th>Waktu Mulai</th>
+                                  <th>Deadline</th>
                             </tr>
-                            <tr>
-                                <td class="p-0 text-center">
-                                    <div class="custom-checkbox custom-control">
-                                      <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                                      <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                    </div>
-                                  </td>
-                                  <td>Create a mobile app</td>
-                                  <td class="align-middle">
-                                    <div class="progress" data-height="4" data-toggle="tooltip" title="100%">
-                                      <div class="progress-bar bg-success" data-width="100"></div>
-                                    </div>
-                                  </td>
-                            </tr>
+                            @foreach ($task as $data)  
+                                <tr>
+                                    <td class="p-0 text-center">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{ $data->id }}" value="{{ $data->id }}" name="tasks[]">
+                                            <label for="checkbox-{{ $data->id }}" class="custom-control-label">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td>{{ $data->tugas }}</td>
+                                    <td>{{ $data->desc }}</td>
+                                    <td><div class="badge badge-danger">{{ $data->sop->title }}</div></td>
+                                    <td><div class="badge badge-info">{{ $data->bagian->bagian }}</div></td>
+                                    <td>{{ $data->waktu_mulai }}</td>
+                                    <td>{{ $data->waktu_deadline }}</td>
+                                </tr>
+                            @endforeach
                         </table>
                     </div>
+
+                    
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="pegawaiInput" class="form-label text-dark">Pilih Pegawai : </label>
+                                <div class="input-group" >
+                                    <select class="form-control select2" name="pegawaiInput[]" multiple="multiple" tabindex="-1" aria-hidden="true">
+                                        @foreach($pegawai as $data_pegawai)
+                                            <option value="{{ $data_pegawai->id }}">{{ $data_pegawai->nama_pegawai }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="d-flex justify-content-end ">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>

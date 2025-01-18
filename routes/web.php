@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SopController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\Admin\PegawaiController;
@@ -80,14 +81,17 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
-Route::get('/tugas', function () {
-    return view('task.tambah');
-});
+// Route::get('/tugas', function () {
+//     return view('task.tambah');
+// });
 
 
 Route::resource('manageuser', UserController::class);
 Route::resource('sop', SopController::class);
 Route::get('/sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
+
+Route::resource('task', TaskController::class);
+Route::post('/task/center', [TaskController::class, 'storePegawai'])->name('task.pegawai');
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');

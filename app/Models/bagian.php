@@ -21,4 +21,9 @@ class bagian extends Model
     {
         return $this->hasMany(Sop::class);
     }
+
+    public function task()
+    {
+        return $this->hasMany(task::class);
+    }
 }
