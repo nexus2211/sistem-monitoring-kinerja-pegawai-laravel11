@@ -42,7 +42,7 @@
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="bagianSop">Untuk Bagian :</label>
                             <div class="col-sm-12 col-md-4">
                                 {{-- <input type="text" name="bagianSop" class="form-control">  --}}
-                                <select class="form-control" name="bagianSop" required>
+                                <select class="form-control select2" name="bagianSop" required>
                                     <option selected disabled>Pilih Bagian..</option>
                                     @foreach($bagian as $data_bagian)
                                         <option value="{{ $data_bagian->id }}" {{ $data_bagian->id == $sopContent->bagian_id ? 'selected' : '' }}>{{ $data_bagian->bagian }}</option>

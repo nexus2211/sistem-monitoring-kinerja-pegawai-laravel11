@@ -69,7 +69,7 @@
                     @csrf
                     <label for="">Pegawai</label>
                         <div class="input-group mb-3">
-                        <select class="form-control" name="pegawai" required>
+                        <select class="form-control select2" name="pegawai" required>
                             <option selected disabled>Pilih Pegawai.</option>
                             @foreach ($pegawai as $data)
                             <option value="{{ $data->id }}">{{ $data->nama_pegawai }}</option>

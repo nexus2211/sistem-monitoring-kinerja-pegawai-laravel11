@@ -68,7 +68,7 @@
                             </div>
                             <label for="">Jabatan</label>
                             <div class="input-group mb-3">
-                                <select class="form-control" name="jabatan" required>
+                                <select class="form-control select2" name="jabatan" required>
                                     <option selected disabled>Pilih Jabatan..</option>
                                     @foreach($jabatan as $data_jabatan)
                                         <option value="{{ $data_jabatan->id }}"  {{ $data_jabatan->id == $pegawai->jabatan_id ? 'selected' : '' }}>{{ $data_jabatan->jabatan }}</option>
@@ -78,7 +78,7 @@
 
                             <label for="">Bagian</label>
                             <div class="input-group mb-3">
-                                <select class="form-control" name="bagian" required>
+                                <select class="form-control select2" name="bagian" required>
                                     <option selected disabled>Pilih Bagian..</option>
                                     @foreach($bagian as $data_bagian)
                                         <option value="{{ $data_bagian->id }}" {{ $data_bagian->id == $pegawai->bagian_id ? 'selected' : '' }}>{{ $data_bagian->bagian }}</option>
@@ -88,7 +88,7 @@
                                 
                             <label for="">Shift</label>
                             <div>
-                            <select class="form-control" name="shift" required>
+                            <select class="form-control select2" name="shift" required>
                                 <option selected disabled>Pilih Shift..</option>
                                 @foreach($shift as $data_shift)
                                     <option value="{{ $data_shift->id }}" {{ $data_shift->id == $pegawai->shift_id ? 'selected' : '' }}>{{ $data_shift->shift }}</option>

@@ -16,6 +16,12 @@
   {{-- Jqeury --}}
   {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
   <script src="{{ asset('/library/jquery/dist/jquery.min.js') }}"></script>
+  
+  
+  {{-- select 2 --}}
+  <link rel="stylesheet" href="{{ asset('/library/select2/dist/css/select2.min.css') }}">
+  <script src="{{ asset('/library/select2/dist/js/select2.full.min.js') }}"></script>
+
 
   <!-- include summernote css/js -->
   <link rel="stylesheet" href="{{ asset('/library/summernote/dist/summernote-bs4.css') }}">
