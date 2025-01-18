@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Models\task as ModelsTask;
-use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class pegawai extends Model
 {
@@ -19,6 +19,11 @@ class pegawai extends Model
     {
         // Mengonversi tinyInteger menjadi string gender
         return $value == 1 ? 'Laki-laki' : ($value == 2 ? 'Perempuan' : 'Tidak Diketahui');
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'pegawai_task')->withPivot('status');
     }
 
     public function jabatan(): BelongsTo
@@ -46,9 +51,7 @@ class pegawai extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function task(){
-        return $this->belongsToMany(task::class, 'pegawai_task');
-    }
+    
 
 
 }

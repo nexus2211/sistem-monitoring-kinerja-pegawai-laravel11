@@ -70,8 +70,8 @@ class PegawaiController extends Controller
     public function PegawaiStore(Request $request){
 
         $request->validate([
-            'nip'  => 'required|min:3|max:20',
-            'nama_pegawai' => 'required|min:3|max:20',
+            'nip'  => 'required|min:3|max:50',
+            'nama_pegawai' => 'required|min:3|max:50',
             'foto' => 'image|mimes:jpg,jpeg,png',
             'jabatan' => 'required',
             'bagian' => 'required',
@@ -82,7 +82,7 @@ class PegawaiController extends Controller
             'nip.required'=>'NIP Wajib Diisi',
             'nama_pegawai.required'=>'Nama Pegawai Wajib Diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         // Tanggal Lahir
@@ -138,13 +138,13 @@ class PegawaiController extends Controller
     public function JabatanStore(Request $request)
     {
         $request->validate([
-            'jabatan'  => 'required|min:3|max:20',
-            'deskripsi' => 'required|min:3|max:20',
+            'jabatan'  => 'required|min:3|max:50',
+            'deskripsi' => 'required|min:3|max:50',
         ],[
             'jabatan.required'=>'Jabatan wajib diisi',
             'deskripsi.required'=>'Deskripsi wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [
@@ -162,13 +162,13 @@ class PegawaiController extends Controller
     public function BagianStore(Request $request)
     {
         $request->validate([
-            'bagian'  => 'required|min:3|max:20',
-            'deskripsi' => 'required|min:3|max:20',
+            'bagian'  => 'required|min:3|max:50',
+            'deskripsi' => 'required|min:3|max:50',
         ],[
             'bagian.required'=>'Task wajib diisi',
             'deskripsi.required'=>'Task wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [
@@ -186,12 +186,12 @@ class PegawaiController extends Controller
     public function ShiftStore(Request $request)
     {
         $request->validate([
-            'shift'  => 'required|min:3|max:20',
+            'shift'  => 'required|min:3|max:50',
             
         ],[
             'shift.required'=>'Task wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [
@@ -222,15 +222,15 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::find($id);
 
         $request->validate([
-            'nip'  => 'required|min:3|max:20',
-            'nama_pegawai' => 'required|min:3|max:20',
+            'nip'  => 'required|min:3|max:50',
+            'nama_pegawai' => 'required|min:3|max:50',
             'foto' => 'image|mimes:jpg,jpeg,png',
             
         ],[
             'nip.required'=>'NIP Wajib Diisi',
             'nama_pegawai.required'=>'Nama Pegawai Wajib Diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $inputTgl = $request->input('tgl_lahir');
@@ -276,13 +276,13 @@ class PegawaiController extends Controller
     public function JabatanUpdate(Request $request, string $id){
         $jabatan = Jabatan::find($id);
         $request->validate([
-            'jabatan'  => 'required|min:3|max:20',
-            'deskripsi' => 'required|min:3|max:20',
+            'jabatan'  => 'required|min:3|max:50',
+            'deskripsi' => 'required|min:3|max:50',
         ],[
             'jabatan.required'=>'Jabatan wajib diisi',
             'deskripsi.required'=>'Deskripsi wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [
@@ -306,13 +306,13 @@ class PegawaiController extends Controller
     public function BagianUpdate(Request $request, string $id){
         $bagian = Bagian::find($id);
         $request->validate([
-            'bagian'  => 'required|min:3|max:20',
-            'deskripsi' => 'required|min:3|max:20',
+            'bagian'  => 'required|min:3|max:50',
+            'deskripsi' => 'required|min:3|max:50',
         ],[
             'bagian.required'=>'Task wajib diisi',
             'deskripsi.required'=>'Task wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [
@@ -337,12 +337,12 @@ class PegawaiController extends Controller
     {
         $shift = Shift::find($id);
         $request->validate([
-            'shift'  => 'required|min:3|max:20',
+            'shift'  => 'required|min:3|max:50',
             
         ],[
             'shift.required'=>'Task wajib diisi',
             'min'=>'Input minimal memiliki 3 karakter',
-            'max'=>'Input maximal memiliki 25 karakter',
+            'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
         $data = [

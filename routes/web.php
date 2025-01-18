@@ -91,7 +91,7 @@ Route::resource('sop', SopController::class);
 Route::get('/sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::resource('task', TaskController::class);
-Route::post('/task/center', [TaskController::class, 'storePegawai'])->name('task.pegawai');
+Route::post('/task/create', [TaskController::class, 'storePegawai'])->name('task.pegawai');
 
 Route::resource('barcode', BarcodeController::class);
 Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');

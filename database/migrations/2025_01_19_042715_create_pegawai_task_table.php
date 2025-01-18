@@ -13,13 +13,9 @@ return new class extends Migration
     {
         Schema::create('pegawai_task', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pegawai_id')->nullable()->constrained(
-                table: 'pegawai'
-            );
-            $table->foreignId('task_id')->nullable()->constrained(
-                table: 'task'
-            );
-            $table->string('status');
+            $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
+            $table->foreignId('task_id')->constrained('task')->onDelete('cascade');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

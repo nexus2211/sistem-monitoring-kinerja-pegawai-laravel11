@@ -74,6 +74,32 @@ class TaskController extends Controller
     }
 
     public function storePegawai(Request $request){
-        dd($request->all());
+        // dd($request->all());
+
+        $request->validate([
+            'tasks'  => 'required',
+            'pegawaiInput'  => 'required',
+        
+        ],[
+            'tasks.required'=>'Pilih Tugas Terlebih Dahulu',
+            'pegawaiInput.required'=>'Pilih Pegawai Yang Ingin Di Beri Tugas',
+            
+        ]);
+
+        
+        $pegawaiIdd = $request->pegawaiInput;
+        $tugas = $request->tasks;
+
+        $pegawaiId = pegawai::with('jabatan','bagian','shift')->findMany($request->pegawaiInput);
+        
+        // dd($pegawaiId);
+        // $pegawaiId->tasks()->sync($tugas); // Pastikan menggunakan 'tasks()'
+        foreach ($pegawaiId as $pegawai) {
+            $pegawai->tasks()->sync($tugas);
+        }
+        
+        // dd($pegawaiId);
+
+        return redirect()->route('task.create');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class task extends Model
 {
@@ -22,7 +23,18 @@ class task extends Model
         return $this->belongsTo(Bagian::class);
     }
 
-    public function pegawai(){
-        return $this->belongsToMany(pegawai::class, 'pegawai_task');
+    public function pegawai()
+    {
+        return $this->belongsToMany(Pegawai::class, 'pegawai_task')->withPivot('status');
     }
+
+    // $table->foreignId('pegawai_id')->constrained(
+    //     table: 'pegawai',
+    //     indexName: 'pegawai_task_pegawai_id'
+    // );
+    // $table->foreignId('task_id')->constrained(
+    //     table: 'task',
+    //     indexName: 'pegawai_task_task_id'
+    // );
+    // $table->string('status');
 }
