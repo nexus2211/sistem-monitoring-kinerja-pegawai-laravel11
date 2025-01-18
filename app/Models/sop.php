@@ -16,4 +16,9 @@ class sop extends Model
     {
         return $this->belongsTo(Bagian::class);
     }
+
+    public function task()
+    {
+        return $this->hasMany(task::class);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\task as ModelsTask;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,4 +45,10 @@ class pegawai extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function task(){
+        return $this->belongsToMany(task::class, 'pegawai_task');
+    }
+
+
 }

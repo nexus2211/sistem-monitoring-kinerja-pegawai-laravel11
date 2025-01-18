@@ -80,6 +80,10 @@ Route::get('/rekapdata', function () {
     return view('layout.rekapData');
 })->name('rekapdata');
 
+Route::get('/tugas', function () {
+    return view('task.tambah');
+});
+
 
 Route::resource('manageuser', UserController::class);
 Route::resource('sop', SopController::class);

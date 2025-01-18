@@ -16,12 +16,21 @@
   {{-- Jqeury --}}
   {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
   <script src="{{ asset('/library/jquery/dist/jquery.min.js') }}"></script>
-  
+  <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   
   {{-- select 2 --}}
   <link rel="stylesheet" href="{{ asset('/library/select2/dist/css/select2.min.css') }}">
   <script src="{{ asset('/library/select2/dist/js/select2.full.min.js') }}"></script>
 
+  {{-- time picker --}}
+  <link rel="stylesheet" href="{{ asset('/library/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <script src="{{ asset('/library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  
+
+  <link rel="stylesheet" href="{{ asset('/library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+  <script src="{{ asset('/library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+ 
 
   <!-- include summernote css/js -->
   <link rel="stylesheet" href="{{ asset('/library/summernote/dist/summernote-bs4.css') }}">
