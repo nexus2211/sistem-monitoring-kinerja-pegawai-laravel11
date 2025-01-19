@@ -71,7 +71,7 @@
 
                 <div class="row">
                     <div class="btn-group col-sm-4" role="group" aria-label="Basic example">
-                        <a href="{{ route('manageuser.create') }}" class="btn btn-outline-success mr-2"><i class="fa fas fa-plus"></i> Tambah Data</a>
+                        <a href="{{ route('manageuser.create') }}" class="btn btn-success mr-2"><i class="fa fas fa-plus"></i> Tambah Data</a>
                         <button type="button" class="btn btn-outline-info"><i class="fa fas fa-print"></i> Download Report</button>
                     </div>
                 </div>

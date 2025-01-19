@@ -2,18 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\bagian;
-use App\Models\pegawai;
 use App\Models\sop;
 use App\Models\task;
+use App\Models\bagian;
+use App\Models\jabatan;
+use App\Models\pegawai;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        
+        $bagianFilter = $request->input('bagian');
+        $jabatanFilter = $request->input('jabatan');
+        $search = $request->input('cari_pegawai');
+
+        $bagian = bagian::get();
+        $jabatan = jabatan::get();
+
+        $pegawai = pegawai::with('tasks','bagian')
+        ->when($search, function($query, $search){
+            return $query->where('nama_pegawai','like',"%{$search}%")
+            ->orWhere('nip','like',"%{$search}%");
+        })->when($bagianFilter, function($query, $bagianFilter){
+            return $query->where('bagian_id', $bagianFilter);
+        })->when($jabatanFilter, function($query, $jabatanFilter){
+            return $query->where('jabatan_id', $jabatanFilter);
+        })->get();
+        // dd($pegawai);
+
+        return view('task.task', compact('pegawai','bagian','jabatan'));
     }
 
     public function create(Request $request){
