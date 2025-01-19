@@ -43,15 +43,16 @@
                             <td>{{ $data->title }}</td>
                             <td>{{ $data->desc }}</td>
                             <td>{{ $data->bagian->bagian }}</td>
-                            <td><a href="{{ route('sop.pdf', $data->id) }}" class="btn btn-danger btn-sm"><i class="fa fas fa-file-pdf"></i> Lihat PDF</a></td>
+                            <td><a href="{{ route('sop.pdf', $data->id) }}" class="btn btn-danger btn-sm" target="_blank"><i class="fa fas fa-file-pdf"></i> Lihat PDF</a></td>
 
-                            <td class="d-flex align-items-start" style="width: 50px;">
+                            <td >
+                              <a href="{{ route('sop.detail', $data->id) }}" class="btn btn-primary btn-sm me-2 mr-2">Detail</a>
                               <a href="{{ route('sop.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2">Edit</a>
-                              <form action="{{ route('sop.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
+                              {{-- <form action="{{ route('sop.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-sm btn-danger">Hapus</button>
-                              </form>
+                              </form> --}}
                             </td>
                         </tr>
                     @endforeach

@@ -97,6 +97,16 @@ class SopController extends Controller
         return redirect()->route('sop.index');
     }
 
+    public function detailSop($id){
+        
+        $sop = sop::find($id);
+        $sopValue = $sop->value('content');
+        $sopTitle = $sop->value('title');
+
+        return view('sop.detail', compact('sop'));
+        
+    }
+
     public function viewpdfSop($id){
         $mpdf = new \Mpdf\Mpdf();
         $sopContent = sop::find($id);

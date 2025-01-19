@@ -88,6 +88,7 @@ Route::get('/rekapdata', function () {
 
 Route::resource('manageuser', UserController::class);
 Route::resource('sop', SopController::class);
+Route::get('/sop/detail/{id}', [SopController::class, 'detailSop'])->name('sop.detail');
 Route::get('/sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::resource('task', TaskController::class);

@@ -41,6 +41,8 @@ class TaskController extends Controller
         $sop = sop::with('bagian')->get();
 
         $bagianData = $request->bagianInput2;
+        
+        
 
         $task = task::with('bagian','sop')
         ->whereHas('bagian', function($query) use ($bagianData) {
@@ -114,7 +116,9 @@ class TaskController extends Controller
         // dd($pegawaiId);
         // $pegawaiId->tasks()->sync($tugas); // Pastikan menggunakan 'tasks()'
         foreach ($pegawaiId as $pegawai) {
-            $pegawai->tasks()->sync($tugas);
+            
+            // $pegawai->tasks()->attach($tugas);
+            $pegawai->tasks()->syncWithoutDetaching($tugas);
         }
         
         // dd($pegawaiId);

@@ -84,7 +84,7 @@
                                             <td><div class="badge badge-warning">{{ $taskData->pivot->status }}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_mulai }}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_deadline }}</div></td>
-                                            <td><a href="" class="btn btn-success">Detail</a></td>
+                                            <td><a href="" class="btn btn-sm btn-primary">Detail</a></td>
                                         </tr>                                  
                                     @endforeach                  
                                 @endforeach

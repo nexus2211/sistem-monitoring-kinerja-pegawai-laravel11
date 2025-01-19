@@ -23,7 +23,7 @@
               <h4>Absensi Minggu Ini</h4>
               <div class="card-header-action">
                 <div>
-                  <form action="{{ route('export-absensi-minggu') }}" method="get">
+                  <form action="{{ route('export-absensi-minggu') }}" method="get" target="_blank">
                     <input type="hidden" name="start_date" value="{{ $weekInputPdf }}">
                     <button class="btn btn-outline-info"><i class="fa fas fa-print"></i> Cetak Laporan</button>
                   </form>

@@ -39,7 +39,7 @@
                         <td>{{ $no+1 }}</td>
                         <td>{{ $data->jabatan }}</td>
                         <td>{{ $data->deskripsi }}</td>
-                        <td class="d-flex align-items-center" style="width: 50px;">
+                        <td class="d-flex align-items-center">
                             <a href="{{ route('jabatan.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2 ">Edit</a>    
                             <form action="{{ route('jabatan.delete', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                               @csrf

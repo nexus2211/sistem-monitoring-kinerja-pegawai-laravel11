@@ -56,7 +56,7 @@
                         <td>{{ $data->bagian->bagian }}</td>
                         <td>{{ $data->shift->shift }}</td>
                         {{-- <td>{{ $data->foto }}</td> --}}
-                        <td class="d-flex align-items-start" style="width: 50px;">
+                        <td class="d-flex align-items-start">
                             <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2 ">Edit</a>
                             <form action="{{ route('pegawai.delete', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                               @csrf

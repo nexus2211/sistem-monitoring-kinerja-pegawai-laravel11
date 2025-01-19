@@ -42,7 +42,7 @@
                         <td>{{ $data->shift }}</td>
                         <td>{{ $data->waktu_mulai }}</td>
                         <td>{{ $data->waktu_akhir }}</td>
-                        <td class="d-flex align-items-center" style="width: 50px;">
+                        <td class="d-flex align-items-center">
                             <a href="{{ route('shift.edit', $data->id) }}" class="btn btn-warning btn-sm me-2 mr-2 ">Edit</a>    
                             <form action="{{ route('shift.delete', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                               @csrf
