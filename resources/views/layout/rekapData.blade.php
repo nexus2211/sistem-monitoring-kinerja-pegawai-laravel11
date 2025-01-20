@@ -27,7 +27,7 @@
                                 Absensi Hari Ini
                             </div>
                             <div class="card-cta">
-                                <a href="{{ route('listAttendances') }}"><h6>Lihat Data <i class="fas fa-chevron-right"></i></h6></a>
+                                <a href="{{ route('listAttendances') }}"><h6>Lihat Data <i class="fas fa-chevron-right mb-2"></i></h6></a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                                 Absensi Mingguan
                             </div>
                             <div class="card-cta">
-                                <a href="{{ route('detailAttendances') }}"><h6>Lihat Data <i class="fas fa-chevron-right"></i></h6></a>
+                                <a href="{{ route('detailAttendances') }}"><h6>Lihat Data <i class="fas fa-chevron-right mb-2"></i></h6></a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 Absensi Bulanan
                             </div>
                             <div class="card-cta">
-                                <a href="{{ route('detailAttendancesMonth') }}"><h6>Lihat Data <i class="fas fa-chevron-right"></i></h6></a>
+                                <a href="{{ route('detailAttendancesMonth') }}"><h6>Lihat Data <i class="fas fa-chevron-right mb-2"></i></h6></a>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                                 PDF Pegawai
                             </div>
                             <div class="card-cta">
-                                <a href="{{ route('export-pegawai') }}"><h6>Lihat PDF <i class="fas fa-chevron-right"></i></h6></a>
+                                <a href="{{ route('export-pegawai') }}"><h6>Lihat PDF <i class="fas fa-chevron-right mb-2"></i></h6></a>
                             </div>
                         </div>
                     </div>

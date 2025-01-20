@@ -73,15 +73,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pegawai as $no=>$data) 
-                                    @foreach ($data->tasks as $taskData)    
+                                @php
+                                    $no = 0;
+                                @endphp
+                                @foreach ($pegawai as $data) 
+                                    @foreach ($data->tasks as $taskData)   
                                         <tr>
-                                            <td class="text-center">{{ $no+1 }}</td>
+                                            <td class="text-center">{{ ++$no }}</td>
                                             <td>{{ $data->nip }}</td>
                                             <td>{{ $data->nama_pegawai }}</td>
                                             <td>{{ $data->bagian->bagian }}</td>
                                             <td>{{ $taskData->tugas }}</td>
-                                            <td><div class="badge badge-warning">{{ $taskData->pivot->status }}</div></td>
+                                            <td><div class="badge badge-warning">{{ $taskData->pivot->status === 'pending' ? 'On Progress' : $taskData->pivot->status}}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_mulai }}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_deadline }}</div></td>
                                             <td><a href="" class="btn btn-sm btn-primary">Detail</a></td>
@@ -91,6 +94,10 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-2">
+                    {{ $pegawai->links() }}
                 </div>
 
             </div>

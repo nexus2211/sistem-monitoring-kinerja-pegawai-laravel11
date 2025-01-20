@@ -52,7 +52,14 @@ class UserController extends Controller
             });
         })->paginate(5);
         
-        $uniqueTypes = pegawai::with('user')->get()->pluck('user.type')->unique();
+        // $uniqueTypes = pegawai::with('user')->get()->pluck('user.type')->unique();
+        $uniqueTypes = pegawai::with('user')
+            ->select('users.type')
+            ->join('users', 'pegawai.user_id', '=', 'users.id')
+            ->distinct()
+            ->groupBy('users.type')
+            ->paginate(5);
+
         $jabatan = jabatan::get();
         $bagian = bagian::get();
 
@@ -141,4 +148,6 @@ class UserController extends Controller
         User::where('id', $id)->delete();
         return redirect()->route('manageuser.index');
     }
+
+    
 }

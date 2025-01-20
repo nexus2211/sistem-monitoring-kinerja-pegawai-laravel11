@@ -9,14 +9,15 @@ use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\AttendancesController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/test', function () {
     return view('layout.app');
 });
 
+Route::get('/', [AuthController::class, 'dashboardAdmin'])->name('dashboard');
 
 Route::get('/register', [AuthController::class, 'registerView'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');

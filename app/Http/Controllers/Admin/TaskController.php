@@ -29,7 +29,7 @@ class TaskController extends Controller
             return $query->where('bagian_id', $bagianFilter);
         })->when($jabatanFilter, function($query, $jabatanFilter){
             return $query->where('jabatan_id', $jabatanFilter);
-        })->get();
+        })->paginate(10);
         // dd($pegawai);
 
         return view('task.task', compact('pegawai','bagian','jabatan'));
