@@ -13,10 +13,6 @@
 @endsection
 @section('konten-main')
 
-<div>
-    <a href="{{ back()->getTargetUrl() }}" class="btn btn-danger">Back</a>
-</div>
-
 <div class="row justify-content-center mt-3">
     <div class="col-12">
         <div class="card">
@@ -36,6 +32,10 @@
                 <form action="{{ route('pegawai.post') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+
+                        <img src="{{ asset('/assets/img/avatar/avatar-1.png') }}" alt="Default Avatar" class="img-thumbnail w-25 h-25" id="previewImage">
+
+                        <input type="file" name="foto" class="form-control mb-4" id="fotoInput">
                         <div class="col-md-6">
                             <label for="">Nomor Induk Pegawai</label>
                             <input type="text" name="nip" class="form-control mb-2">
@@ -52,8 +52,7 @@
                                 </select>
                               </div>
                             <label for="">Foto</label>
-                            <input type="file" name="foto" class="form-control mb-2">
-                            {{-- <input type="text" name="gender" class="form-control mb-2"> --}}
+                            
                         </div>
                         <div class="col-md-6">
                             <label for="">Tanggal Lahir</label>
@@ -98,9 +97,8 @@
                         </div>
                     </div>
                     
-                    
-                    <div class="d-flex justify-content-end">
-
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="{{ route('pegawai') }}" class="btn btn-danger mr-2">Back</a>
                         <button class="btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -114,26 +112,24 @@
 
 @push('scripts')
 
-{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
-
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 <script>
+    document.getElementById('fotoInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const previewImage = document.getElementById('previewImage');
 
-$('.datepicker').datepicker({
-    format: 'mm-dd-yyyy',
-    startDate: '-3d' 
-}); 
-
-</script>  --}}
-
-{{-- <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
-<script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script> --}}
-
-{{-- <script src="{{ asset('library/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
-<script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script> --}}
-
-{{-- <script src="{{ asset('assets/js/page/forms-advanced-forms.js') }}"></script> --}}
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result; // Set src ke hasil pembacaan file
+                previewImage.style.display = 'block'; // Tampilkan gambar
+            }
+            reader.readAsDataURL(file); // Membaca file sebagai URL data
+        } else {
+            previewImage.src = ''; // Reset src jika tidak ada file
+            previewImage.style.display = 'none'; // Sembunyikan gambar
+        }
+    });
+</script>
 
 @endpush
 

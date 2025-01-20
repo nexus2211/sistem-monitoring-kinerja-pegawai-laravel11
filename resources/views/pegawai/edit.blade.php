@@ -11,10 +11,6 @@
 @endsection
 @section('konten-main')
 
-<div>
-    <a href="{{ back()->getTargetUrl() }}" class="btn btn-danger">Back</a>
-</div>
-
 <div class="row justify-content-center mt-3">
     <div class="col-12">
         <div class="card">
@@ -37,10 +33,17 @@
                     <div>
                         <label for="foto">Foto</label>
                     </div>
-                        @isset($pegawai->foto)
-                            <img src="{{ asset(getenv('CUSTOM_NAME_LOCATION').'/'.$pegawai->foto) }}" alt="" class="img-thumbnail w-25 h-25">
-                        @endisset
-                    <input type="file" name="foto" class="form-control mb-4">
+                    @php
+                        $fotoPath = public_path(getenv('CUSTOM_NAME_LOCATION').'/'.$pegawai->foto);
+                    @endphp
+                        @if (isset($pegawai->foto) && !empty($pegawai->foto) && file_exists($fotoPath))
+                            <img src="{{ asset(getenv('CUSTOM_NAME_LOCATION').'/'.$pegawai->foto) }}" alt="" class="img-thumbnail w-25 h-25" id="previewImage">
+                        @else
+                            <img src="{{ asset('/assets/img/avatar/avatar-1.png') }}" alt="Default Avatar" class="img-thumbnail w-25 h-25" id="previewImage">   
+                        @endif
+                        
+                    <input type="file" name="foto" class="form-control mb-4" id="fotoInput">
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">Nomor Induk Pegawai</label>
@@ -100,8 +103,8 @@
                     </div>
                     
                     
-                    <div class="d-flex justify-content-end d-flex">
-
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="{{ route('pegawai') }}" class="btn btn-danger mr-2">Back</a>
                         <button class="btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -124,6 +127,24 @@ $('.datepicker').datepicker({
     format: 'mm-dd-yyyy',
     startDate: '-3d' 
 });  --}}
+<script>
+    document.getElementById('fotoInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const previewImage = document.getElementById('previewImage');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result; // Set src ke hasil pembacaan file
+                previewImage.style.display = 'block'; // Tampilkan gambar
+            }
+            reader.readAsDataURL(file); // Membaca file sebagai URL data
+        } else {
+            previewImage.src = ''; // Reset src jika tidak ada file
+            previewImage.style.display = 'none'; // Sembunyikan gambar
+        }
+    });
+</script>
 
 </script> 
 @endpush

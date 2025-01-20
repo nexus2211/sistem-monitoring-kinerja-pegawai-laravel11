@@ -11,6 +11,7 @@ use App\Models\pegawai;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class PegawaiController extends Controller
 {
@@ -366,7 +367,13 @@ class PegawaiController extends Controller
         if ($pegawai) {
             // Hapus user yang terkait     
             if ($pegawai->user_id) {    
-                User::where('id', $pegawai->user_id)->delete();    
+                User::where('id', $pegawai->user_id)->delete();
+                
+                $fotoPath = public_path(getenv('CUSTOM_NAME_LOCATION') . '/' . $pegawai->foto);
+                // Periksa apakah file ada sebelum menghapus
+                if (File::exists($fotoPath)) {
+                    File::delete($fotoPath);
+                }
             }        
             // Hapus pegawai 
             $pegawai->delete();  

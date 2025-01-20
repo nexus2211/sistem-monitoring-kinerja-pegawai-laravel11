@@ -17,7 +17,6 @@
                             @endif
                                     <form action="{{ route('login.post') }}" method="post">
                                         @csrf
-        
                                             <label for="">Email</label>
                                             <input type="text" name="email" class="form-control mb-2">
                                             <label for="">Password</label>
@@ -29,7 +28,6 @@
                                                     <a href="{{ route('register') }}" class="btn btn-success mt-2">Register</a>
                                                 </div>
                                             </div>
-                                            
                                     </form>
                                     
                                 </div>

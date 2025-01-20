@@ -11,10 +11,6 @@
 @endsection
 @section('konten-main')
 
-<div>
-    <a href="{{ back()->getTargetUrl() }}" class="btn btn-danger">Back</a>
-</div>
-
 <div class="row justify-content-center mt-3">
     <div class="col-12">
         <div class="card">
@@ -45,8 +41,8 @@
                     </div>
                     
                     
-                    <div class="d-flex justify-content-end d-flex">
-
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="{{ route('jabatan') }}" class="btn btn-danger mr-2">Back</a>
                         <button class="btn btn-primary">Submit</button>
                     </div>
                 </form>
