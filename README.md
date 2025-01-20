@@ -1,10 +1,10 @@
-# Aplikasi Web Sistem Monitoring Pegawai Laravel 11
+# Aplikasi Web Sistem Monitoring Karyawan/Pegawai Laravel 11
 
-![Aplikasi Web Absensi Karyawan QR Code GPS](./Screenshot/Admin-Dashboard.png)
+![Aplikasi Web Sistem Monitoring Pegawai](./Screenshot/hero.png)
 
 Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
 
-## Teknologi yang Digunakan
+## Sistem dan Alat Yang Terapkan
 
 -   [Laravel 11](https://laravel.com/)
 -   [Simple QR Code](https://github.com/SimpleSoftwareIO/simple-qrcode)
@@ -14,7 +14,7 @@ Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
 
 ## Instalasi
 
-### Prasyarat
+### Persyaratan
 
 -   [Composer](https://getcomposer.org)
 -   [imagick](https://github.com/Imagick/imagick)
@@ -27,7 +27,7 @@ Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
 2. Jalankan perintah `composer run-script post-root-package-install` untuk membuat file `.env`
 3. Jalankan perintah `composer install` untuk menginstalasi dependency
 4. Jalankan perintah `php artisan key:generate --ansi --force` untuk membuat key aplikasi
-5. Jalankan perintah `php artisan migrate` untuk membuat tabel databasex
+5. Jalankan perintah `php artisan migrate` untuk membuat tabel database
 6. Jalankan perintah `php artisan serve` untuk menjalankan aplikasi
 
 ### Seeder
@@ -48,18 +48,42 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 | ---------------------------------------------- |
 | ![Dashboard](./Screenshot/Admin-Dashboard.png) |
 
-| Barcode                               |
-| ------------------------------------- |
-| ![Barcode](./Screenshots/Barcode.png) |
+| Barcode                              |
+| ------------------------------------ |
+| ![Barcode](./Screenshot/Barcode.png) |
 
-| List Data Absensi Pegawai/Karyawan                           |                                                                |                                                             |
-| ------------------------------------------------------------ | -------------------------------------------------------------- | ----------------------------------------------------------- |
-| Absensi Hari Ini                                             | Absensi Mingguan                                               | Absensi Bulanan                                             |
-| ![Absensi Hari Ini](./Screenshots/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshots/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshots/absensi-bulan-Bulanan.png) |
+| Rekap Data                                       |
+| ------------------------------------------------ |
+| ![Rekap Data](./Screenshot/Admin-Rekap-Data.png) |
 
-| Data Pegawai/Karyawan                                          | Create/Edit Data Karyawan                                          |
-| -------------------------------------------------------------- | ------------------------------------------------------------------ |
-| ![Data Pegawai/Karyawan](./Screenshots/Data-Pegawai-Table.png) | ![Create Edit Data Karyawan](./Screenshots/Data-Pegawai-Input.png) |
+| Admin/Manager Page - Absensi Masuk               | Admin/Manager Page - Absensi Keluar                |
+| ------------------------------------------------ | -------------------------------------------------- |
+| ![Absensi Masuk](./Screenshot/Absensi-Masuk.png) | ![Absensi Keluar](./Screenshot/Absensi-Keluar.png) |
+
+| List Data Absensi Pegawai/Karyawan                          |                                                               |                                                            |
+| ----------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
+| Absensi Hari Ini                                            | Absensi Mingguan                                              | Absensi Bulanan                                            |
+| ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/absensi-bulan-Bulanan.png) |
+
+| Data Pegawai/Karyawan                                         | Create/Edit Data Karyawan                                         |
+| ------------------------------------------------------------- | ----------------------------------------------------------------- |
+| ![Data Pegawai/Karyawan](./Screenshot/Data-Pegawai-Table.png) | ![Create Edit Data Karyawan](./Screenshot/Data-Pegawai-Input.png) |
+
+| Data Bagian                                  | Data Jabatan                                   | Data Shift                                 |
+| -------------------------------------------- | ---------------------------------------------- | ------------------------------------------ |
+| ![Data Bagian](./Screenshot/Data-Bagian.png) | ![Data Jabatan](./Screenshot/Data-Jabatan.png) | ![Data Shift](./Screenshot/Data-Shift.png) |
+
+| List Data SOP                          | Create/Edit Data SOP                               |
+| -------------------------------------- | -------------------------------------------------- |
+| ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP.png) |
+
+| List Data Tugas                        | Create/Edit Tugas Dan Memberikan Tugas Kepada Pegawai/Karyawan |
+| -------------------------------------- | -------------------------------------------------------------- |
+| ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP.png)             |
+
+| Manage User                                    |
+| ---------------------------------------------- |
+| ![Manage USer](./Screenshot/Manage%20User.png) |
 
 ---
 
