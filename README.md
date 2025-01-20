@@ -1,6 +1,6 @@
 # Aplikasi Web Sistem Monitoring Pegawai Laravel 11
 
-![Aplikasi Web Absensi Karyawan QR Code GPS](./screenshot/Admin-Dashboard.png)
+![Aplikasi Web Absensi Karyawan QR Code GPS](./Screenshot/Admin-Dashboard.png)
 
 Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
 
@@ -17,11 +17,32 @@ Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
 ### Prasyarat
 
 -   [Composer](https://getcomposer.org)
--   [NPM & Node.js](https://nodejs.org)
--   PHP 8.2 atau lebih tinggi
+-   [imagick](https://github.com/Imagick/imagick)
+-   PHP 8.2 atau Diatasnya
 -   MySQL/MariaDB
 
 ---
+
+1. Clone/download repository ini
+2. Jalankan perintah `composer run-script post-root-package-install` untuk membuat file `.env`
+3. Jalankan perintah `composer install` untuk menginstalasi dependency
+4. Jalankan perintah `php artisan key:generate --ansi --force` untuk membuat key aplikasi
+5. Jalankan perintah `php artisan migrate` untuk membuat tabel databasex
+6. Jalankan perintah `php artisan serve` untuk menjalankan aplikasi
+
+### Seeder
+
+Gunakan perintah di bawah untuk menyiapkan data dummy awal.
+
+-   `php artisan db:seed DatabaseSeeder`
+
+## Fitur & Pratinjau
+
+### User/Pegawai Page
+
+# **WORK IN PROGRESS**
+
+### Admin & Manager Page
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
