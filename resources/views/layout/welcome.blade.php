@@ -109,15 +109,14 @@
                     @else
                     @foreach($dataP->attendances as $dataA)
                   <tr>
-                      <td class="text-center">{{ $no+1 }}</td>
                       <td>{{ $dataP->nama_pegawai }}</td>
                       <td>{{ $dataP->shift->shift }}</td>
 
                       <td><div class="badge {{ $dataA->status == 'present' ? 'badge-success' : 
                       ($dataA->status == 'late' ? 'badge-warning' : ($dataA->status == 'excused' ? 'badge-info' : ($dataA->status == 'sick' ? 'badge-info' : 'badge-danger'))) }}">{{ $dataA->getStatusInIndonesian()}}</div></td>
 
-                      <td>{{ $dataA->waktu_masuk }}</td>
-                      <td><div>{{ $dataA->waktu_keluar == null ? '-' : $dataA->waktu_keluar }}</div></td>
+                      <td>{{ $dataA->waktu_masuk == null ? '-' : $dataA->waktu_masuk }}</td>
+                      <td><div class="badge {{ $dataA->waktu_keluar == null ? 'badge-danger' : '' }}">{{ $dataA->waktu_keluar == null ? 'Belum Keluar' : $dataA->waktu_keluar }}</div></td>
                   </tr>
                   @endforeach
                   @endif

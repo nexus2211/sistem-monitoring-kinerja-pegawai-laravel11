@@ -35,7 +35,7 @@
                     <div class="row">
 
                         <img src="{{ asset('/assets/img/avatar/avatar-1.png') }}" alt="Default Avatar" class="img-thumbnail w-25 h-25" id="previewImage">
-
+                        {{-- <label for="">Foto</label> --}}
                         <input type="file" name="foto" class="form-control mb-4" id="fotoInput">
                         <div class="col-md-6">
                             <label for="">Nomor Induk Pegawai</label>
@@ -52,7 +52,7 @@
                                     <option value="2">Perempuan</option>
                                 </select>
                               </div>
-                            <label for="">Foto</label>
+                            
                             
                         </div>
                         <div class="col-md-6">

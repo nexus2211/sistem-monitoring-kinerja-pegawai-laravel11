@@ -105,7 +105,7 @@
                         ($dataA->status == 'late' ? 'badge-warning' : ($dataA->status == 'excused' ? 'badge-info' : ($dataA->status == 'sick' ? 'badge-info' : 'badge-danger'))) }}">{{ $dataA->getStatusInIndonesian()}}</div></td>
 
                         <td>{{ $dataA->waktu_masuk }}</td>
-                        <td><div>{{ $dataA->waktu_keluar == null ? '-' : $dataA->waktu_keluar }}</div></td>
+                        <td><div class="badge {{ $dataA->waktu_keluar == null ? 'badge-danger' : '' }}">{{ $dataA->waktu_keluar == null ? 'Belum Keluar' : $dataA->waktu_keluar }}</div></td>
                         {{-- {{ $dataA->waktu_keluar == null ? '-' : $dataA->waktu_keluar }} --}}
                         <td class="d-flex align-items-center" style="width: 50px;">
                             <a href="#" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
