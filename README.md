@@ -63,7 +63,7 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 | List Data Absensi Pegawai/Karyawan                          |                                                               |                                                            |
 | ----------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
 | Absensi Hari Ini                                            | Absensi Mingguan                                              | Absensi Bulanan                                            |
-| ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/absensi-bulan-Bulanan.png) |
+| ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/List-Absensi-Bulanan.png) |
 
 | Data Pegawai/Karyawan                                         | Create/Edit Data Karyawan                                         |
 | ------------------------------------------------------------- | ----------------------------------------------------------------- |
