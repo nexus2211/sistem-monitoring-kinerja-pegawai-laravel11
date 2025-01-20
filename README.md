@@ -1,8 +1,27 @@
 # Aplikasi Web Sistem Monitoring Pegawai Laravel 11
 
-![Aplikasi Web Absensi Karyawan QR Code GPS](./screenshot/Admin - Dashboard.png)
+![Aplikasi Web Absensi Karyawan QR Code GPS](./screenshot/Admin-Dashboard.png)
 
-Aplikasi web absensi karyawan menggunakan QR Code dan GPS.
+Aplikasi web sistem monitoring pegawai sebagai absensi dan monitoring tugas.
+
+## Teknologi yang Digunakan
+
+-   [Laravel 11](https://laravel.com/)
+-   [Simple QR Code](https://github.com/SimpleSoftwareIO/simple-qrcode)
+-   [html5 Qr Code Scanner](https://github.com/mebjas/html5-qrcode)
+-   [Stisla Bootsrap Template](https://github.com/stisla/stisla)
+-   MySQL/MariaDB
+
+## Instalasi
+
+### Prasyarat
+
+-   [Composer](https://getcomposer.org)
+-   [NPM & Node.js](https://nodejs.org)
+-   PHP 8.2 atau lebih tinggi
+-   MySQL/MariaDB
+
+---
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
