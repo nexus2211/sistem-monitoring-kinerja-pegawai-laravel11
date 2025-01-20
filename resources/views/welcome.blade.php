@@ -77,7 +77,7 @@
           <div class="card-header">
             <h4>Absensi Hari Ini</h4>
             <div class="card-header-action">
-                <a href="{{ route('listAttendances') }}" class="btn btn-danger">Lihat Lebih Lanjut <i class="fas fa fa-chevron-right"></i></a>
+                <a href="{{ route('listAttendances') }}" class="btn btn-primary">Lihat Lebih Lanjut <i class="fas fa fa-chevron-right"></i></a>
             </div>
           </div>
           <div class="card-body">

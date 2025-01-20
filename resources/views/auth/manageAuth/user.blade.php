@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end mt-2">
-                        {{ $user->links() }}
+                        {{ $usersWithoutPegawai->links() }}
                     </div>
 
             </div>

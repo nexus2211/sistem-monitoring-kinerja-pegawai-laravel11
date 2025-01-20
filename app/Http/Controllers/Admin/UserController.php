@@ -58,7 +58,7 @@ class UserController extends Controller
             ->join('users', 'pegawai.user_id', '=', 'users.id')
             ->distinct()
             ->groupBy('users.type')
-            ->paginate(5);
+            ->paginate(10);
 
         $jabatan = jabatan::get();
         $bagian = bagian::get();
@@ -67,7 +67,7 @@ class UserController extends Controller
         $usersWithoutPegawai = User::leftJoin('pegawai', 'users.id', '=', 'pegawai.user_id')
         ->whereNull('pegawai.user_id')
         ->select('users.*')
-        ->get();
+        ->paginate(10);
 
         // dd($usersWithoutPegawai);
 

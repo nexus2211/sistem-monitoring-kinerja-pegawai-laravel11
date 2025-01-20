@@ -82,7 +82,7 @@
                                 PDF Pegawai
                             </div>
                             <div class="card-cta">
-                                <a href="{{ route('export-pegawai') }}"><h6>Lihat PDF <i class="fas fa-chevron-right mb-2"></i></h6></a>
+                                <a href="{{ route('export-pegawai') }}" target="__blank"><h6>Lihat PDF <i class="fas fa-chevron-right mb-2"></i></h6></a>
                             </div>
                         </div>
                     </div>
