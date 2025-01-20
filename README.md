@@ -44,6 +44,25 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 
 ### Admin & Manager Page
 
+| Dashboard Admin                                |
+| ---------------------------------------------- |
+| ![Dashboard](./Screenshot/Admin-Dashboard.png) |
+
+| Barcode                               |
+| ------------------------------------- |
+| ![Barcode](./Screenshots/Barcode.png) |
+
+| List Data Absensi Pegawai/Karyawan                           |                                                                |                                                             |
+| ------------------------------------------------------------ | -------------------------------------------------------------- | ----------------------------------------------------------- |
+| Absensi Hari Ini                                             | Absensi Mingguan                                               | Absensi Bulanan                                             |
+| ![Absensi Hari Ini](./Screenshots/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshots/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshots/absensi-bulan-Bulanan.png) |
+
+| Data Pegawai/Karyawan                                          | Create/Edit Data Karyawan                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------------------ |
+| ![Data Pegawai/Karyawan](./Screenshots/Data-Pegawai-Table.png) | ![Create Edit Data Karyawan](./Screenshots/Data-Pegawai-Input.png) |
+
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
