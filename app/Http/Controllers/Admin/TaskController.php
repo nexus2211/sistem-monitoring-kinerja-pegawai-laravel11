@@ -94,6 +94,55 @@ class TaskController extends Controller
         return redirect()->route('task.create');
     }
 
+    public function edit($id){
+        $task = task::find($id);
+        $bagian = bagian::get();
+        $sop = sop::with('bagian')->get();
+
+        
+
+        return view('task.edit', compact('bagian','sop','task'));
+    }
+
+    public function update(Request $request, string $id){
+        $request->validate([
+            'tugasInput'  => 'required|min:3|max:30',
+            'descInput'  => 'required|min:3|max:50',
+            'sopInput'  => 'required',
+            'bagianInput'  => 'required',
+            'mulaiInput'  => 'required',
+            'deadlineInput'  => 'required',
+            
+        ],[
+            'tugasInput.required'=>'Title wajib diisi',
+            'descInput.required'=>'Deskripsi wajib diisi',
+            'bagianInput.required'=>'Pilih Bagian Terlebih Dahulu',
+            'sopInput.required'=>'Pilih SOP Terlebih Dahulu',
+            'min'=>'Input minimal memiliki 3 karakter',
+            'max'=>'Input karakter terlalu panjang',
+        ]);
+
+        $data = [
+            'tugas' => $request->tugasInput,
+            'desc' => $request->descInput,
+            'sop_id' => $request->sopInput,
+            'bagian_id' => $request->bagianInput,
+            'waktu_mulai' => $request->mulaiInput,
+            'waktu_deadline' => $request->deadlineInput,
+        ];
+
+        // dd($data);
+
+        task::where('id', $id)->update($data);
+
+        return redirect()->route('task.create');
+    }
+
+
+    public function destroy($id){
+
+    }
+
     public function storePegawai(Request $request){
         // dd($request->all());
 

@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">Stisla</a>
+        <a href="index.html">Monitoring Pegawai</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">St</a>
+        <a href="index.html">MP</a>
       </div>
       <ul class="sidebar-menu">
           <li class="menu-header">Dashboard</li>
@@ -49,7 +49,7 @@
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-          <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+          <a href="https://github.com/capcay464/sistem-monitoring-kinerja-pegawai-laravel11" class="btn btn-primary btn-lg btn-block btn-icon-split" target="__blank">
             <i class="fas fa-rocket"></i> Documentation
           </a>
         </div>

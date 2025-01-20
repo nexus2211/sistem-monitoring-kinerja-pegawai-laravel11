@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Barcode')
 
 @section('title-body', 'Attendances')
 

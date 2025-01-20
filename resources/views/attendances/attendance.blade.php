@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Absensi Masuk')
 
 @section('title-body', 'Attendances')
 

@@ -1,5 +1,6 @@
 @extends('layout.app')
 {{-- @section('title-body', 'List Shift') --}}
+@section('konten-title', 'Data Shift')
 
 @push('style')
 
@@ -69,9 +70,9 @@
                         <label for="">Shift</label>
                         <input type="text" name="shift" class="form-control mb-2">
                         <label for="">Waktu Mulai</label>
-                        <input type="time" name="waktu_mulai" class="form-control mb-2">
+                        <input type="text" name="waktu_mulai" class="form-control timepicker mb-2">
                         <label for="">Waktu Akhir</label>
-                        <input type="time" name="waktu_akhir" class="form-control mb-2">
+                        <input type="text" name="waktu_akhir" class="form-control timepicker mb-2">
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary mt-2">Submit</button>
                         </div>
@@ -86,17 +87,11 @@
 
 @push('scripts')
 
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> --}}
-{{-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> --}}
+
 
 <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
 
-{{-- <script>
-
-  $(document).ready( function () {
-    $('#table-2').DataTable();
-  } );
-</script> --}}
+<script src="{{ asset('/assets/js/page/components-table.js') }}"></script>
    
 
 

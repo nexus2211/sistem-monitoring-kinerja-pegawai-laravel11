@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Data Shift')
 
 @push('styles')
 
@@ -36,9 +37,9 @@
                             <label for="">Nama shift</label>
                             <input type="text" name="shift" class="form-control mb-2" value="{{ $shift->shift }}">
                             <label for="">Waktu Mulai</label>
-                            <input type="time" name="waktu_mulai" class="form-control mb-2" value="{{ $shift->waktu_mulai }}">
+                            <input type="text" name="waktu_mulai" class="form-control timepicker mb-2" value="{{ $shift->waktu_mulai }}">
                             <label for="">Waktu Akhir</label>
-                            <input type="time" name="waktu_akhir" class="form-control mb-2" value="{{ $shift->waktu_akhir }}">
+                            <input type="text" name="waktu_akhir" class="form-control timepicker mb-2" value="{{ $shift->waktu_akhir }}">
                             
                         </div>
                     </div>
@@ -59,6 +60,7 @@
 
 @push('scripts')
 
+<script src="{{ asset('/assets/js/page/components-table.js') }}"></script>
 
 </script> 
 @endpush

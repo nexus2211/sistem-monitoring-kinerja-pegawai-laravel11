@@ -1,5 +1,6 @@
 @extends('layout.app')
 {{-- @section('title-body', 'List bagian') --}}
+@section('konten-title', 'Data Bagian')
 
 @push('style')
   

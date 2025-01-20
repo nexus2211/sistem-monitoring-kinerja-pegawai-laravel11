@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Data Pegawai')
 
 @push('styles')
 {{-- <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">

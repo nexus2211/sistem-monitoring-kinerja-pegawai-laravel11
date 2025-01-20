@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Data Tugas')
 
 @push('style')
     
@@ -136,6 +137,7 @@
                                   <th>Bagian</th>
                                   <th>Waktu Mulai</th>
                                   <th>Deadline</th>
+                                  <th>Aksi</th>
                             </tr>
                             @foreach ($task as $data)  
                                 <tr>
@@ -151,6 +153,14 @@
                                     <td><div class="badge badge-info">{{ $data->bagian->bagian }}</div></td>
                                     <td>{{ $data->waktu_mulai }}</td>
                                     <td>{{ $data->waktu_deadline }}</td>
+                                    <td class="d-flex align-items-center">
+                                        <a href="{{ route('task.edit', $data->id) }}" class="btn btn-warning btn-sm mr-2 ">Edit</a>
+                                        <form action="{{ route('task.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                          @csrf
+                                          @method('delete')
+                                          <button class="btn btn-sm btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

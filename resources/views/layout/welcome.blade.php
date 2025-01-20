@@ -1,5 +1,8 @@
 @extends('layout.app')
 
+@section('konten-title', 'Dashboard')
+    
+
 @section('konten-header')
     <div class="section-header">
       <h1>Dashboard Admin</h1>

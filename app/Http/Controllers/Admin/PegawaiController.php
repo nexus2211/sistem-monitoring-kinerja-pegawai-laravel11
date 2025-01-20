@@ -195,10 +195,13 @@ class PegawaiController extends Controller
             'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
+        $carbonWaktuMulai = Carbon::parse($request->waktu_mulai)->format('H:i:s');
+        $carbonWaktuAkhir = Carbon::parse($request->waktu_akhir)->format('H:i:s');
+
         $data = [
             'shift' => $request->shift,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_akhir' => $request->waktu_akhir,
+            'waktu_mulai' => $carbonWaktuMulai,
+            'waktu_akhir' => $carbonWaktuAkhir,
         ];
 
         // dd($data);
@@ -346,10 +349,13 @@ class PegawaiController extends Controller
             'max'=>'Input maximal memiliki 50 karakter',
         ]);
 
+        $carbonWaktuMulai = Carbon::parse($request->waktu_mulai)->format('H:i:s');
+        $carbonWaktuAkhir = Carbon::parse($request->waktu_akhir)->format('H:i:s');
+
         $data = [
             'shift' => $request->shift,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_akhir' => $request->waktu_akhir,
+            'waktu_mulai' => $carbonWaktuMulai,
+            'waktu_akhir' => $carbonWaktuAkhir,
         ];
 
         // dd($data);

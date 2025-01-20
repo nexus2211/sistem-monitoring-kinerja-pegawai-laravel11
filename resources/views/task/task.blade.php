@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title', 'Data Tugas')
 
 @section('konten-header')
 <div class="section-header">
