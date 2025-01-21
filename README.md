@@ -63,7 +63,7 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 | List Data Absensi Pegawai/Karyawan                          |                                                               |                                                            |
 | ----------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
 | Absensi Hari Ini                                            | Absensi Mingguan                                              | Absensi Bulanan                                            |
-| ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/absensi-bulan-Bulanan.png) |
+| ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/List-Absensi-Bulanan.png) |
 
 | Data Pegawai/Karyawan                                         | Create/Edit Data Karyawan                                         |
 | ------------------------------------------------------------- | ----------------------------------------------------------------- |
@@ -75,11 +75,11 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 
 | List Data SOP                          | Create/Edit Data SOP                               |
 | -------------------------------------- | -------------------------------------------------- |
-| ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP.png) |
+| ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP-Input.png) |
 
 | List Data Tugas                        | Create/Edit Tugas Dan Memberikan Tugas Kepada Pegawai/Karyawan |
 | -------------------------------------- | -------------------------------------------------------------- |
-| ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP.png)             |
+| ![Data SOP](./Screenshot/List-Tugas.png) | ![Create Edit Data SOP](./Screenshot/List-Tugas-Input.png)             |
 
 | Manage User                                    |
 | ---------------------------------------------- |
