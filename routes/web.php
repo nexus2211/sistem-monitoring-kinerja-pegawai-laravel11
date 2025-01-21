@@ -28,20 +28,17 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login/submit', [AuthController::class, 'loginSubmit'])->name('login.post');
 });  
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
 
-Route::middleware('auth','admin:admin')->group(function () {
-    // Route::get('/', function(){
-    //     return redirect('/login');
-    // });
+Route::middleware('auth','admin:user')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+});
 
+Route::middleware('auth','admin:admin,manager')->group(function () {
     
-
-    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::post('/login/submit', [AuthController::class, 'loginSubmit'])->name('login.post');
     
-
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');  
     Route::controller(PegawaiController::class)->group(function () {
 
         // PEGAWAI ROUTE
@@ -97,11 +94,6 @@ Route::middleware('auth','admin:admin')->group(function () {
         return view('admin.rekapData');
     })->name('rekapdata');
 
-    // Route::get('/tugas', function () {
-    //     return view('task.tambah');
-    // });
-
-
     Route::resource('/admin/manageuser', UserController::class);
     Route::resource('/admin/sop', SopController::class);
     Route::get('/admin/sop/detail/{id}', [SopController::class, 'detailSop'])->name('sop.detail');
@@ -116,3 +108,4 @@ Route::middleware('auth','admin:admin')->group(function () {
 
 
 });
+

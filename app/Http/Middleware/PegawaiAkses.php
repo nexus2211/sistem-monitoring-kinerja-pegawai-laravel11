@@ -7,20 +7,18 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class UserAkses
+class PegawaiAkses
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$type): Response
+    public function handle(Request $request, Closure $next, string $type): Response
     {
-
         // Cek apakah pengguna terautentikasi dan memiliki peran admin
         if (Auth::check()) {
-            // if (Auth::user()->type === $type) {
-            if (in_array(Auth::user()->type, $type)) {
+            if (Auth::user()->type == 'admin' || Auth::user()->type == 'manager' || Auth::user()->type == 'user') {
                 return $next($request);
             }
             abort(403);
@@ -29,6 +27,5 @@ class UserAkses
         // return $next($request);
         // Jika tidak, redirect atau tampilkan error
         abort(401);
-        
     }
 }
