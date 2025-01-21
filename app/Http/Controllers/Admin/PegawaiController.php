@@ -25,7 +25,7 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::with(['jabatan','bagian','shift'])->get();
     //    dd($pegawai);
 
-        return view('pegawai.pegawai', compact('pegawai'));
+        return view('admin.pegawai.pegawai', compact('pegawai'));
     }
 
     public function PegawaitampilTambah(){
@@ -33,7 +33,7 @@ class PegawaiController extends Controller
         $bagian = Bagian::all();
         $shift = Shift::all();
 
-        return view('pegawai.tambah', compact('jabatan','bagian','shift'));
+        return view('admin.pegawai.tambah', compact('jabatan','bagian','shift'));
     }
 
     public function JabatanIndex(){
@@ -43,7 +43,7 @@ class PegawaiController extends Controller
         $jabatan = Jabatan::get();
        
 
-        return view('pegawai.jabatan.jabatan', compact('jabatan'));
+        return view('admin.pegawai.jabatan.jabatan', compact('jabatan'));
     }
 
     public function BagianIndex(){
@@ -53,7 +53,7 @@ class PegawaiController extends Controller
         $bagian = Bagian::get();
        
 
-        return view('pegawai.bagian.bagian', compact('bagian'));
+        return view('admin.pegawai.bagian.bagian', compact('bagian'));
     }
 
     public function ShiftIndex(){
@@ -63,7 +63,7 @@ class PegawaiController extends Controller
         $shift = Shift::get();
        
 
-        return view('pegawai.shift.shift', compact('shift'));
+        return view('admin.pegawai.shift.shift', compact('shift'));
     }
 
     // INSERT DATA
@@ -219,7 +219,7 @@ class PegawaiController extends Controller
         $bagian = Bagian::all();
         $shift = Shift::all();
 
-        return view('pegawai.edit', compact('pegawai','jabatan','bagian','shift'));
+        return view('admin.pegawai.edit', compact('pegawai','jabatan','bagian','shift'));
     }
 
     public function PegawaiUpdate(Request $request, string $id){
@@ -274,7 +274,7 @@ class PegawaiController extends Controller
     public function JabatanEdit($id) {
         $jabatan = Jabatan::find($id);
        
-        return view('pegawai.jabatan.edit', compact('jabatan'));
+        return view('admin.pegawai.jabatan.edit', compact('jabatan'));
     }
 
     public function JabatanUpdate(Request $request, string $id){
@@ -304,7 +304,7 @@ class PegawaiController extends Controller
     public function BagianEdit($id) {
         $bagian = Bagian::find($id);
        
-        return view('pegawai.bagian.edit', compact('bagian'));
+        return view('admin.pegawai.bagian.edit', compact('bagian'));
     }
 
     public function BagianUpdate(Request $request, string $id){
@@ -334,7 +334,7 @@ class PegawaiController extends Controller
     public function ShiftEdit($id) {
         $shift = Shift::find($id);
        
-        return view('pegawai.shift.edit', compact('shift'));
+        return view('admin.pegawai.shift.edit', compact('shift'));
     }
 
     public function ShiftUpdate(Request $request, string $id)
@@ -411,7 +411,7 @@ class PegawaiController extends Controller
     public function viewpdfPegawai(){
         $mpdf = new \Mpdf\Mpdf();
         $pegawai = Pegawai::with(['jabatan','bagian','shift'])->orderBy('nip', 'asc')->get();
-        $mpdf->WriteHTML(view("import-export.export-pegawai", compact('pegawai')));
+        $mpdf->WriteHTML(view("admin.import-export.export-pegawai", compact('pegawai')));
         $mpdf->Output('pdf-pegawai','I');
     }
 }

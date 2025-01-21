@@ -21,7 +21,7 @@ class AttendancesController extends Controller
         $shift = Shift::all();
 
         
-        return view('attendances.attendance' , compact('pegawai','shift'));
+        return view('admin.attendances.attendance' , compact('pegawai','shift'));
     }
 
     public function validasi(Request $request){
@@ -73,7 +73,7 @@ class AttendancesController extends Controller
         
 
        
-        return view('attendances.listattend', compact('pegawai','pegawaiCount','presentCount','presentLateCount','excusedCount','sickCount','lateCount','absentCount'));
+        return view('admin.attendances.listattend', compact('pegawai','pegawaiCount','presentCount','presentLateCount','excusedCount','sickCount','lateCount','absentCount'));
     }
 
     public function AttendancesDetail(Request $request) {
@@ -160,7 +160,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks','weekInputStatus','weekInput','weekInputPdf'));
+        return view('admin.attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks','weekInputStatus','weekInput','weekInputPdf'));
     }
 
 
@@ -245,7 +245,7 @@ class AttendancesController extends Controller
         }
 
        
-        return view('attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months','monthInputPdf','monthInputStatus'));
+        return view('admin.attendances.reportAttend.detailAttendMonth', compact('dataMonth','pegawai','jabatan','bagian','months','monthInputPdf','monthInputStatus'));
     }
 
     public function AttendanceInStore(Request $request) {
@@ -332,7 +332,7 @@ class AttendancesController extends Controller
 
         
         
-        return view('attendances.attendanceout' , compact('pegawai'));
+        return view('admin.attendances.attendanceout' , compact('pegawai'));
     }
 
     public function AttendanceOutStore(Request $request) {
@@ -464,7 +464,7 @@ class AttendancesController extends Controller
         }
 
 
-        $mpdf->WriteHTML(view("import-export.export-absensi-minggu", compact('data','pegawai','weeks','weekInput','weekInputStatus')));
+        $mpdf->WriteHTML(view("admin.import-export.export-absensi-minggu", compact('data','pegawai','weeks','weekInput','weekInputStatus')));
         $mpdf->Output('Absensi-Pegawai-Minggu-'. $weekInputStatus .'.pdf','I');
         // $mpdf->Output('pdf-absen-minggu','D');
     }
@@ -547,7 +547,7 @@ class AttendancesController extends Controller
         }
 
        
-        $mpdf->WriteHTML(view("import-export.export-absensi-bulan", compact('dataMonth','pegawai','months','monthInput','monthInputStatus')));
+        $mpdf->WriteHTML(view("admin.import-export.export-absensi-bulan", compact('dataMonth','pegawai','months','monthInput','monthInputStatus')));
         
         $mpdf->Output('Absensi-Pegawai-Bulan-'. $monthInputStatus .'.pdf','I');
     }

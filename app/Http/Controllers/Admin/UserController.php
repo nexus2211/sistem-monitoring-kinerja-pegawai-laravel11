@@ -72,12 +72,12 @@ class UserController extends Controller
         // dd($usersWithoutPegawai);
 
         
-        return view('auth.manageAuth.user', compact('dataUser','jabatan','bagian','uniqueTypes','usersWithoutPegawai'));
+        return view('admin.manageAuth.user', compact('dataUser','jabatan','bagian','uniqueTypes','usersWithoutPegawai'));
     }
 
     public function create(){
 
-        return view('auth.manageAuth.tambah');
+        return view('admin.manageAuth.tambah');
     }
 
     public function store(Request $request){
@@ -109,7 +109,7 @@ class UserController extends Controller
 
         $pegawai = Pegawai::with('user')->find($id);
 
-        return view('auth.manageAuth.edit', compact('pegawai'));
+        return view('admin.manageAuth.edit', compact('pegawai'));
     }
 
     public function update(Request $request, string $id){

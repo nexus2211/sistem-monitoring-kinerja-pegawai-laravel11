@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // !! Ubah APP_FAKER_LOCALE Yang Ada Di ENV menjadi id_ID
+        // APP_FAKER_LOCALE=id_ID
 
         Pegawai::factory(5)->create();
 
@@ -41,17 +42,13 @@ class DatabaseSeeder extends Seeder
                 'email' => $email,
                 'password' => bcrypt('password'), // Ganti dengan password yang diinginkan
                 'type' => '0',
-                // 'created_at' => now(),
-                // 'updated_at' => now(),
+               
             ]);
 
             $pegawai->user_id = $user->id;
             $pegawai->save();
 
         }
-
-        // Jabatan::factory(5)->create();
-        // Bagian::factory(5)->create();
 
         
     }

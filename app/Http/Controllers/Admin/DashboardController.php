@@ -44,6 +44,6 @@ class DashboardController extends Controller
         $taskCount = $task->count();
 
 
-        return view('layout.welcome', compact('pegawaiCount','presentLateCount','taskCount','sopCount','pegawai','task','excusedCount','sickCount','absentCount'));
+        return view('admin.welcome', compact('pegawaiCount','presentLateCount','taskCount','sopCount','pegawai','task','excusedCount','sickCount','absentCount'));
     }
 }

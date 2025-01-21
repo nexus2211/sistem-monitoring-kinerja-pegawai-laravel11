@@ -38,10 +38,16 @@ class AuthController extends Controller
 
     public function loginSubmit(Request $request) {
         $data = $request->only('email','password');
-
+        
         if(Auth::attempt($data)){
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+            // dd(Auth::user()->type);
+            if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager'){
+                $request->session()->regenerate();
+                return redirect()->intended('/admin');
+            }else if (Auth::user()->type == 'user'){
+                $request->session()->regenerate();
+                return redirect()->intended('/home');
+            }
         }else {
             return redirect()->route('login')->with('gagal','Email atau Password salah');
         }

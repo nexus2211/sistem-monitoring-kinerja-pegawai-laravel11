@@ -57,7 +57,7 @@
           {{-- Copyright &copy; 2024 <div class="bullet"></div>Web By Agung Dwi Pratama & Stisla Template Design By <a href="https://nauv.al/">Muhamad Nauval Azhar</a> --}}
         </div>
         <div class="footer-right">
-          2.3.0
+          
         </div>
       </footer>
 

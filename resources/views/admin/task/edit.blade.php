@@ -18,7 +18,7 @@
     <div class="col-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h4>Form Tambah Tugas</h4>
+                <h4>Form Edit Tugas</h4>
             </div>
             <div class="card-body text-start">
                 @if ($errors->any())

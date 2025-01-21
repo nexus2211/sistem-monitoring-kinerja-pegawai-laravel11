@@ -29,7 +29,7 @@ class BarcodeController extends Controller
         //    $qr_code[] =  QrCode::size(200)->generate($nip);
         // }
 
-        return view('barcode.barcode', compact('qr_code','pegawai'));
+        return view('admin.barcode.barcode', compact('qr_code','pegawai'));
     }
 
     public function downloadQr(Request $request){

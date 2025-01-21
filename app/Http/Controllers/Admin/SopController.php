@@ -12,14 +12,14 @@ class SopController extends Controller
     public function index(){
         $sop = sop::with('bagian')->get();
 
-        return view('sop.sop', compact('sop'));
+        return view('admin.sop.sop', compact('sop'));
     }
 
     public function create(){
         $bagian = bagian::get();
         
 
-        return view('sop.tambah', compact('bagian'));
+        return view('admin.sop.tambah', compact('bagian'));
     }
 
     public function store(Request $request){
@@ -58,7 +58,7 @@ class SopController extends Controller
         $bagian = bagian::get();
         
 
-        return view('sop.edit', compact('sopContent','bagian'));
+        return view('admin.sop.edit', compact('sopContent','bagian'));
     }
 
     public function update(Request $request, string $id){
@@ -103,7 +103,7 @@ class SopController extends Controller
         $sopValue = $sop->value('content');
         $sopTitle = $sop->value('title');
 
-        return view('sop.detail', compact('sop'));
+        return view('admin.sop.detail', compact('sop'));
         
     }
 
@@ -112,10 +112,10 @@ class SopController extends Controller
         $sopContent = sop::find($id);
         $sopValue = $sopContent->value('content');
         $sopTitle = $sopContent->value('title');
-        // dd($sopContent);
+        // dd($sopContent->content);
         
-        $mpdf->WriteHTML($sopValue);
-        $mpdf->Output('SOP-Pegawai-'. $sopTitle .'.pdf','I');
+        $mpdf->WriteHTML($sopContent->content);
+        $mpdf->Output('SOP-Pegawai-'. $sopContent->title .'.pdf','I');
     }
 
 

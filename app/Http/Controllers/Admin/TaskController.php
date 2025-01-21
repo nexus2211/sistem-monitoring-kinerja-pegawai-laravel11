@@ -32,7 +32,7 @@ class TaskController extends Controller
         })->paginate(10);
         // dd($pegawai);
 
-        return view('task.task', compact('pegawai','bagian','jabatan'));
+        return view('admin.task.task', compact('pegawai','bagian','jabatan'));
     }
 
     public function create(Request $request){
@@ -55,7 +55,7 @@ class TaskController extends Controller
         })
         ->get();
 
-        return view('task.tambah', compact('bagian','sop','task','pegawai'));
+        return view('admin.task.tambah', compact('bagian','sop','task','pegawai'));
 
     }
 
@@ -101,7 +101,7 @@ class TaskController extends Controller
 
         
 
-        return view('task.edit', compact('bagian','sop','task'));
+        return view('admin.task.edit', compact('bagian','sop','task'));
     }
 
     public function update(Request $request, string $id){
@@ -172,6 +172,6 @@ class TaskController extends Controller
         
         // dd($pegawaiId);
 
-        return redirect()->route('task.create');
+        return redirect()->route('admin.task.create');
     }
 }
