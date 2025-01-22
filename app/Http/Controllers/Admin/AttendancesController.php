@@ -250,7 +250,6 @@ class AttendancesController extends Controller
 
     public function AttendanceInStore(Request $request) {
         $currentDateTime = Carbon::now();
-        $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
         $formattedDate = $currentDateTime->format('Y-m-d');
         $formattedTime = $currentDateTime->format('H:i:s');
 
@@ -295,8 +294,6 @@ class AttendancesController extends Controller
         }
 
         
-
-        // dd($statusHadir);
         $data = [
             
             'pegawai_id' => $pegawai->id ?? $pegawaiInput->id,
@@ -307,7 +304,7 @@ class AttendancesController extends Controller
             'attachment' => null
         ];
 
-        // dd($absen_hari_ini);
+        
 
         attendance::create($data);
         return redirect()->route('attendances.in')->with('success','Pegawai Berhasil Absensi!');
@@ -372,22 +369,8 @@ class AttendancesController extends Controller
         $waktumulaiCarbon = Carbon::parse($shift->waktu_mulai);
         $waktuakhirCarbon = Carbon::parse($shift->waktu_akhir);
 
-        //Menambahkan waktu lebih untuk waktu mulai absen
-        // $menitTelat = 15; //menit
-        // $waktumulaiTelat =  $waktumulaiCarbon->addMinutes($menitTelat)->toTimeString();
-
-        // if($waktumulaiTelat <= $formattedTime && $formattedDate <= $waktuakhirCarbon){
-        //     $statusHadir = 'late';
-        // }else if($waktumulaiTelat >= $formattedTime && $formattedDate <= $waktuakhirCarbon) {
-        //     $statusHadir = 'present';
-        // }else {
-        //     // $statusHadir = 'absent';
-        //     return redirect()->route('attendances.out')->with('gagal','Diluar Jadwal Shift Pegawai');
-        // }
 
         $data = [
-            
-            
             'waktu_keluar' => $formattedTime,
             
         ];

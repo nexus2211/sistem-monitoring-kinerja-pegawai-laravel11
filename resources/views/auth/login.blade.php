@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('konten-title','Login')
 
 @section('auth')
     <div class="bg-primary">

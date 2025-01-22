@@ -10,12 +10,14 @@ use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttendancesController;
+use App\Http\Controllers\Users\AbsenController;
 use App\Http\Controllers\Users\HomeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    // return view('welcome');
+    return redirect('/login');
+});
 
 Route::get('/test', function () {
     return view('layout.app');
@@ -31,9 +33,15 @@ Route::middleware(['guest'])->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth','admin:user')->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
-});
+
+Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+
+Route::get('/absenmasuk', [AbsenController::class, 'absenmasuk'])->name('absen.masuk');
+Route::post('/absenmasuk', [AbsenController::class, 'absenmasukStore'])->name('absen.masukStore');
+
+Route::get('/absenkeluar', [AbsenController::class, 'absenkeluar'])->name('absen.keluar');
+Route::post('/absenkeluar', [AbsenController::class, 'absenkeluarStore'])->name('absen.keluarStore');
+
 
 Route::middleware('auth','admin:admin,manager')->group(function () {
     

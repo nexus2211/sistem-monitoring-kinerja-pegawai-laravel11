@@ -8,15 +8,6 @@
       </div>
       <ul class="sidebar-menu">
           
-        <li class="menu-header">Home</li>
-          <li class="nav-item dropdown {{ request()->routeIs('home.pegawai') ? 'active' : '' }}">
-            <a href="{{ route('home.pegawai') }}" class="nav-link"><i class="fas fa-fire"></i><span>Home</span></a>
-        </li>
-
-        <li class="menu-header">Home</li>
-          <li class="nav-item dropdown {{ request()->routeIs('home.pegawai') ? 'active' : '' }}">
-            <a href="{{ route('home.pegawai') }}" class="nav-link"><i class="fas fa-fire"></i><span>Home</span></a>
-        </li>
 
           @if (Auth::check())
             @if (Auth::user()->type === 'admin' || Auth::user()->type === 'manager')
@@ -61,6 +52,22 @@
     
               <li class="{{ Request::routeIs('manageuser.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('manageuser.index') }}"><i class="fa far fa-user-circle"></i> <span>Manage User</span></a></li>      
 
+
+              @elseif(Auth::user()->type === 'user')
+              <li class="menu-header">Home</li>
+                <li class="nav-item {{ request()->routeIs('home.pegawai') ? 'active' : '' }}">
+                  <a href="{{ route('home.pegawai') }}" class="nav-link"><i class="fas fa-fire"></i><span>Home</span></a>
+                </li>
+
+              <li class="menu-header">Home</li>
+
+                <li class="nav-item {{ request()->routeIs('absen.masuk') ? 'active' : '' }} ">
+                  <a href="{{ route('absen.masuk') }}" class="nav-link"><i class="far far fa-clipboard"></i><span>Absen Masuk</span></a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs('absen.keluar') ? 'active' : '' }} ">
+                  <a href="{{ route('absen.keluar') }}" class="nav-link"><i class="fa fas fa-check"></i><span>Absen Keluar</span></a>
+                </li>
             @endif
           @endif
           
