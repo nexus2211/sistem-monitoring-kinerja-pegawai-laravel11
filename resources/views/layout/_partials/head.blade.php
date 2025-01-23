@@ -43,6 +43,15 @@
   <link rel="stylesheet" href="{{ asset('/library/summernote/dist/summernote-bs4.css') }}">
   <script src="{{ asset('/library/summernote/dist/summernote-bs4.js') }}"></script>
 
+  {{-- Full Calendar --}}
+  {{-- <link rel="stylesheet" href="{{ asset('/library/fullcalendar/dist/fullcalendar.min.css') }}">
+  <script src="{{ asset('/library/fullcalendar/dist/fullcalendar.min.js') }}"></script> --}}
+  {{-- <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
   {{-- Data Table --}}
   <link rel="stylesheet" href="{{ asset('/library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">

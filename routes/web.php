@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttendancesController;
 use App\Http\Controllers\Users\AbsenController;
+use App\Http\Controllers\Users\DetailAbsenController;
 use App\Http\Controllers\Users\HomeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -41,6 +42,10 @@ Route::post('/absenmasuk', [AbsenController::class, 'absenmasukStore'])->name('a
 
 Route::get('/absenkeluar', [AbsenController::class, 'absenkeluar'])->name('absen.keluar');
 Route::post('/absenkeluar', [AbsenController::class, 'absenkeluarStore'])->name('absen.keluarStore');
+
+// Route::get('/absenpegawai', DetailAbsenController::class)->name('absen.detail');
+Route::get('/absenpegawai', DetailAbsenController::class)->name('absen.detail');
+Route::get('/api/absensi', [DetailAbsenController::class, 'getAbsensi']);
 
 
 Route::middleware('auth','admin:admin,manager')->group(function () {

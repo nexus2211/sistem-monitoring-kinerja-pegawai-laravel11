@@ -22,17 +22,17 @@ class AbsenController extends Controller
 
         //Ambil Pegawai
         $pegawaiId = pegawai::with('user','attendances')->where('user_id', $userId)->first();
+        // dd($pegawaiId);
         if ($pegawaiId) {
             $absen_hari_ini = $pegawaiId->attendances()->whereDate('date', $currentDateTime)->first();
-            
         }
-        // Status Absen Masuk
-        $statusAbsenMasuk = $absen_hari_ini->status;
-        $jamAbsenMasuk = $absen_hari_ini->waktu_masuk;
-        $jamAbsenKeluar = $absen_hari_ini->waktu_keluar;
-        // dd($jamAbsenMasuk);
-    
         
+        // Status Absen Masuk
+        $statusAbsenMasuk = $absen_hari_ini->status ?? null;
+        $jamAbsenMasuk = $absen_hari_ini->waktu_masuk ?? null;
+        $jamAbsenKeluar = $absen_hari_ini->waktu_keluar ?? null;
+            
+        // dd($jamAbsenMasuk);
 
         return view('user.absensi.absensimasuk', compact('statusAbsenMasuk','jamAbsenMasuk','jamAbsenKeluar'));
     }
@@ -51,13 +51,12 @@ class AbsenController extends Controller
             
         }
         // Status Absen Masuk
-        $statusAbsenMasuk = $absen_hari_ini->status;
-        $jamAbsenMasuk = $absen_hari_ini->waktu_masuk;
-        $jamAbsenKeluar = $absen_hari_ini->waktu_keluar;
+        $statusAbsenMasuk = $absen_hari_ini->status ?? null;
+        $jamAbsenMasuk = $absen_hari_ini->waktu_masuk ?? null;
+        $jamAbsenKeluar = $absen_hari_ini->waktu_keluar ?? null;
         // dd($jamAbsenMasuk);
     
-        
-
+    
         return view('user.absensi.absensikeluar', compact('statusAbsenMasuk','jamAbsenMasuk','jamAbsenKeluar'));
     }
 
@@ -85,7 +84,7 @@ class AbsenController extends Controller
         }
 
         // Cek apakah pegawai sudah absen pada hari ini
-        $absen_hari_ini = attendance::where('pegawai_id', $pegawai->id ?? $pegawaiId)
+        $absen_hari_ini = attendance::where('pegawai_id', $pegawai->id)
             ->whereDate('date', $currentDateTime->toDateString())
             ->first();
 
@@ -94,7 +93,7 @@ class AbsenController extends Controller
         }
 
         //Mengambil data pegawai dan shift
-        $pegawaiShift = Pegawai::where('id', $pegawai->id ?? $pegawaiId)->value('shift_id');
+        $pegawaiShift = Pegawai::where('id', $pegawai->id)->value('shift_id');
         $shift = shift::where('id', $pegawaiShift)->first();
 
         //Parsin waktu menggunakan carbon
@@ -117,7 +116,7 @@ class AbsenController extends Controller
 
         $data = [
             
-            'pegawai_id' => $pegawai->id ?? $pegawaiId->id,
+            'pegawai_id' => $pegawai->id,
             'date' => $formattedDate,
             'waktu_masuk' => $formattedTime,
             'status' => $statusHadir,
@@ -184,5 +183,10 @@ class AbsenController extends Controller
 
         attendance::where('pegawai_id', $pegawai->id)->update($data);
         return redirect()->route('absen.keluar')->with('success','Pegawai Berhasil Absensi!');
+    }
+
+    public function detailAbsen(){
+
+        
     }
 }

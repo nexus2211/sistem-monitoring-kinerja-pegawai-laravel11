@@ -68,6 +68,10 @@
                 <li class="nav-item {{ request()->routeIs('absen.keluar') ? 'active' : '' }} ">
                   <a href="{{ route('absen.keluar') }}" class="nav-link"><i class="fa fas fa-check"></i><span>Absen Keluar</span></a>
                 </li>
+
+                <li class="nav-item {{ request()->routeIs('absen.detail') ? 'active' : '' }} ">
+                  <a href="{{ route('absen.detail') }}" class="nav-link"><i class="fa fas fa-list"></i><span>Detail Absen</span></a>
+                </li>
             @endif
           @endif
           
