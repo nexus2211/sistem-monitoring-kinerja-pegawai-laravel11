@@ -1,4 +1,5 @@
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Aplikasi Pegawai &mdash; @yield('konten-title')</title>
 

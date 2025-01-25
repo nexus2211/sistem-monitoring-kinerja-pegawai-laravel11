@@ -53,7 +53,8 @@ Route::resource('usersop', UserSopController::class);
 Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::resource('usertask', UserTaskController::class);
-Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->name('userTask.detail');
+Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->name('usertask.detail');
+Route::put('/usertask/detail/{id}', [UserTaskController::class, 'statusTask'])->name('usertask.update');
 
 Route::middleware('auth','admin:admin,manager')->group(function () {
     

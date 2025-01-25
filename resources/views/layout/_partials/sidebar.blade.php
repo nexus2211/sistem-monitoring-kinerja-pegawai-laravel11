@@ -70,7 +70,12 @@
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('absen.detail') ? 'active' : '' }} ">
-                  <a href="{{ route('absen.detail') }}" class="nav-link"><i class="fa fas fa-list"></i><span>Detail Absen</span></a>
+                  <a href="{{ route('absen.detail') }}" class="nav-link"><i class="fa fas fa-calendar"></i><span>Detail Absen</span></a>
+                </li>
+
+                <li class="menu-header">Task</li>
+                <li class="nav-item {{ request()->routeIs('usertask.*') ? 'active' : '' }}">
+                  <a href="{{ route('usertask.index') }}" class="nav-link"><i class="fas fa-tasks"></i><span>Tugas</span></a>
                 </li>
 
                 <li class="menu-header">SOP</li>

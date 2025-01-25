@@ -34,4 +34,18 @@ class UserTaskController extends Controller
         return view('user.task.detailTask', compact('pegawaitask','sop'));
         
     }
+
+    public function statusTask(Request $request, string $id){
+        // dd($request->all());
+
+        $status = $request->statusTask;
+        $data = [
+            'status' => $status,
+        ];
+
+        // dd($data);
+        pegawaiTask::where('id', $id)->update($data);
+
+        return redirect()->route('usertask.index');
+    }
 }

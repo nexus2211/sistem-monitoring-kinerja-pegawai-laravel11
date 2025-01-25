@@ -10,10 +10,13 @@
 @section('konten-main')
     <div>
         <div class="card card-primary">
-            <card class="card-header">
+            <div class="card-header">
                 <h4>Detail Tugas {{ $pegawaitask->task->tugas }}</h4>
-            </card>
-            <card class="card-body">
+                <div class="card-header-action">
+                    <strong><div class="badge {{ $pegawaitask->status === 'pending' ? 'badge-warning' : ($pegawaitask->status === 'process' ? 'badge-info' : ($pegawaitask->status === 'done' ? 'badge-success' : ''))}}">{{ $pegawaitask->status }}</div></strong>
+                </div>
+            </div>
+            <div class="card-body">
 
                 <div class="form-group row">
                     <label class="col-12 col-md-3 col-lg-3" for="email">Penanggung Jawab Tugas : </label>
@@ -22,11 +25,21 @@
                     </div>        
                 </div>
 
+                <form action="{{ route('usertask.update', $pegawaitask->id) }}" method="post">
+                    @method('put')
+                    @csrf
+                
                 <div class="form-group row">
-                    <label class="col-12 col-md-3 col-lg-3" for="email">Status Tugas : </label>
+                    <label class="col-12 col-md-3 col-lg-3" for="email">Ubah Status Tugas : </label>
                     <div class="col-sm-12 col-md-4">
-                        <strong><div class="badge {{ $pegawaitask->status === 'pending' ? 'badge-warning' : ($pegawaitask->status === 'prosess' ? 'badge-info' : ($pegawaitask->status === 'done' ? 'badge-success' : ''))}}">{{ $pegawaitask->status }}</div></strong> 
-                    </div>        
+                        <div class="input-group">
+                            <select class="form-control" name="statusTask" id="">
+                                <option value="pending" {{ $pegawaitask->status === 'pending' ? 'selected' : ''}}>Pending</option>
+                                <option value="process" {{ $pegawaitask->status === 'process' ? 'selected' : ''}}>Proses</option>
+                                <option value="done" {{ $pegawaitask->status === 'done' ? 'selected' : ''}}>Selesai</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group row">
@@ -70,11 +83,13 @@
                         
                         
                         <a href="{{ route('usertask.index') }}" class="btn btn-success me-3 mr-2"> Kembali</a>
-
-                        <a href="{{ route('sop.pdf', $sop) }}" class="btn btn-primary me-3 mr-2" target="_blank"><i class="fa fas fa-save"></i> Simpan</a>
+                        <button class="btn btn-primary">Submit</button>
+                        
+                        
                     </div>
                 </div>
-            </card>
+            </form>
+            </div>
         </div>
     </div>
 @endsection
