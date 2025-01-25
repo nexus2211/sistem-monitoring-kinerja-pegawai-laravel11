@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AttendancesController;
 use App\Http\Controllers\Users\AbsenController;
 use App\Http\Controllers\Users\DetailAbsenController;
 use App\Http\Controllers\Users\HomeController;
+use App\Http\Controllers\Users\UserSopController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -46,6 +47,9 @@ Route::post('/absenkeluar', [AbsenController::class, 'absenkeluarStore'])->name(
 // Route::get('/absenpegawai', DetailAbsenController::class)->name('absen.detail');
 Route::get('/absenpegawai', DetailAbsenController::class)->name('absen.detail');
 Route::get('/api/absensi', [DetailAbsenController::class, 'getAbsensi']);
+
+Route::resource('usersop', UserSopController::class);
+Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 
 Route::middleware('auth','admin:admin,manager')->group(function () {
@@ -110,7 +114,7 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     Route::resource('/admin/manageuser', UserController::class);
     Route::resource('/admin/sop', SopController::class);
     Route::get('/admin/sop/detail/{id}', [SopController::class, 'detailSop'])->name('sop.detail');
-    Route::get('sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
+    
 
     Route::resource('/admin/task', TaskController::class);
     Route::post('/admin/task/create', [TaskController::class, 'storePegawai'])->name('task.pegawai');

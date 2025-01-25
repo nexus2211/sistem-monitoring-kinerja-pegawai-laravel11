@@ -15,14 +15,17 @@ class DetailAbsenController extends Controller
      */
     public function __invoke()
     {
+        $userId = Auth::user()->id;
+        // dd($userId);
         return view('user.absensi.detailabsenpegawai');
     }
 
     public function getAbsensi() {
         $events = [];
         $tanggalMulai = '2025-01-01';
-        $tanggalAkhir = '2025-01-31';
+        $tanggalAkhir = '2025-12-31';
         $userId = Auth::user()->id;
+        
         // $absensi = pegawai::with('attendances')->find($pegawaiId);
         $absensi = pegawai::with('attendances')->where('user_id', $userId)->first();
 

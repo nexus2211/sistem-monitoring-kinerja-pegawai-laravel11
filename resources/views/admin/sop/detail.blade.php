@@ -37,7 +37,7 @@
     
                 <div class=" mb-4 row">
                     <div class="container d-flex">
-                        <a href="{{ route('sop.pdf', $sop->id) }}" class="btn btn-outline-primary me-3 mr-2" target="_blank"><i class="fa fas fa-eye"></i> Lihat SOP</a>
+                        <a href="{{ route('sop.pdf', $sop->title) }}" class="btn btn-outline-primary me-3 mr-2" target="_blank"><i class="fa fas fa-eye"></i> Lihat SOP</a>
 
                         <form action="{{ route('sop.destroy', $sop->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
                             @csrf

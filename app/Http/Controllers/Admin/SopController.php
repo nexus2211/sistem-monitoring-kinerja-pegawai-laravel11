@@ -107,12 +107,13 @@ class SopController extends Controller
         
     }
 
-    public function viewpdfSop($id){
+    public function viewpdfSop(string $title){
         $mpdf = new \Mpdf\Mpdf();
-        $sopContent = sop::find($id);
+        // $sopContent = sop::find($id);
+        $sopContent = sop::where('title', $title)->first();
         $sopValue = $sopContent->value('content');
         $sopTitle = $sopContent->value('title');
-        // dd($sopContent->content);
+    
         
         $mpdf->WriteHTML($sopContent->content);
         $mpdf->Output('SOP-Pegawai-'. $sopContent->title .'.pdf','I');

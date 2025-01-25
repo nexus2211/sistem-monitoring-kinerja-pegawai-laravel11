@@ -59,7 +59,7 @@
                   <a href="{{ route('home.pegawai') }}" class="nav-link"><i class="fas fa-fire"></i><span>Home</span></a>
                 </li>
 
-              <li class="menu-header">Home</li>
+              <li class="menu-header">Absensi</li>
 
                 <li class="nav-item {{ request()->routeIs('absen.masuk') ? 'active' : '' }} ">
                   <a href="{{ route('absen.masuk') }}" class="nav-link"><i class="far far fa-clipboard"></i><span>Absen Masuk</span></a>
@@ -71,6 +71,11 @@
 
                 <li class="nav-item {{ request()->routeIs('absen.detail') ? 'active' : '' }} ">
                   <a href="{{ route('absen.detail') }}" class="nav-link"><i class="fa fas fa-list"></i><span>Detail Absen</span></a>
+                </li>
+
+                <li class="menu-header">SOP</li>
+                <li class="nav-item {{ request()->routeIs('usersop.index') ? 'active' : '' }}">
+                  <a href="{{ route('usersop.index') }}" class="nav-link"><i class="fas fa-file"></i><span>SOP</span></a>
                 </li>
             @endif
           @endif
