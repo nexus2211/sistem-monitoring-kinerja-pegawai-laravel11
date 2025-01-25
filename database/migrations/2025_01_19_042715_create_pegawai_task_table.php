@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
             $table->foreignId('task_id')->constrained('task')->onDelete('cascade');
             $table->string('status')->default('pending');
+            $table->string('bukti')->nullable();
             $table->timestamps();
         });
     }

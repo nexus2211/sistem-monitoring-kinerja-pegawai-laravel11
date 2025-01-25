@@ -110,10 +110,12 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     Route::resource('/admin/manageuser', UserController::class);
     Route::resource('/admin/sop', SopController::class);
     Route::get('/admin/sop/detail/{id}', [SopController::class, 'detailSop'])->name('sop.detail');
-    Route::get('/admin/sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
+    Route::get('sop/pdf/{id}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
     Route::resource('/admin/task', TaskController::class);
     Route::post('/admin/task/create', [TaskController::class, 'storePegawai'])->name('task.pegawai');
+    Route::get('/admin/task/create/detail/{id}', [TaskController::class, 'detailTask'])->name('task.detail');
+    
 
     Route::resource('/admin/barcode', BarcodeController::class);
     Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
@@ -121,4 +123,6 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
 
 
 });
+
+
 

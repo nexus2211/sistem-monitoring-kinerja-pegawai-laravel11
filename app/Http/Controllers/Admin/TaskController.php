@@ -85,6 +85,7 @@ class TaskController extends Controller
             'bagian_id' => $request->bagianInput,
             'waktu_mulai' => $request->mulaiInput,
             'waktu_deadline' => $request->deadlineInput,
+            
         ];
 
         $taskStore = task::create($data);
@@ -129,6 +130,7 @@ class TaskController extends Controller
             'bagian_id' => $request->bagianInput,
             'waktu_mulai' => $request->mulaiInput,
             'waktu_deadline' => $request->deadlineInput,
+            
         ];
 
         // dd($data);
@@ -139,13 +141,23 @@ class TaskController extends Controller
     }
 
 
-    public function destroy($id){
+    public function destroy(string $id){
+        // dd($request->all());
+        task::where('id', $id)->delete();
+        return redirect()->route('task.create');
+    }
 
+    public function detailTask($id){
+        $task = task::find($id);
+        $sop = $task->sop->id;
+        // dd($sop);
+        return view('admin.task.detail', compact('task','sop'));
+        
     }
 
     public function storePegawai(Request $request){
         // dd($request->all());
-
+        
         $request->validate([
             'tasks'  => 'required',
             'pegawaiInput'  => 'required',
@@ -155,10 +167,10 @@ class TaskController extends Controller
             'pegawaiInput.required'=>'Pilih Pegawai Yang Ingin Di Beri Tugas',
             
         ]);
-
         
         $pegawaiIdd = $request->pegawaiInput;
         $tugas = $request->tasks;
+        
 
         $pegawaiId = pegawai::with('jabatan','bagian','shift')->findMany($request->pegawaiInput);
         
@@ -172,6 +184,6 @@ class TaskController extends Controller
         
         // dd($pegawaiId);
 
-        return redirect()->route('admin.task.create');
+        return redirect()->route('task.create');
     }
 }

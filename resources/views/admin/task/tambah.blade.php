@@ -1,9 +1,5 @@
 @extends('layout.app')
-@section('konten-title', 'Data Tugas')
-
-@push('style')
-    
-@endpush
+@section('konten-title','Data Tugas')
 
 @section('konten-header')
     <div class="section-header">
@@ -120,69 +116,69 @@
                         </div>
                     </form>
 
+                    <form action="{{ route('task.pegawai') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                     <div class="table-responsive mt-2">
-                        <form action="{{ route('task.pegawai') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                        <table class="table table-striped">
-                            <tr>
-                                <th>
-                                    <div class="custom-checkbox custom-control">
-                                      <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                                      <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                    </div>
-                                  </th>
-                                  <th>Nama Tugas</th>
-                                  <th>Keterangan</th>
-                                  <th>SOP</th>
-                                  <th>Bagian</th>
-                                  <th>Waktu Mulai</th>
-                                  <th>Deadline</th>
-                                  <th>Aksi</th>
-                            </tr>
-                            @foreach ($task as $data)  
+                            <table class="table table-striped">
                                 <tr>
-                                    <td class="p-0 text-center">
+                                    <th>
                                         <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{ $data->id }}" value="{{ $data->id }}" name="tasks[]">
-                                            <label for="checkbox-{{ $data->id }}" class="custom-control-label">&nbsp;</label>
+                                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                                        <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
-                                    </td>
-                                    <td>{{ $data->tugas }}</td>
-                                    <td>{{ $data->desc }}</td>
-                                    <td><div class="badge badge-danger">{{ $data->sop->title }}</div></td>
-                                    <td><div class="badge badge-info">{{ $data->bagian->bagian }}</div></td>
-                                    <td>{{ $data->waktu_mulai }}</td>
-                                    <td>{{ $data->waktu_deadline }}</td>
-                                    <td class="d-flex align-items-center">
-                                        <a href="{{ route('task.edit', $data->id) }}" class="btn btn-warning btn-sm mr-2 ">Edit</a>
-                                        <form action="{{ route('task.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
-                                          @csrf
-                                          @method('delete')
-                                          <button class="btn btn-sm btn-danger">Hapus</button>
-                                        </form>
-                                    </td>
+                                    </th>
+                                    <th>Nama Tugas</th>
+                                    <th>Keterangan</th>
+                                    <th>SOP</th>
+                                    <th>Bagian</th>
+                                    <th>Waktu Mulai</th>
+                                    <th>Deadline</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                                @foreach ($task as $data)  
+                                    <tr>
+                                        <td class="p-0 text-center">
+                                            <div class="custom-checkbox custom-control">
+                                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{ $data->id }}" value="{{ $data->id }}" name="tasks[]">
+                                                <label for="checkbox-{{ $data->id }}" class="custom-control-label">&nbsp;</label>
+                                            </div>
+                                        </td>
+                                        <td>{{ $data->tugas }}</td>
+                                        <td>{{ $data->desc }}</td>
+                                        <td><div class="badge badge-danger">{{ $data->sop->title }}</div></td>
+                                        <td><div class="badge badge-info">{{ $data->bagian->bagian }}</div></td>
+                                        <td>{{ $data->waktu_mulai }}</td>
+                                        <td>{{ $data->waktu_deadline }}</td>
+                                        <td class="d-flex align-items-center">
+                                            <a href="{{ route('task.edit', $data->id) }}" class="btn btn-warning btn-sm mr-2 ">Edit</a>
+                                            <a href="{{ route('task.detail', $data->id) }}" class="btn btn-primary btn-sm mr-2 ">Detail</a>
+                                            {{-- <form action="{{ route('task.destroy', $data->id) }}" method="post"  onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-sm btn-danger">Hapus</button>
+                                            </form> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
                     </div>
-
-                    
-                        <div class="form-group row mt-2">
-                            <div class="col-sm-12">
-                                <label for="pegawaiInput" class="form-label text-dark">Pilih Pegawai : </label>
-                                <div class="input-group" >
-                                    <select class="form-control select2" name="pegawaiInput[]" multiple="multiple" tabindex="-1" aria-hidden="true">
-                                        @foreach($pegawai as $data_pegawai)
-                                            <option value="{{ $data_pegawai->id }}">{{ $data_pegawai->nama_pegawai }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="pegawaiInput" class="form-label text-dark">Pilih Pegawai : </label>
+                            <div class="input-group" >
+                                <select class="form-control select2" name="pegawaiInput[]" multiple="multiple" tabindex="-1" aria-hidden="true">
+                                    @foreach($pegawai as $data_pegawai)
+                                        <option value="{{ $data_pegawai->id }}">{{ $data_pegawai->nama_pegawai }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                            <div class="d-flex justify-content-end ">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
-                    </form>
+                    </div>
+
+                    <div class="d-flex justify-content-end ">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -190,9 +186,6 @@
 
 
 
-@endsection
-
-@push('scripts')
 
 {{-- <script src="{{ asset('/assets/js/page/forms-advanced-forms.js') }}"></script> --}}
 {{-- <script type="text/javascript">
@@ -200,6 +193,12 @@
         $('#datetimepicker1').datepicker();
     });
  </script> --}}
+
+@endsection
+
+@push('scripts')
+
+
 
  <script src="{{ asset('/assets/js/page/components-table.js') }}"></script>
     
