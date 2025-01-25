@@ -38,9 +38,46 @@ class UserTaskController extends Controller
     public function statusTask(Request $request, string $id){
         // dd($request->all());
 
+        $request->validate([
+            'statusTask'  => 'required',
+            'buktiFile' => 'file|mimes:jpg,jpeg,png,pdf|max:5048',
+            
+        ],[
+            'statusTask.required'=>'Pilih Status',
+            'max'=>'File Maksimal 5 MB',
+        ]);
+
+        $title = str_replace(' ', '', $request->titleTask);
         $status = $request->statusTask;
+
+        if($status === 'done'){
+            $request->validate([
+                'buktiFile' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5048',
+                
+            ],[
+                'buktiFile.required'=>'Upload File Bukti Terlebih Dahulu',
+                'max'=>'File Maksimal 5 MB',
+            ]);
+        }
+
+        
+        // File
+        if ($request->hasFile('buktiFile')) {
+            $file = $request->file('buktiFile');
+            $fileNameOrigin = $file->getClientOriginalName();
+            $cleaned_name = str_replace(' ', '_', $fileNameOrigin);
+            $file_name = time()."_". "$title" ."_".$cleaned_name;
+            $destination_path = public_path('bukti');
+            $file->move($destination_path, $file_name);
+    
+        }
+
+        // dd($request->file('buktiFile'));
+
+        
         $data = [
             'status' => $status,
+            'bukti' => isset($file_name)?$file_name:null,
         ];
 
         // dd($data);

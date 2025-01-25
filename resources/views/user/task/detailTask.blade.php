@@ -18,6 +18,17 @@
             </div>
             <div class="card-body">
 
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+
                 <div class="form-group row">
                     <label class="col-12 col-md-3 col-lg-3" for="email">Penanggung Jawab Tugas : </label>
                     <div class="col-sm-12 col-md-4">
@@ -25,15 +36,17 @@
                     </div>        
                 </div>
 
-                <form action="{{ route('usertask.update', $pegawaitask->id) }}" method="post">
+                <form action="{{ route('usertask.update', $pegawaitask->id) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                 
+                <input type="hidden" value="{{ $pegawaitask->task->tugas }}" name="titleTask">
+
                 <div class="form-group row">
                     <label class="col-12 col-md-3 col-lg-3" for="email">Ubah Status Tugas : </label>
                     <div class="col-sm-12 col-md-4">
                         <div class="input-group">
-                            <select class="form-control" name="statusTask" id="">
+                            <select class="form-control" name="statusTask" id="statusTask" onchange="toggleFileInput()">
                                 <option value="pending" {{ $pegawaitask->status === 'pending' ? 'selected' : ''}}>Pending</option>
                                 <option value="process" {{ $pegawaitask->status === 'process' ? 'selected' : ''}}>Proses</option>
                                 <option value="done" {{ $pegawaitask->status === 'done' ? 'selected' : ''}}>Selesai</option>
@@ -69,13 +82,20 @@
                         <strong>{{ $pegawaitask->task->created_at }}</strong> 
                     </div>        
                 </div>
+
+                <div class="form-group row"  id="buktiFiles" style="display: none;">
+                    <label class=" col-12 col-md-3 col-lg-3" for="buktiFile">Bukti Selesai : </label>
+                    <div class="col-sm-12 col-md-4">
+                        <input class="form-control" type="file" name="buktiFile" id="buktiFile">
+                    </div>        
+                </div>
     
                 <div class=" mb-4 row">
                     <div class="container d-flex">
                         <a href="{{ route('sop.pdf', $sop) }}" class="btn btn-outline-danger me-3 mr-2" target="_blank"><i class="fa fas fa-file-pdf"></i> Lihat SOP</a>
-
                         
                     </div>
+                    
                 </div>
 
                 <div class=" mb-3 row">
@@ -93,3 +113,28 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+
+<script>
+
+    const statusTask = document.getElementById('statusTask').value;
+    const fileInput = document.getElementById('buktiFiles');
+    if (statusTask === 'done') {
+        fileInput.style.display = 'block';
+    }
+
+    function toggleFileInput() {
+        const statusTask = document.getElementById('statusTask').value;
+        const fileInput = document.getElementById('buktiFiles');
+
+        if (statusTask === 'done') {
+            fileInput.style.display = 'block'; // Tampilkan input file
+        } else {
+            fileInput.style.display = 'none'; // Sembunyikan input file
+            fileInput.value = ''; // Reset nilai input file
+        }
+    }
+</script>
+    
+@endpush
