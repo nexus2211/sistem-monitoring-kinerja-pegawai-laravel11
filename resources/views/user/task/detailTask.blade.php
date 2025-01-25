@@ -93,6 +93,8 @@
                 <div class=" mb-4 row">
                     <div class="container d-flex">
                         <a href="{{ route('sop.pdf', $sop) }}" class="btn btn-outline-danger me-3 mr-2" target="_blank"><i class="fa fas fa-file-pdf"></i> Lihat SOP</a>
+
+                        <a href="{{ route('usertask.bukti', $pegawaitask->id) }}" class="btn btn-outline-primary me-3 mr-2" target="_blank" id="buktiDone" style="display: none;"><i class="fa fas fa-eye"></i> Lihat Bukti</a>
                         
                     </div>
                     
@@ -120,8 +122,10 @@
 
     const statusTask = document.getElementById('statusTask').value;
     const fileInput = document.getElementById('buktiFiles');
+    const fileDone = document.getElementById('buktiDone');
     if (statusTask === 'done') {
         fileInput.style.display = 'block';
+        fileDone.style.display = 'block';
     }
 
     function toggleFileInput() {

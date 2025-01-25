@@ -55,6 +55,7 @@ Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.p
 Route::resource('usertask', UserTaskController::class);
 Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->name('usertask.detail');
 Route::put('/usertask/detail/{id}', [UserTaskController::class, 'statusTask'])->name('usertask.update');
+Route::get('/usertask/detail/bukti/{id}', [UserTaskController::class, 'buktiTask'])->name('usertask.bukti');
 
 Route::middleware('auth','admin:admin,manager')->group(function () {
     

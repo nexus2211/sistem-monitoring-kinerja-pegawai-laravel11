@@ -85,4 +85,14 @@ class UserTaskController extends Controller
 
         return redirect()->route('usertask.index');
     }
+
+    public function buktiTask($id){
+        // $userId = Auth::user()->id;
+        $pegawaitask = pegawaiTask::with('pegawai','task')->find($id);
+        $buktiPath = public_path('bukti')."/".$pegawaitask->bukti;
+    
+        // dd($buktiPath);
+
+        return view('user.task.buktiTask', compact('pegawaitask', 'buktiPath'));
+    }
 }
