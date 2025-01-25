@@ -23,7 +23,7 @@ class pegawai extends Model
 
     public function tasks()
     {
-        return $this->belongsToMany(Task::class, 'pegawai_task')->withPivot('status');
+        return $this->belongsToMany(Task::class, 'pegawai_task')->withPivot('id','status','bukti');
     }
 
     public function jabatan(): BelongsTo

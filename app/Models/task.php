@@ -25,7 +25,7 @@ class task extends Model
 
     public function pegawai()
     {
-        return $this->belongsToMany(Pegawai::class, 'pegawai_task')->withPivot('status');
+        return $this->belongsToMany(Pegawai::class, 'pegawai_task')->withPivot('id','status','bukti');
     }
 
     // $table->foreignId('pegawai_id')->constrained(

@@ -14,6 +14,7 @@ use App\Http\Controllers\Users\AbsenController;
 use App\Http\Controllers\Users\DetailAbsenController;
 use App\Http\Controllers\Users\HomeController;
 use App\Http\Controllers\Users\UserSopController;
+use App\Http\Controllers\Users\UserTaskController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -51,6 +52,8 @@ Route::get('/api/absensi', [DetailAbsenController::class, 'getAbsensi']);
 Route::resource('usersop', UserSopController::class);
 Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
+Route::resource('usertask', UserTaskController::class);
+Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->name('userTask.detail');
 
 Route::middleware('auth','admin:admin,manager')->group(function () {
     

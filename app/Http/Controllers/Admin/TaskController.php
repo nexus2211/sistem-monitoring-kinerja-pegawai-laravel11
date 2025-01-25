@@ -149,7 +149,7 @@ class TaskController extends Controller
 
     public function detailTask($id){
         $task = task::find($id);
-        $sop = $task->sop->id;
+        $sop = $task->sop->title;
         // dd($sop);
         return view('admin.task.detail', compact('task','sop'));
         
