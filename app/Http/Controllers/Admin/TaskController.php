@@ -241,4 +241,37 @@ class TaskController extends Controller
 
         return redirect()->route('task.create');
     }
+
+    public function statusTask($id){
+        $pegawaitask = pegawaiTask::with('pegawai','task')->find($id);
+        $sop = $pegawaitask->task->sop->title;
+        
+        
+        return view('admin.task.detailStatus', compact('pegawaitask','sop'));
+
+    }
+
+    public function ubahStatus(Request $request,$id){
+        $pegawaitask = pegawaiTask::with('pegawai','task')->find($id);
+        $pegawai_id = $pegawaitask->pegawai_id;  // Mendapatkan pegawai_id
+        $task_id = $pegawaitask->task_id;        // Mendapatkan task_id
+        $status = $request->statusTask;
+
+        $pegawai = Pegawai::find($pegawai_id);
+        $pegawai->tasks()->updateExistingPivot($task_id , [
+            'status' => $status,
+
+        ]);
+
+        return redirect()->route('task.index');
+    }
+
+    public function buktiTask($id){
+        $pegawaitask = pegawaiTask::with('pegawai','task')->find($id);
+        $buktiPath = public_path('bukti')."/".$pegawaitask->bukti;
+    
+      
+
+        return view('user.task.buktiTask', compact('pegawaitask', 'buktiPath'));
+    }
 }

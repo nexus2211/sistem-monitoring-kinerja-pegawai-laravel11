@@ -136,7 +136,7 @@
                                     </td>
                                     <td><div class="badge badge-info">{{ $data->task->waktu_mulai }}</div></td>
                                     <td><div class="badge badge-info">{{ $data->task->waktu_deadline }}</div></td>                           
-                                    <td><a href="" class="btn btn-sm btn-primary">Detail</a></td>
+                                    <td><a href="{{ route('task.status', $data->id) }}" class="btn btn-sm btn-primary">Detail</a></td>
                                 </tr>                                  
                             @endforeach
                             

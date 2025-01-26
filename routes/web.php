@@ -37,6 +37,7 @@ Route::middleware(['guest'])->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::middleware('admin:user')->group(function () {
 
@@ -52,7 +53,7 @@ Route::get('/absenpegawai', DetailAbsenController::class)->name('absen.detail');
 Route::get('/api/absensi', [DetailAbsenController::class, 'getAbsensi']);
 
 Route::resource('usersop', UserSopController::class);
-Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
+// Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
 Route::resource('usertask', UserTaskController::class);
 Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->name('usertask.detail');
@@ -128,6 +129,10 @@ Route::middleware('admin:admin,manager')->group(function () {
     Route::resource('/admin/task', TaskController::class);
     Route::post('/admin/task/create', [TaskController::class, 'storePegawai'])->name('task.pegawai');
     Route::get('/admin/task/create/detail/{id}', [TaskController::class, 'detailTask'])->name('task.detail');
+
+    Route::get('/admin/task/statusDetail/{id}', [TaskController::class, 'statusTask'])->name('task.status');
+    Route::put('/admin/task/statusDetail/{id}', [TaskController::class, 'ubahStatus'])->name('task.statusUpdate');
+    Route::get('/admin/task/statusDetail/bukti/{id}', [TaskController::class, 'buktiTask'])->name('task.bukti');
     
 
     Route::resource('/admin/barcode', BarcodeController::class);
