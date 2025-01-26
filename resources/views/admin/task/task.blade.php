@@ -9,7 +9,46 @@
 
 @section('konten-main')
 
-    <div>
+    <div class="row">
+        <div class="col-12">
+        <div class="card mb-0">
+            <div class="card-body">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <form action="{{ route('task.index') }}" method="GET">
+                        {{-- @csrf --}}
+                        <input type="hidden"  value="">
+                        <button type="submit" class="nav-link {{ request('status') == '' ? 'active' : '' }}">All <span class="badge {{ request('status') == '' ? 'badge-white' : 'badge-primary' }}">{{ $statusCount }}</span></button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('task.index') }}" method="GET">
+                        {{-- @csrf --}}
+                        <input type="hidden" name="status" value="pending">
+                        <button type="submit" class="nav-link {{ request('status') == 'pending' ? 'active' : '' }}">Pending <span class="badge {{ request('status') == 'pending' ? 'badge-white' : 'badge-primary' }}">{{ $pendingCount }}</span></button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('task.index') }}" method="GET">
+                        {{-- @csrf --}}
+                        <input type="hidden" name="status" value="process">
+                        <button type="submit" class="nav-link {{ request('status') == 'process' ? 'active' : '' }}">Proses <span class="badge {{ request('status') == 'process' ? 'badge-white' : 'badge-primary' }}">{{ $processCount }}</span></button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('task.index') }}" method="GET">
+                        {{-- @csrf --}}
+                        <input type="hidden" name="status" value="done">
+                        <button type="submit" class="nav-link {{ request('status') == 'done' ? 'active' : '' }}">Done <span class="badge {{ request('status') == 'done' ? 'badge-white' : 'badge-primary' }}">{{ $doneCount }}</span></button>
+                    </form>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class=" mt-4">
         <div class="card card-primary">
             <div class="card-header">
                 <h4>List Tugas</h4>
@@ -78,6 +117,30 @@
                                     $no = 0;
                                 @endphp
                                 @foreach ($pegawai as $data) 
+                                <tr>
+                                    <td class="text-center">{{ ++$no }}</td>
+                                    <td>{{ $data->pegawai->nip }}</td> 
+                                    <td>{{ $data->pegawai->nama_pegawai }}</td> 
+                                    <td>{{ $data->pegawai->bagian->bagian }}</td> 
+                                    <td>{{ $data->task->tugas }}</td> 
+                                    <td>
+                                        <div class="badge 
+                                            {{ $data->status === 'done' ? 'badge-success' : 
+                                            ($data->status === 'process' ? 'badge-warning' : 'badge-warning') }}">
+                                            {{ 
+                                                $data->status === 'done' ? 'Selesai' : 
+                                                ($data->status === 'process' ? 'Proses' : 
+                                                ($data->status === 'pending' ? 'Pending' : $data->status)) 
+                                            }}
+                                        </div>
+                                    </td>
+                                    <td><div class="badge badge-info">{{ $data->task->waktu_mulai }}</div></td>
+                                    <td><div class="badge badge-info">{{ $data->task->waktu_deadline }}</div></td>                           
+                                    <td><a href="" class="btn btn-sm btn-primary">Detail</a></td>
+                                </tr>                                  
+                            @endforeach
+                            
+                                {{-- @foreach ($pegawai as $data) 
                                     @foreach ($data->tasks as $taskData)   
                                         <tr>
                                             <td class="text-center">{{ ++$no }}</td>
@@ -85,13 +148,13 @@
                                             <td>{{ $data->nama_pegawai }}</td>
                                             <td>{{ $data->bagian->bagian }}</td>
                                             <td>{{ $taskData->tugas }}</td>
-                                            <td><div class="badge badge-warning">{{ $taskData->pivot->status === 'pending' ? 'On Progress' : $taskData->pivot->status}}</div></td>
+                                            <td><div class="badge {{ $taskData->pivot->status === 'done' ? 'badge-success' : 'badge-warning' }}">{{ $taskData->pivot->status === 'pending' ? 'Pending' : ($taskData->pivot->status === 'process' ? 'Proses' : ($taskData->pivot->status === 'done' ? 'Selesai' : $taskData->pivot->status))}}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_mulai }}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_deadline }}</div></td>
                                             <td><a href="" class="btn btn-sm btn-primary">Detail</a></td>
                                         </tr>                                  
                                     @endforeach                  
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -106,3 +169,36 @@
     </div>
     
 @endsection
+
+@push('scripts')
+
+<!-- Page Specific JS File -->
+<script src="{{ asset('/assets/js/page/features-posts.js') }}"></script>
+
+{{-- <script>
+    $(document).ready(function() {
+        $('.nav-link').on('click', function(e) {
+            e.preventDefault();
+            var status = $(this).data('status');
+            $.ajax({
+                url: '{{ route("task.index") }}',
+                type: 'GET',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    console.error(xhr);
+                }
+            });
+        });
+    });
+</script> --}}
+
+    
+@endpush

@@ -40,7 +40,7 @@
                                             <td class="text-center">{{ ++$no }}</td>
                                             <td>{{ $taskData->tugas }}</td>
                                             <td>{{ $taskData->bagian->bagian }}</td>
-                                            <td><div class="badge {{ $taskData->pivot->status === 'done' ? 'badge-success' : 'badge-warning' }}">{{ $taskData->pivot->status === 'pending' ? 'Pending' : ($taskData->pivot->status === 'process' ? 'Proses' : ($taskData->pivot->status === 'done' ? 'Selesai' : '-'))}}</div></td>
+                                            <td><div class="badge {{ $taskData->pivot->status === 'done' ? 'badge-success' : 'badge-warning' }}">{{ $taskData->pivot->status === 'pending' ? 'Pending' : ($taskData->pivot->status === 'process' ? 'Proses' : ($taskData->pivot->status === 'done' ? 'Selesai' : $taskData->pivot->status))}}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_mulai }}</div></td>
                                             <td><div class="badge badge-info">{{ $taskData->waktu_deadline }}</div></td>
                                             <td><a href="{{  route('usertask.detail', $taskData->pivot->id)  }}" class="btn btn-sm btn-primary">Detail</a></td>

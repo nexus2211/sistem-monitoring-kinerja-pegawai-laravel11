@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // $middleware->append(UserAkses::class);
         $middleware->alias([
-            'admin' => UserAkses::class
+            'admin' => UserAkses::class,
+            
         ]);
         
     })

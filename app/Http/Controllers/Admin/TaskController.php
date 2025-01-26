@@ -7,6 +7,7 @@ use App\Models\task;
 use App\Models\bagian;
 use App\Models\jabatan;
 use App\Models\pegawai;
+use App\Models\pegawaiTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,26 +15,80 @@ class TaskController extends Controller
 {
     public function index(Request $request){
 
+        // dd($request->all());
+
         $bagianFilter = $request->input('bagian');
         $jabatanFilter = $request->input('jabatan');
         $search = $request->input('cari_pegawai');
-
+        $status = $request->input('status');
+        
+        
         $bagian = bagian::get();
         $jabatan = jabatan::get();
+        // $pegawai = pegawai::with(['tasks','bagian'])
+        
+        // $pegawai = pegawai::with('tasks','bagian')
+        // ->when($search, function($query, $search){
+        //     return $query->where('nama_pegawai','like',"%{$search}%")
+        //     ->orWhere('nip','like',"%{$search}%");
+        // })->when($bagianFilter, function($query, $bagianFilter){
+        //     return $query->where('bagian_id', $bagianFilter);
+        // })->when($jabatanFilter, function($query, $jabatanFilter){
+        //     return $query->where('jabatan_id', $jabatanFilter);
+        // })->when($status, function($query, $status) {
+        //     return $query->whereHas('tasks', function($query) use ($status) {
+        //         $query->where('pegawai_task.status' , $status);
+        //     });
+        // })
+        // ->paginate(10);
 
-        $pegawai = pegawai::with('tasks','bagian')
-        ->when($search, function($query, $search){
-            return $query->where('nama_pegawai','like',"%{$search}%")
-            ->orWhere('nip','like',"%{$search}%");
-        })->when($bagianFilter, function($query, $bagianFilter){
-            return $query->where('bagian_id', $bagianFilter);
-        })->when($jabatanFilter, function($query, $jabatanFilter){
-            return $query->where('jabatan_id', $jabatanFilter);
-        })->paginate(10);
-        // dd($pegawai);
+        $pegawai = pegawaiTask::with('pegawai', 'task') 
+        ->when($search, function ($query, $search) {
+            return $query->whereHas('pegawai', function ($query) use ($search) {
+                $query->where('nama_pegawai', 'like', "%{$search}%")
+                    ->orWhere('nip', 'like', "%{$search}%");
+            });
+        })
+        ->when($bagianFilter, function ($query, $bagianFilter) {
+            return $query->whereHas('pegawai', function ($query) use ($bagianFilter) {
+                $query->where('bagian_id', $bagianFilter);
+            });
+        })
+        ->when($jabatanFilter, function ($query, $jabatanFilter) {
+            return $query->whereHas('pegawai', function ($query) use ($jabatanFilter) {
+                $query->where('jabatan_id', $jabatanFilter);
+            });
+        })
+        ->when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })
+        ->paginate(10);
 
-        return view('admin.task.task', compact('pegawai','bagian','jabatan'));
+        $statusCount = pegawaiTask::with('pegawai', 'task')->count();
+
+        $pendingCount = pegawaiTask::with('pegawai', 'task')
+        ->whereHas('pegawai', function($query) {
+            $query->where('status', 'pending');
+        })->count();
+
+        $processCount = pegawaiTask::with('pegawai', 'task')
+        ->whereHas('pegawai', function($query) {
+            $query->where('status', 'process');
+        })->count();
+
+        $doneCount = pegawaiTask::with('pegawai', 'task')
+        ->whereHas('pegawai', function($query) {
+            $query->where('status', 'done');
+        })->count();
+    
+
+
+    //    dd($statusCount);
+        
+
+        return view('admin.task.task', compact('pegawai','bagian','jabatan','statusCount','pendingCount','processCount','doneCount'));
     }
+
 
     public function create(Request $request){
 

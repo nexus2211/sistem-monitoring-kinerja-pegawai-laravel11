@@ -38,6 +38,11 @@ class UserTaskController extends Controller
     public function statusTask(Request $request, string $id){
         // dd($request->all());
 
+        $pegawaitask = pegawaiTask::with('pegawai','task')->find($id);
+        $pegawai_id = $pegawaitask->pegawai_id;  // Mendapatkan pegawai_id
+        $task_id = $pegawaitask->task_id;        // Mendapatkan task_id
+
+        // dd($pegawai_id,$task_id);
         $request->validate([
             'statusTask'  => 'required',
             'buktiFile' => 'file|mimes:jpg,jpeg,png,pdf|max:5048',
@@ -63,6 +68,11 @@ class UserTaskController extends Controller
         
         // File
         if ($request->hasFile('buktiFile')) {
+
+            if (isset($pegawaitask->bukti) && file_exists(public_path('bukti')."/".$pegawaitask->bukti)) {
+                unlink(public_path('bukti')."/".$pegawaitask->bukti);
+            }
+
             $file = $request->file('buktiFile');
             $fileNameOrigin = $file->getClientOriginalName();
             $cleaned_name = str_replace(' ', '_', $fileNameOrigin);
@@ -75,13 +85,20 @@ class UserTaskController extends Controller
         // dd($request->file('buktiFile'));
 
         
-        $data = [
-            'status' => $status,
-            'bukti' => isset($file_name)?$file_name:null,
-        ];
+        // $data = [
+        //     'status' => $status,
+        //     'bukti' => isset($file_name)?$file_name:$pegawaitask->bukti,
+        // ];
 
-        // dd($data);
-        pegawaiTask::where('id', $id)->update($data);
+        
+        // pegawaiTask::where('id', $id)->update($data);
+
+        $pegawai = Pegawai::find($pegawai_id);
+        $pegawai->tasks()->updateExistingPivot($task_id , [
+            'status' => $status,
+            'bukti' => isset($file_name) ? $file_name : $pegawai->tasks()->find($task_id )->pivot->bukti
+        ]);
+
 
         return redirect()->route('usertask.index');
     }

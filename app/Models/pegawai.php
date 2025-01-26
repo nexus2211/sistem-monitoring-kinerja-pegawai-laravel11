@@ -21,7 +21,7 @@ class pegawai extends Model
         return $value == 1 ? 'Laki-laki' : ($value == 2 ? 'Perempuan' : 'Tidak Diketahui');
     }
 
-    public function tasks()
+    public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class, 'pegawai_task')->withPivot('id','status','bukti');
     }

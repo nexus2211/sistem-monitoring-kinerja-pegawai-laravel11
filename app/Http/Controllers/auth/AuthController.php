@@ -33,6 +33,8 @@ class AuthController extends Controller
 
     public function loginView() {
 
+    
+
         return view('auth.login');
     }
 
@@ -40,13 +42,14 @@ class AuthController extends Controller
         $data = $request->only('email','password');
         
         if(Auth::attempt($data)){
+            $request->session()->regenerate();
             // dd(Auth::user()->type);
             if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager'){
-                $request->session()->regenerate();
+                // $request->session()->regenerate();
                 return redirect()->intended('/admin');
             }else if (Auth::user()->type == 'user'){
-                $request->session()->regenerate();
-                return redirect()->intended('/home');
+                // $request->session()->regenerate();
+                return redirect()->intended('/');
             }
         }else {
             return redirect()->route('login')->with('gagal','Email atau Password salah');

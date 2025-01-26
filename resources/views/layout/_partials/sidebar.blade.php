@@ -13,8 +13,8 @@
             @if (Auth::user()->type === 'admin' || Auth::user()->type === 'manager')
 
               <li class="menu-header">Dashboard</li>
-              <li class="nav-item dropdown {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <a href="{{ route('dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+              <li class="nav-item dropdown {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
 
               <li class="menu-header">Master Data</li>

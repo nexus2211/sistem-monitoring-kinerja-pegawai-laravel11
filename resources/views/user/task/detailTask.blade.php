@@ -121,10 +121,10 @@
 <script>
 
     const statusTask = document.getElementById('statusTask').value;
-    const fileInput = document.getElementById('buktiFiles');
+    // const fileInput = document.getElementById('buktiFiles');
     const fileDone = document.getElementById('buktiDone');
     if (statusTask === 'done') {
-        fileInput.style.display = 'block';
+        // fileInput.style.display = 'block';
         fileDone.style.display = 'block';
     }
 

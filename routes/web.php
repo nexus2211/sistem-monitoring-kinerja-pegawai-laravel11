@@ -19,7 +19,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect('/login');
+    return redirect('login');
 });
 
 Route::get('/test', function () {
@@ -36,8 +36,10 @@ Route::middleware(['guest'])->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+
+Route::middleware('admin:user')->group(function () {
+
 
 Route::get('/absenmasuk', [AbsenController::class, 'absenmasuk'])->name('absen.masuk');
 Route::post('/absenmasuk', [AbsenController::class, 'absenmasukStore'])->name('absen.masukStore');
@@ -57,10 +59,12 @@ Route::get('/usertask/detail/{id}', [UserTaskController::class, 'detailTask'])->
 Route::put('/usertask/detail/{id}', [UserTaskController::class, 'statusTask'])->name('usertask.update');
 Route::get('/usertask/detail/bukti/{id}', [UserTaskController::class, 'buktiTask'])->name('usertask.bukti');
 
-Route::middleware('auth','admin:admin,manager')->group(function () {
+});
+
+Route::middleware('admin:admin,manager')->group(function () {
     
     
-    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');  
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');  
     Route::controller(PegawaiController::class)->group(function () {
 
         // PEGAWAI ROUTE

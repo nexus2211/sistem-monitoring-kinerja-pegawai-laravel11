@@ -19,11 +19,14 @@ class UserAkses
 
         // Cek apakah pengguna terautentikasi dan memiliki peran admin
         if (Auth::check()) {
-            // if (Auth::user()->type === $type) {
             if (in_array(Auth::user()->type, $type)) {
+                
                 return $next($request);
             }
+            
             abort(403);
+            // return redirect()->route('login');
+            // if (Auth::user()->type === $type) {
         }
         
         // return $next($request);
