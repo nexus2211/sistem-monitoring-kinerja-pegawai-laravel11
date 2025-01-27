@@ -33,6 +33,7 @@ class AuthController extends Controller
 
     public function loginView() {
 
+        Auth::check();
     
 
         return view('auth.login');
@@ -40,15 +41,16 @@ class AuthController extends Controller
 
     public function loginSubmit(Request $request) {
         $data = $request->only('email','password');
+        $request->session()->regenerate();
         
         if(Auth::attempt($data)){
-            $request->session()->regenerate();
+            // $request->session()->regenerate();
             // dd(Auth::user()->type);
             if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager'){
-                // $request->session()->regenerate();
+                $request->session()->regenerate();
                 return redirect()->intended('/admin');
             }else if (Auth::user()->type == 'user'){
-                // $request->session()->regenerate();
+                $request->session()->regenerate();
                 return redirect()->intended('/');
             }
         }else {

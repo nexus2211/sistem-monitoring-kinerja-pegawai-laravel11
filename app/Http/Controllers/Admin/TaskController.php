@@ -80,10 +80,7 @@ class TaskController extends Controller
         ->whereHas('pegawai', function($query) {
             $query->where('status', 'done');
         })->count();
-    
 
-
-    //    dd($statusCount);
         
 
         return view('admin.task.task', compact('pegawai','bagian','jabatan','statusCount','pendingCount','processCount','doneCount'));
@@ -228,18 +225,27 @@ class TaskController extends Controller
         
 
         $pegawaiId = pegawai::with('jabatan','bagian','shift')->findMany($request->pegawaiInput);
+
+
+        $checkPegawaiTask = pegawaiTask::with('pegawai', 'task')
+        ->where('pegawai_id', $pegawaiIdd)
+        ->whereIn('task_id', $tugas)
+        ->exists();
+
+        if ($checkPegawaiTask) {
+            return redirect()->route('task.create')->with('info', 'Ada beberapa tugas yang sudah diberikan kepada pegawai');
+        }
         
         // dd($pegawaiId);
-        // $pegawaiId->tasks()->sync($tugas); // Pastikan menggunakan 'tasks()'
+        // $pegawaiId->tasks()->sync($tugas);
         foreach ($pegawaiId as $pegawai) {
             
             // $pegawai->tasks()->attach($tugas);
             $pegawai->tasks()->syncWithoutDetaching($tugas);
         }
         
-        // dd($pegawaiId);
 
-        return redirect()->route('task.create');
+        return redirect()->route('task.index');
     }
 
     public function statusTask($id){

@@ -26,6 +26,11 @@
                             </ul>
                         </div>
                     @endif
+                    @if(session('info'))
+                        <div class="alert alert-warning">
+                            {{ session('info') }}
+                        </div>
+                    @endif
                 <form action="{{ route('task.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">

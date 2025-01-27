@@ -23,11 +23,11 @@ class UserTaskController extends Controller
 
         $pegawai = pegawaiTask::with('pegawai', 'task')
         ->when($status, function($query, $status) {
-            // Filter berdasarkan status jika ada
+            // Filter status
             return $query->where('status', $status);
         })
         ->whereHas('pegawai', function($query) use ($userId) {
-            // Filter berdasarkan user_id
+            // Filter user_id
             $query->where('pegawai.user_id', $userId);
         })
         ->get();
@@ -39,7 +39,6 @@ class UserTaskController extends Controller
             return $query->where('status', $status);
         })
         ->whereHas('pegawai', function($query) use ($userId) {
-            // Filter berdasarkan user_id
             $query->where('pegawai.user_id', $userId);
         })->count();
 
