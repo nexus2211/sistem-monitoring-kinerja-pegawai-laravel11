@@ -11,17 +11,76 @@ use Illuminate\Support\Facades\Auth;
 
 class UserTaskController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $userId = Auth::user()->id;
-        $pegawai = pegawai::with('tasks','bagian')->where('user_id', $userId)->first();
 
-        // foreach ($pegawai->tasks as $data) {
-        //     $pivotId = $data->pivot->id;
-        // }
+        $status = $request->input('status');
+
+        $pending = 'pending';
+        $proses = 'process';
+        $done = 'done';
+
+
+        $pegawai = pegawaiTask::with('pegawai', 'task')
+        ->when($status, function($query, $status) {
+            // Filter berdasarkan status jika ada
+            return $query->where('status', $status);
+        })
+        ->whereHas('pegawai', function($query) use ($userId) {
+            // Filter berdasarkan user_id
+            $query->where('pegawai.user_id', $userId);
+        })
+        ->get();
+            
+
+        $allCount = pegawaiTask::with('pegawai', 'task')
+        ->when($status, function($query, $status) {
+            // Filter berdasarkan status jika ada
+            return $query->where('status', $status);
+        })
+        ->whereHas('pegawai', function($query) use ($userId) {
+            // Filter berdasarkan user_id
+            $query->where('pegawai.user_id', $userId);
+        })->count();
+
+        $pendingCount = pegawaiTask::with('pegawai', 'task')
+        ->when($pending, function ($query, $pending) { 
+            return $query->where('status', $pending); 
+        })
+        ->when($userId, function($query, $userId) {
+            return $query->whereHas('pegawai', function ($query) use ($userId) {
+                $query->where('pegawai.user_id', $userId);
+            });
+        })
+        ->count();
+
+        $prosesCount = pegawaiTask::with('pegawai', 'task')
+        ->when($proses, function ($query, $proses) { 
+            return $query->where('status', $proses); 
+        })
+        ->when($userId, function($query, $userId) {
+            return $query->whereHas('pegawai', function ($query) use ($userId) {
+                $query->where('pegawai.user_id', $userId);
+            });
+        })
+        ->count();
+
+
+        $doneCount = pegawaiTask::with('pegawai', 'task')
+        ->when($done, function ($query, $done) { 
+            return $query->where('status', $done); 
+        })
+        ->when($userId, function($query, $userId) {
+            return $query->whereHas('pegawai', function ($query) use ($userId) {
+                $query->where('pegawai.user_id', $userId);
+            });
+        })
+        ->count();
+
        
         
     
-        return view('user.task.task', compact('pegawai'));
+        return view('user.task.task', compact('pegawai','allCount','pendingCount','prosesCount','doneCount'));
     }
 
     public function detailTask($id){
