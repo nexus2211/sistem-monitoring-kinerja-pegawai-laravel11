@@ -17,21 +17,32 @@ class UserAkses
     public function handle(Request $request, Closure $next, ...$type): Response
     {
 
-        // Cek apakah pengguna terautentikasi dan memiliki peran admin
         if (Auth::check()) {
+
             if (in_array(Auth::user()->type, $type)) {
                 
                 return $next($request);
             }
             
-            abort(403);
+            $user = Auth::user(); 
+            // Cek tipe pengguna dan redirect sesuai tipe
+            if ($user->type === 'admin') {
+                return redirect()->route('admin.dashboard'); // Redirect untuk admin
+            } elseif ($user->type === 'user') {
+                return redirect()->route('home.pegawai'); // Redirect untuk user biasa
+            }
+            
+           
+            
+            
+            // abort(403);
             // return redirect()->route('login');
             // if (Auth::user()->type === $type) {
         }
         
         // return $next($request);
         // Jika tidak, redirect atau tampilkan error
-        abort(401);
-        
+        // abort(401);
+        return $next($request);
     }
 }

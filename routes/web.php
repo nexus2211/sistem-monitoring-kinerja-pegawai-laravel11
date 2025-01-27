@@ -17,10 +17,10 @@ use App\Http\Controllers\Users\UserSopController;
 use App\Http\Controllers\Users\UserTaskController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    // return view('welcome');
-    return redirect('login');
-});
+// Route::get('/', function () {
+//     // return view('welcome');
+//     return redirect('login');
+// });
 
 Route::get('/test', function () {
     return view('layout.app');
@@ -36,10 +36,16 @@ Route::middleware(['guest'])->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+
 Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.pdf');
 
-Route::middleware('admin:user')->group(function () {
+Route::middleware('auth','admin:user')->group(function () {
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+    Route::get('/', function () {
+        return view('user.home');
+        // return redirect('home.pegawai');
+    });
 
 
 Route::get('/absenmasuk', [AbsenController::class, 'absenmasuk'])->name('absen.masuk');
@@ -62,7 +68,7 @@ Route::get('/usertask/detail/bukti/{id}', [UserTaskController::class, 'buktiTask
 
 });
 
-Route::middleware('admin:admin,manager')->group(function () {
+Route::middleware('auth','admin:admin,manager')->group(function () {
     
     
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');  
