@@ -84,6 +84,24 @@
             </div>
           </div>
           <div class="card-body">
+            <div class="statistic-details mb-sm-4">
+              <div class="statistic-details-item">
+                <div class="detail-value">{{ $presentLateCount }}</div>
+                <div class="detail-name">Pegawai Hadir</div>
+              </div>
+              <div class="statistic-details-item">
+                <div class="detail-value">{{ $sickCount }}</div>
+                <div class="detail-name">Pegawai Sakit</div>
+              </div>
+              <div class="statistic-details-item">
+                <div class="detail-value">{{ $excusedCount }}</div>
+                <div class="detail-name">Pegawai Izin</div>
+              </div>
+              <div class="statistic-details-item">
+                <div class="detail-value">{{ $absentCount }}</div>
+                <div class="detail-name">Pegawai Absen</div>
+              </div>
+            </div>
             <div class="table-responsive mt-2">
               <table class="table table-striped" id="table-1">
                 <thead>
@@ -129,24 +147,7 @@
               {{ $pegawai->links() }} <!-- Ini akan menampilkan link pagination -->
             </div>
 
-            <div class="statistic-details mt-sm-4">
-              <div class="statistic-details-item">
-                <div class="detail-value">{{ $presentLateCount }}</div>
-                <div class="detail-name">Pegawai Hadir</div>
-              </div>
-              <div class="statistic-details-item">
-                <div class="detail-value">{{ $sickCount }}</div>
-                <div class="detail-name">Pegawai Sakit</div>
-              </div>
-              <div class="statistic-details-item">
-                <div class="detail-value">{{ $excusedCount }}</div>
-                <div class="detail-name">Pegawai Izin</div>
-              </div>
-              <div class="statistic-details-item">
-                <div class="detail-value">{{ $absentCount }}</div>
-                <div class="detail-name">Pegawai Absen</div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

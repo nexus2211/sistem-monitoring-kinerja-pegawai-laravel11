@@ -23,10 +23,10 @@ class UserAkses
                 
                 return $next($request);
             }
-            
+
             $user = Auth::user(); 
             // Cek tipe pengguna dan redirect sesuai tipe
-            if ($user->type === 'admin') {
+            if ($user->type === 'admin' || $user->type === 'manager') {
                 return redirect()->route('admin.dashboard'); // Redirect untuk admin
             } elseif ($user->type === 'user') {
                 return redirect()->route('home.pegawai'); // Redirect untuk user biasa
