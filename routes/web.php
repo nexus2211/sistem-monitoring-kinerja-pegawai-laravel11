@@ -43,8 +43,8 @@ Route::middleware('auth','admin:user')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
     Route::get('/', function () {
-        return view('user.home');
-        // return redirect('home.pegawai');
+        // return route('home.pegawai');
+        return redirect()->route('home.pegawai');
     });
 
 
