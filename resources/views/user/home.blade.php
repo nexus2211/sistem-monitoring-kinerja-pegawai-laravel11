@@ -114,6 +114,22 @@
               </div>
             </div>
           </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h4>Download QR Code</h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="visible-print mb-3">
+                  {!! QrCode::size(150)->generate($pegawai->nip); !!}
+                </div>
+              <div class="text-center pt-1 pb-1">
+                <a href="{{ route('user.qrcode') }}" class="btn btn-success btn-lg btn-round">
+                  <i class="fa fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

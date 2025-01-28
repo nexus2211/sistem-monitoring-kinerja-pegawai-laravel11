@@ -41,13 +41,13 @@ Route::get('sop/pdf/{title}', [SopController::class, 'viewPdfSop'])->name('sop.p
 
 Route::middleware('auth','admin:user')->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
+Route::get('/home', [HomeController::class, 'index'])->name('home.pegawai');
     Route::get('/', function () {
         // return route('home.pegawai');
         return redirect()->route('home.pegawai');
     });
 
-
+Route::get('/user-qrcode', [HomeController::class ,'downloadQr'])->name('user.qrcode');
 Route::get('/absenmasuk', [AbsenController::class, 'absenmasuk'])->name('absen.masuk');
 Route::post('/absenmasuk', [AbsenController::class, 'absenmasukStore'])->name('absen.masukStore');
 

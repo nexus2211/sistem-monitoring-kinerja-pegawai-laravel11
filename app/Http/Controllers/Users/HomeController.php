@@ -8,6 +8,8 @@ use App\Models\pegawaiTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -76,6 +78,19 @@ class HomeController extends Controller
         })
         ->count();
 
-        return view('user.home', compact('allCount','totalProses','doneCount','sop','task'));
+        return view('user.home', compact('allCount','totalProses','doneCount','sop','task','pegawai'));
     }
+
+    public function downloadQr(Request $request){
+        $userId = Auth::user()->id;
+        $pegawai_id = pegawai::with('bagian')->where('user_id', $userId)->first();     
+        $qrCode = QrCode::format('png')->size(500)->margin(2)->generate($pegawai_id->nip);
+        $filename = 'qrcode_'. $pegawai_id->nip . '_' . $pegawai_id->nama_pegawai . '.png';   
+     
+         // Mengembalikan response dengan file QR Code
+         return Response::make($qrCode, 200, [
+             'Content-Type' => 'image/png',
+             'Content-Disposition' => 'attachment; filename="' . $filename . '"'
+         ]);
+     }
 }

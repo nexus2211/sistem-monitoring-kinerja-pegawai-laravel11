@@ -52,8 +52,9 @@
                     </ul>
                 </div>
                 @endif
+                
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12 col-md-6 col-lg-6">
                         <div class="card bg-success text-white">
                           <div class="card-body">
                             <h5>Absen Masuk</h5>
@@ -62,7 +63,7 @@
                         </div>
                       </div>
 
-                      <div class="col">
+                      <div class="col-12 col-md-6 col-lg-6">
                         <div class="card bg-warning text-white">
                           <div class="card-body">
                             <h5>Absen Keluar</h5>
@@ -70,9 +71,9 @@
                           </div>
                         </div>
                       </div>
-
-                      
                 </div>
+            
+
             </div>
         </div>
 
