@@ -40,7 +40,21 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 
 ### User/Pegawai Page
 
-# **WORK IN PROGRESS**
+| Dashboard User/Pegawai                             |
+| -------------------------------------------------- |
+| ![Dashboard](./Screenshot/user/user-dashboard.png) |
+
+| User/Pegawai Page - Absensi Masuk                         | User/Pegawai Page - Absensi Keluar                          |
+| --------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Absensi Masuk](./Screenshot/user/user-absensimasuk.png) | ![Absensi Keluar](./Screenshot/user/user-absensikeluar.png) |
+
+| User/Pegawai Page - Detail Absen                     |
+| ---------------------------------------------------- |
+| ![Dashboard](./Screenshot/user/user-detailabsen.png) |
+
+| User/Pegawai Page - Tugas                         | User/Pegawai Page - Tugas Detail                         |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| ![Absensi Masuk](./Screenshot/user/user-task.png) | ![Absensi Keluar](./Screenshot/user/user-taskdetail.png) |
 
 ### Admin & Manager Page
 
@@ -60,9 +74,9 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 | ------------------------------------------------ | -------------------------------------------------- |
 | ![Absensi Masuk](./Screenshot/Absensi-Masuk.png) | ![Absensi Keluar](./Screenshot/Absensi-Keluar.png) |
 
-| List Data Absensi Pegawai/Karyawan                          |                                                               |                                                            |
-| ----------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
-| Absensi Hari Ini                                            | Absensi Mingguan                                              | Absensi Bulanan                                            |
+| List Data Absensi Pegawai/Karyawan                          |                                                               |                                                           |
+| ----------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
+| Absensi Hari Ini                                            | Absensi Mingguan                                              | Absensi Bulanan                                           |
 | ![Absensi Hari Ini](./Screenshot/List-Absensi-Hari-Ini.png) | ![Absensi per minggu](./Screenshot/List-Absensi-Mingguan.png) | ![Absensi Bulanan](./Screenshot/List-Absensi-Bulanan.png) |
 
 | Data Pegawai/Karyawan                                         | Create/Edit Data Karyawan                                         |
@@ -73,13 +87,13 @@ Gunakan perintah di bawah untuk menyiapkan data dummy awal.
 | -------------------------------------------- | ---------------------------------------------- | ------------------------------------------ |
 | ![Data Bagian](./Screenshot/Data-Bagian.png) | ![Data Jabatan](./Screenshot/Data-Jabatan.png) | ![Data Shift](./Screenshot/Data-Shift.png) |
 
-| List Data SOP                          | Create/Edit Data SOP                               |
-| -------------------------------------- | -------------------------------------------------- |
+| List Data SOP                          | Create/Edit Data SOP                                     |
+| -------------------------------------- | -------------------------------------------------------- |
 | ![Data SOP](./Screenshot/List-SOP.png) | ![Create Edit Data SOP](./Screenshot/List-SOP-Input.png) |
 
-| List Data Tugas                        | Create/Edit Tugas Dan Memberikan Tugas Kepada Pegawai/Karyawan |
-| -------------------------------------- | -------------------------------------------------------------- |
-| ![Data SOP](./Screenshot/List-Tugas.png) | ![Create Edit Data SOP](./Screenshot/List-Tugas-Input.png)             |
+| List Data Tugas                          | Create/Edit Tugas Dan Memberikan Tugas Kepada Pegawai/Karyawan |
+| ---------------------------------------- | -------------------------------------------------------------- |
+| ![Data SOP](./Screenshot/List-Tugas.png) | ![Create Edit Data SOP](./Screenshot/List-Tugas-Input.png)     |
 
 | Manage User                                    |
 | ---------------------------------------------- |
