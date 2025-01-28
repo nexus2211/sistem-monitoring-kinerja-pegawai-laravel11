@@ -22,8 +22,9 @@ class DetailAbsenController extends Controller
 
     public function getAbsensi() {
         $events = [];
-        $tanggalMulai = '2025-01-01';
-        $tanggalAkhir = '2025-12-31';
+        $year = Carbon::now()->year;
+        $tanggalMulai = Carbon::createFromDate($year, 1, 1);
+        $tanggalAkhir = Carbon::createFromDate($year, 12, 31);
         $userId = Auth::user()->id;
         
         // $absensi = pegawai::with('attendances')->find($pegawaiId);

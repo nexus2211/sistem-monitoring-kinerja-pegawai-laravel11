@@ -83,8 +83,8 @@
           eventDidMount: function(info, element) {
           // // Jika Anda ingin menambahkan logika tambahan saat event dimuat
           // if (info.event.extendedProps.status === 'Absen') {
-              info.el.style.backgroundColor = 'blue';
-              info.el.style.color = 'white';
+              info.el.style.backgroundColor = '#f0f8ff';
+              info.el.style.color = 'black';
           // }
       }
      

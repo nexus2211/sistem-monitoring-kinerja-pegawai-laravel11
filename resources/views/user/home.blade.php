@@ -156,8 +156,8 @@
             eventDidMount: function(info) {
             // // Jika Anda ingin menambahkan logika tambahan saat event dimuat
             // if (info.event.extendedProps.status === 'Absen') {
-                info.el.style.backgroundColor = 'blue'; // Mengubah warna latar belakang untuk event absen
-                info.el.style.color = 'white'; // Mengubah warna teks
+                info.el.style.backgroundColor = '#f0f8ff'; // Mengubah warna latar belakang untuk event absen
+                info.el.style.color = 'black'; // Mengubah warna teks
             // }
         }
   
