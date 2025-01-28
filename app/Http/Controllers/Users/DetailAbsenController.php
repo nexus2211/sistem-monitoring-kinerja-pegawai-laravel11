@@ -44,7 +44,14 @@ class DetailAbsenController extends Controller
                 // $existingDates[] = $dataA->date;      
             }
             
-            // foreach ($range as $date) {
+           
+        }
+
+        return response()->json($events);
+    }
+}
+
+ // foreach ($range as $date) {
             //     if (!in_array($date->toDateString(), $existingDates)) {
             //         $events[] = [     
             //             'title' => $absensi->status . 'Absen',        
@@ -54,10 +61,3 @@ class DetailAbsenController extends Controller
             //         ];
             //     } 
             // }
-        }
-
-        // dd($events);
-
-        return response()->json($events);
-    }
-}

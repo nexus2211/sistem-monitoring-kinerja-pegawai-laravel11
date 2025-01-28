@@ -141,8 +141,18 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
+            initialView: 'listWeek',
             events: '/api/absensi',
+            headerToolbar: {
+              start: 'title',
+              center: '',
+              end: 'today'
+          },
+          footerToolbar: {
+              start: '',
+              center: '',
+              end: 'prev,next'
+          },
             eventDidMount: function(info) {
             // // Jika Anda ingin menambahkan logika tambahan saat event dimuat
             // if (info.event.extendedProps.status === 'Absen') {

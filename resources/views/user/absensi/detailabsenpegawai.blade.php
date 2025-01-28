@@ -52,7 +52,7 @@
               </div>
             </div>
       </div>
-        <div class="fc-overflow">
+        <div >
           <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
         </div>
       </div>
@@ -65,17 +65,29 @@
 
   document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
+
       var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
+          // initialView: 'dayGridMonth',
+          initialView: window.matchMedia("(max-width: 768px)").matches ? 'listWeek' : 'dayGridMonth',
           events: '/api/absensi',
-          eventDidMount: function(info) {
+          headerToolbar: {
+              start: 'title',
+              center: '',
+              end: 'dayGridMonth,listWeek'
+          },
+          footerToolbar: {
+              start: '',
+              center: '',
+              end: 'prev,next today'
+          },
+          eventDidMount: function(info, element) {
           // // Jika Anda ingin menambahkan logika tambahan saat event dimuat
           // if (info.event.extendedProps.status === 'Absen') {
-              info.el.style.backgroundColor = 'blue'; // Mengubah warna latar belakang untuk event absen
-              info.el.style.color = 'white'; // Mengubah warna teks
+              info.el.style.backgroundColor = 'blue';
+              info.el.style.color = 'white';
           // }
       }
-
+     
 
       });
       calendar.render();
