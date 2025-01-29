@@ -28,11 +28,11 @@ class DetailAbsenController extends Controller
         $userId = Auth::user()->id;
         
         // $absensi = pegawai::with('attendances')->find($pegawaiId);
+        $range = Carbon::parse($tanggalMulai)->daysUntil($tanggalAkhir);
+        $existingDates = [];
         $absensi = pegawai::with('attendances')->where('user_id', $userId)->first();
 
         if ($absensi) {
-            $range = Carbon::parse($tanggalMulai)->daysUntil($tanggalAkhir);
-            $existingDates = [];
             foreach ($absensi->attendances as $dataA) {
                 $startDateTime = $dataA->date . ' ' . $dataA->waktu_masuk;
                 $endDateTime = $dataA->date . ' ' . $dataA->waktu_keluar;               

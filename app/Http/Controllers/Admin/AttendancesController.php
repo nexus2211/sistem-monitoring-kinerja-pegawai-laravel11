@@ -163,6 +163,27 @@ class AttendancesController extends Controller
         return view('admin.attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks','weekInputStatus','weekInput','weekInputPdf'));
     }
 
+    public function StatusAbsen(Request $request){
+
+        $today = Carbon::today();
+        $tglFormat = Carbon::parse($today)->format('Y-m-d');
+
+        $pegawaiData = Pegawai::whereDoesntHave('attendances', function($query) use ($tglFormat) {
+            $query->whereDate('date', $tglFormat);
+        })->with(['jabatan', 'bagian', 'shift'])->pluck('id');
+
+        foreach ($pegawaiData as $pegawai_id) {
+            Attendance::create([
+                'pegawai_id' => $pegawai_id,
+                'date' => $tglFormat,
+                'status' => 'absent',
+            ]);
+        }
+
+        return redirect()->route('listAttendances');
+        
+    }
+
 
     Public function AttendancesDetailMonth(Request $request) {
 
@@ -208,7 +229,7 @@ class AttendancesController extends Controller
 
         if ($request->has('monthInputs')) {
             $selectedMonthStart = Carbon::parse($monthInput);
-            $endOfMonthss = range(1, $selectedMonthStart->daysInMonth); // Hitung akhir minggu
+            $endOfMonthss = range(1, $selectedMonthStart->daysInMonth); // Hitung akhir bulan
             $daysInMonth = $selectedMonthStart->daysInMonth;
 
             $dataMonth = [];

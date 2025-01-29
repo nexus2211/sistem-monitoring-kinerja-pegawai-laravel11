@@ -169,7 +169,7 @@
                                               @endphp
                                             @break
                                         @case('absent')
-                                            <div class="badge badge-danger">-</div>
+                                            <div class="badge badge-danger">A</div>
                                               @php
                                                 $absentCount++;
                                               @endphp
@@ -178,7 +178,7 @@
                                             <div class="badge badge-secondary">N/A</div>
                                     @endswitch
                                     @else
-                                      <div class="badge badge-danger">A</div>
+                                      <div class="badge badge-danger">-</div>
                                         @php
                                             $absentCount++;
                                         @endphp

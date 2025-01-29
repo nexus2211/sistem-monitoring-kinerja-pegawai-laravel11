@@ -120,6 +120,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
         Route::get('/export-absensi-minggu/view/pdf','viewpdfAbsenWeek')->name('export-absensi-minggu');
         Route::get('/export-absensi-bulan/view/pdf','viewpdfAbsenMonth')->name('export-absensi-bulan');
 
+        Route::get('/admin/attendances/detail/week/submit','StatusAbsen')->name('absen.test');
+
     });
 
 

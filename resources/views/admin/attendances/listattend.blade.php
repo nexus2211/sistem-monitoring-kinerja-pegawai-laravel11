@@ -21,6 +21,7 @@
               <h4>Absensi Hari Ini</h4>
             </div>
             <div class="card-body">
+              {{-- <a href="{{ route('absen.test') }}" class="btn btn-primary">test</a> --}}
               <div class="row">
                 <div class="col">
                   <div class="card bg-success text-white">
