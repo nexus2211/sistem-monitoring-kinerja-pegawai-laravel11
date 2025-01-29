@@ -11,4 +11,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 // Task Scheduling untuk pegawai yang tidak absen per-hari
-Schedule::call(new AbsenGenerate)->daily();
+Schedule::call(new AbsenGenerate)->dailyAt('23:59');

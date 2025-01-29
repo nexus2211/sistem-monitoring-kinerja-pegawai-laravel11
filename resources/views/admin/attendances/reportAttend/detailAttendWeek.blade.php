@@ -205,6 +205,12 @@
                     {{ $pegawai->links() }}
                   </div>
                   </div>
+                  <div class="card-footer">
+                      <form action="{{ route('absen.test') }}" method="get"  onsubmit="return confirm('Anda Yakin Ingin Update Data? Ini Akan Mengubah Status Menjadi Absent Untuk Pegawai Yang Tidak Ada Data Absensi')">
+                        @csrf
+                        <button class="btn btn-sm btn-primary">Update Data</button>
+                      </form>
+                  </div>
                 </div>
             </div>
               
