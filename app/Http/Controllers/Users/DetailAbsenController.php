@@ -34,7 +34,8 @@ class DetailAbsenController extends Controller
 
         if ($absensi) {
             foreach ($absensi->attendances as $dataA) {
-                $startDateTime = $dataA->date . ' ' . $dataA->waktu_masuk;
+                $formattedDate = $dataA->date . ' ' . $dataA->waktu_masuk;         
+                $startDateTime = $dataA->waktu_masuk === null ? $dataA->date . ' ' . '00:00:01' : $formattedDate;            
                 $endDateTime = $dataA->date . ' ' . $dataA->waktu_keluar;               
                 $events[] = [      
                     'title' => $dataA->status,      

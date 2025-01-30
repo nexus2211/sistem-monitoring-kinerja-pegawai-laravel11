@@ -74,10 +74,42 @@ class AttendancesController extends Controller
         
 
        
-        return view('admin.attendances.listattend', compact('pegawai','pegawaiCount','presentCount','presentLateCount','excusedCount','sickCount','lateCount','absentCount'));
+        return view('admin.attendances.reportAttend.listattend', compact('pegawai','pegawaiCount','presentCount','presentLateCount','excusedCount','sickCount','lateCount','absentCount'));
     }
 
-    public function AttendancesDetail(Request $request) {
+    public function DetailAttendancesitem($id){
+        
+        $today = Carbon::today();
+        $date =  Carbon::parse($today)->format('Y-m-d');
+
+        $pegawaitask = attendance::with('pegawai')->find($id);
+
+        
+
+        // dd($pegawaitask);
+        return view('admin.attendances.reportAttend.detailAttend', compact('pegawaitask'));
+    }
+
+    public function StatusAttendanceUpdate(Request $request,$id){
+        $request->validate([
+            'statusTask'  => 'required',
+            
+        ],[
+            'statusTask.required'=>'Pilih Status',
+            
+        ]);
+
+        $data = [
+            'status' => $request->statusTask,
+            'note' => $request->noteInput ?? null,
+        ];
+
+        attendance::where('id', $id)->update($data);
+
+        return redirect()->route('listAttendances');
+    }
+
+    public function AttendancesDetailWeek(Request $request) {
 
         // Mendapatkan tanggal awal dan akhir minggu ini
         $startOfWeek = Carbon::now()->startOfWeek();
@@ -162,82 +194,6 @@ class AttendancesController extends Controller
 
        
         return view('admin.attendances.reportAttend.detailAttendWeek', compact('data','pegawai','jabatan','bagian','weeks','weekInputStatus','weekInput','weekInputPdf'));
-    }
-
-    public function StatusAbsen(Request $request){
-
-        $today = Carbon::today();
-        $tglFormat = Carbon::parse($today)->format('Y-m-d');
-        $tglFirstWeek = Carbon::parse($today)->startOfWeek()->format('Y-m-d');
-
-        // Membuat daftar semua tanggal dalam rentang satu minggu
-        $allDates = collect();
-        $startDate = Carbon::parse($tglFirstWeek);
-        $endDate = Carbon::parse($tglFormat)->subDay(); //Satu hari sebelum
-
-        while ($startDate->lte($endDate)) {
-            if (!in_array($startDate->dayOfWeek, [0, 6])) { // 0 = Minggu, 6 = Sabtu
-                $allDates->push($startDate->toDateString());
-            }
-            $startDate->addDay();
-        }
-
-        // $pegawaiId = [4,7];
-        $pegawaiId = pegawai::pluck('id');
-        
-        $pegawaiAbsen = Pegawai::with(['attendances' => function($query) use ($tglFirstWeek,$tglFormat){
-            $query->whereBetween('date', [$tglFirstWeek,$tglFormat]);
-        },'jabatan','bagian','shift'])->when($pegawaiId, function($query, $pegawaiId){
-            return $query->whereIn('id',$pegawaiId);
-        })->get()
-        ->map(function ($pegawai) use ($allDates) {
-            // Membuat daftar kehadiran berdasarkan tanggal
-            $attendanceByDate = $pegawai->attendances->keyBy('date');
-    
-            // Menyusun ulang data untuk memasukkan tanggal yang tidak ada dengan status "absen"
-            $pegawai->attendances = $allDates->map(function ($date) use ($attendanceByDate) {
-                return $attendanceByDate->get($date, (object)[
-                    'date' => $date,
-                    'status' => 'absen' // Status absen jika tidak ada di database
-                ]);
-            });
-    
-            return $pegawai;
-        });
-
-        
-
-        foreach ($pegawaiId as $dataId) {
-            foreach ($allDates as $date) {
-                $existingAttendance = Attendance::where('pegawai_id', $dataId)
-                    ->whereDate('date', $date)
-                    ->exists();
-            
-                if (!$existingAttendance) {
-                    Attendance::create([
-                        'pegawai_id' => $dataId,
-                        'date' => $date,
-                        'status' => 'absent',
-                    ]);
-                }
-            }
-        }
-        
-
-        // dd($date);
-
-        // foreach ($pegawaiData as $pegawai_id) {
-        //     Attendance::create([
-        //         'pegawai_id' => $pegawai_id,
-        //         'date' => $tglFormat,
-        //         'status' => 'absent',
-        //     ]);
-        // }
-
-        
-
-        return redirect()->route('detailAttendances');
-        
     }
 
 
@@ -456,6 +412,82 @@ class AttendancesController extends Controller
 
         attendance::where('pegawai_id', $pegawai->id)->update($data);
         return redirect()->route('attendances.out')->with('success','Absensi Keluar Berhasil');
+        
+    }
+
+    public function StatusAbsen(Request $request){
+
+        $today = Carbon::today();
+        $tglFormat = Carbon::parse($today)->format('Y-m-d');
+        $tglFirstWeek = Carbon::parse($today)->startOfWeek()->format('Y-m-d');
+
+        // Membuat daftar semua tanggal dalam rentang satu minggu
+        $allDates = collect();
+        $startDate = Carbon::parse($tglFirstWeek);
+        $endDate = Carbon::parse($tglFormat)->subDay(); //Satu hari sebelum
+
+        while ($startDate->lte($endDate)) {
+            if (!in_array($startDate->dayOfWeek, [0, 6])) { // 0 = Minggu, 6 = Sabtu
+                $allDates->push($startDate->toDateString());
+            }
+            $startDate->addDay();
+        }
+
+        // $pegawaiId = [4,7];
+        $pegawaiId = pegawai::pluck('id');
+        
+        $pegawaiAbsen = Pegawai::with(['attendances' => function($query) use ($tglFirstWeek,$tglFormat){
+            $query->whereBetween('date', [$tglFirstWeek,$tglFormat]);
+        },'jabatan','bagian','shift'])->when($pegawaiId, function($query, $pegawaiId){
+            return $query->whereIn('id',$pegawaiId);
+        })->get()
+        ->map(function ($pegawai) use ($allDates) {
+            // Membuat daftar kehadiran berdasarkan tanggal
+            $attendanceByDate = $pegawai->attendances->keyBy('date');
+    
+            // Menyusun ulang data untuk memasukkan tanggal yang tidak ada dengan status "absen"
+            $pegawai->attendances = $allDates->map(function ($date) use ($attendanceByDate) {
+                return $attendanceByDate->get($date, (object)[
+                    'date' => $date,
+                    'status' => 'absen' // Status absen jika tidak ada di database
+                ]);
+            });
+    
+            return $pegawai;
+        });
+
+        
+
+        foreach ($pegawaiId as $dataId) {
+            foreach ($allDates as $date) {
+                $existingAttendance = Attendance::where('pegawai_id', $dataId)
+                    ->whereDate('date', $date)
+                    ->exists();
+            
+                if (!$existingAttendance) {
+                    Attendance::create([
+                        'pegawai_id' => $dataId,
+                        'date' => $date,
+                        'status' => 'absent',
+                    ]);
+                }
+            }
+        }
+        
+
+        // dd($date);
+
+        // foreach ($pegawaiData as $pegawai_id) {
+        //     Attendance::create([
+        //         'pegawai_id' => $pegawai_id,
+        //         'date' => $tglFormat,
+        //         'status' => 'absent',
+        //     ]);
+        // }
+
+        
+
+        return redirect()->route('detailAttendances');
         
     }
 

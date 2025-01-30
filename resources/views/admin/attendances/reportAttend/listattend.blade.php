@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col">
+                <div class="col-12 col-md-12 col-lg-3">
                   <div class="card bg-success text-white">
                     <div class="card-body">
                       <h5>Hadir : {{ $presentLateCount }}</h5>
@@ -30,7 +30,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-12 col-lg-3">
                   <div class="card bg-info text-white">
                     <div class="card-body">
                       <h5>Izin : {{ $excusedCount }}</h5>
@@ -38,7 +38,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-12 col-lg-3">
                   <div class="card bg-secondary text-white">
                     <div class="card-body">
                       <h5>Sakit : {{ $sickCount }}</h5>
@@ -46,7 +46,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-12 col-lg-3">
                   <div class="card bg-danger text-white">
                     <div class="card-body">
                       <h5>Absen : {{ $absentCount }}</h5>
@@ -54,10 +54,13 @@
                     </div>
                   </div>
                 </div>
-                
               </div>
+              
               <form action="#" method="get">
               <div class="row align-items-center justify-content-between">
+                <div class="col-md-2 text-end">
+                    <h6 class="mb-2">Jumlah Pegawai: {{ $pegawaiCount }}</h6>
+                </div>
                 <div class="col-md-4">
                   <div class="input-group">
                     <input  type="date" name="dateInput" id="dateInput" class="form-control">
@@ -67,9 +70,6 @@
                       </button>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-2 text-end">
-                    <h6 class="mb-0">Jumlah Pegawai: {{ $pegawaiCount }}</h6>
                 </div>
               </div>    
               </form>
@@ -125,7 +125,7 @@
                         <td><div class="badge {{ $dataA->waktu_keluar == null ? 'badge-danger' : '' }}">{{ $dataA->waktu_keluar == null ? 'Belum Keluar' : $dataA->waktu_keluar }}</div></td>
                         {{-- {{ $dataA->waktu_keluar == null ? '-' : $dataA->waktu_keluar }} --}}
                         <td class="d-flex align-items-center" style="width: 50px;">
-                            <a href="#" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
+                            <a href="{{ route('listAttendances.date', $dataA->id) }}" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
                         </td>
                     </tr>
                     @endforeach

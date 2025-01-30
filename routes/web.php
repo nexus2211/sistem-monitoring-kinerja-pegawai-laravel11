@@ -109,12 +109,16 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
 
     Route::controller(AttendancesController::class)->group(function () {
 
-        Route::get('/admin/attendances/list','AttendanceInList')->name('listAttendances');
         Route::get('/admin/attendances','AttendanceIn')->name('attendances.in');
         Route::post('/admin/attendances','AttendanceInStore')->name('attendances.inPost');
         Route::get('/admin/attendances/out','AttendanceOut')->name('attendances.out');
         Route::post('/admin/attendances/out','AttendanceOutStore')->name('attendances.outPost');
-        Route::get('/admin/attendances/detail/week','AttendancesDetail')->name('detailAttendances');
+
+        Route::get('/admin/attendances/list','AttendanceInList')->name('listAttendances');
+        Route::get('/admin/attendances/{id}/date','DetailAttendancesitem')->name('listAttendances.date');
+        Route::put('/admin/attendances/{id}/date/update','StatusAttendanceUpdate')->name('listAttendances.update');
+        
+        Route::get('/admin/attendances/detail/week','AttendancesDetailWeek')->name('detailAttendances');
         Route::get('/admin/attendances/detail/month','AttendancesDetailMonth')->name('detailAttendancesMonth');
 
         Route::get('/export-absensi-minggu/view/pdf','viewpdfAbsenWeek')->name('export-absensi-minggu');
