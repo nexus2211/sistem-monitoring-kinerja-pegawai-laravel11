@@ -43,16 +43,17 @@ class AttendancesController extends Controller
         }
     }
 
-    public function AttendanceInList() {
+    public function AttendanceInList(Request $request) {
 
         $today = Carbon::today();
         $tglFormat =  Carbon::parse($today)->format('Y-m-d');
+        $dateInput = Carbon::parse($request->input('dateInput'))->format('Y-m-d');
 
         //Mengambil data pegawai dan attendaces
         $attendances = Attendance::where('date', date('Y-m-d'))->get();
         //Pegawai Paginate
-        $pegawai = Pegawai::with(['attendances' => function($query) use ($tglFormat){
-            $query->whereDate('date', $tglFormat);
+        $pegawai = Pegawai::with(['attendances' => function($query) use ($dateInput){
+            $query->whereDate('date', $dateInput);
         },'jabatan','bagian','shift'])->paginate(10);
 
         //Count Pegawai

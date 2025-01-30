@@ -56,7 +56,24 @@
                 </div>
                 
               </div>
-              <h6>Jumlah Pegawai : {{ $pegawaiCount }}</h6>
+              <form action="#" method="get">
+              <div class="row align-items-center justify-content-between">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <input  type="date" name="dateInput" id="dateInput" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary">
+                          <i class="fa fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 text-end">
+                    <h6 class="mb-0">Jumlah Pegawai: {{ $pegawaiCount }}</h6>
+                </div>
+              </div>    
+              </form>
+
               <div class="table-responsive mt-2">
                 <table class="table table-striped" id="table-1">
                   <thead>
