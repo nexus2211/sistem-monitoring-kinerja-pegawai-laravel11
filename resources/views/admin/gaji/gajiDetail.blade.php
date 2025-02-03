@@ -23,8 +23,7 @@
                         </ul>
                     </div>
                     @endif
-                    <form action="{{ route('gaji.pegawai') }}" method="post">
-                        @csrf
+                    <form action="#" method="get">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row mb-4">
@@ -69,8 +68,9 @@
                     <h4>Gaji Pegawai Bulan : </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('gaji.pegawai') }}" method="post">
+                    <form action="#" method="get">
                         @csrf
+                        <input type="hidden" name="bulanValue" id="" value="{{ $bulan }}">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row mb-2">
@@ -95,7 +95,7 @@
                                                     Rp
                                                 </div>
                                             </div>
-                                            <input class="form-control currency" type="text" name="gajiPokokInput">
+                                            <input class="form-control currency" type="text" name="gajiPokokInput" d="gajiPokokInput">
                                         </div>
                                     </div>
                                 </div>
@@ -279,5 +279,21 @@
 @endsection
 
 @push('scripts')
-   
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Pilih semua elemen dengan class 'currency'
+        document.querySelectorAll(".currency").forEach(function (input) {
+            new Cleave(input, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+                delimiter: ".",
+                numeralDecimalMark: ",",
+                numeralDecimalScale: 0,
+            });
+        });
+    });
+    </script>
+  
 @endpush

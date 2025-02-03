@@ -38,7 +38,7 @@
   <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
   <script src="{{ asset('/library/moment/min/moment.min.js') }}"></script>
   <script src="{{ asset('/library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-  
+
   {{-- Select 2 --}}
   <script src="{{ asset('/library/select2/dist/js/select2.full.min.js') }}"></script>
 
@@ -50,6 +50,10 @@
   <!-- include summernote css/js -->
   <script src="{{ asset('/library/summernote/dist/summernote-bs4.js') }}"></script>
 
+  {{-- Cleave --}}
+  <script src="{{ asset('/library/cleave.js/dist/cleave.min.js') }}"></script>
+  <script src="{{ asset('/library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
+  
   {{-- Full Calendar --}}
   {{-- <link rel="stylesheet" href="{{ asset('/library/fullcalendar/dist/fullcalendar.min.css') }}">
   <script src="{{ asset('/library/fullcalendar/dist/fullcalendar.min.js') }}"></script> --}}

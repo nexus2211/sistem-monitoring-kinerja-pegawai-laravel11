@@ -18,11 +18,24 @@ class GajiController extends Controller
         return view('admin.gaji.gaji', compact('pegawai'));
     }
 
-    public function create(){
+    public function create(Request $request){
         $bagian = bagian::get();
         $jabatan = jabatan::get();
-        $pegawai = pegawai::get();
 
+        $jabatanFilter = $request->jabatanInput;
+        $bagianFilter = $request->bagianInput;
+        $bulan = $request->bulanInput;
+
+
+        $pegawai = pegawai::with('jabatan','bagian')
+        ->when($jabatanFilter, function($query) use ($jabatanFilter) {
+            return $query->where('jabatan_id', $jabatanFilter);
+        })->when($bagianFilter, function($query) use ($bagianFilter) {
+            return $query->where('bagian_id', $bagianFilter); 
+        })
+        ->get();
+
+        // Mendapatkan bulan untuk select
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
         $startOfLastYear = Carbon::now()->subYear()->startOfYear();
@@ -39,7 +52,7 @@ class GajiController extends Controller
             $startOfLastYear->addMonth();
         }
 
-        return view('admin.gaji.gajiDetail', compact('jabatan','bagian','pegawai','months'));
+        return view('admin.gaji.gajiDetail', compact('jabatan','bagian','pegawai','months','bulan'));
     }
 
     public function pegawaiGaji(Request $request){
