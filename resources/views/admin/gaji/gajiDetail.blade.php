@@ -95,7 +95,7 @@
                                                     Rp
                                                 </div>
                                             </div>
-                                            <input class="form-control currency" type="text" name="gajiPokokInput" d="gajiPokokInput">
+                                            <input class="form-control currency" type="text" name="gajiPokokInput" id="gajiPokokInput" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +281,7 @@
 @push('scripts')
 
 
-  <script>
+  {{-- <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Pilih semua elemen dengan class 'currency'
         document.querySelectorAll(".currency").forEach(function (input) {
@@ -294,6 +294,47 @@
             });
         });
     });
-    </script>
+    </script> --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        // Pilih semua elemen dengan class 'currency'
+        document.querySelectorAll(".currency").forEach(function (input) {
+            new Cleave(input, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+                delimiter: ".",
+                numeralDecimalMark: ",",
+                numeralDecimalScale: 0,
+            });
+        });
+    });
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Format Cleave.js untuk input gaji
+            var cleaveC = new Cleave("#gajiPokokInput", {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+                delimiter: ".",
+                numeralDecimalMark: ",",
+                numeralDecimalScale: 0,
+
+            });
+        
+            // Event saat pegawai dipilih
+            document.getElementById("nama").addEventListener("change", function () {
+                var pegawaiId = this.value;
+                if (pegawaiId) {
+                    fetch(`/admin/gaji/${pegawaiId}/gaji-pokok`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set nilai gaji pokok dengan Cleave.js
+                            cleaveC.setRawValue(data.gaji_pokok);
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+        </script>
   
 @endpush

@@ -58,4 +58,12 @@ class GajiController extends Controller
     public function pegawaiGaji(Request $request){
         
     }
+
+    public function getGajiPokok($id){
+        $pegawai = Pegawai::find($id);
+        return response()->json([
+            // 'gaji_pokok' => $pegawai ? $pegawai->gaji_pokok : 0
+            'gaji_pokok' => $pegawai->gaji_pokok ?? 0
+        ]);
+    }
 }

@@ -149,6 +149,7 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     
     Route::resource('/admin/gaji', GajiController::class);
     Route::post('/admin/gaji/pegawai', [GajiController::class, 'pegawaiGaji'])->name('gaji.pegawai');
+    Route::get('/admin/gaji/{id}/gaji-pokok', [GajiController::class, 'getGajiPokok']);
 
 
     Route::resource('/admin/barcode', BarcodeController::class);
