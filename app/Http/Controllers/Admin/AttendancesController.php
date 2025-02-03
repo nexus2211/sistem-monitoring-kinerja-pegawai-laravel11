@@ -216,7 +216,7 @@ class AttendancesController extends Controller
         $monthInputS = Carbon::parse($monthInput)->startOfmonth()->format('Y-m-d');
         $monthInputE = Carbon::parse($monthInput)->endOfmonth()->format('Y-m-d');
 
-
+        // data untuk memilih bulan di Select
         $months = [];
         while ($startOfLastYear->lte($startOfMonth)) {
             $months[] = [
@@ -449,7 +449,7 @@ class AttendancesController extends Controller
             $pegawai->attendances = $allDates->map(function ($date) use ($attendanceByDate) {
                 return $attendanceByDate->get($date, (object)[
                     'date' => $date,
-                    'status' => 'absen' // Status absen jika tidak ada di database
+                    'status' => 'absent' // Status absen jika tidak ada di database
                 ]);
             });
     

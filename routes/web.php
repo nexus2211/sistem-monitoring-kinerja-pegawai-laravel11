@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BarcodeController;
 use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttendancesController;
+use App\Http\Controllers\Admin\GajiController;
 use App\Http\Controllers\Users\AbsenController;
 use App\Http\Controllers\Users\DetailAbsenController;
 use App\Http\Controllers\Users\HomeController;
@@ -146,6 +147,9 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     Route::put('/admin/task/statusDetail/{id}', [TaskController::class, 'ubahStatus'])->name('task.statusUpdate');
     Route::get('/admin/task/statusDetail/bukti/{id}', [TaskController::class, 'buktiTask'])->name('task.bukti');
     
+    Route::resource('/admin/gaji', GajiController::class);
+    Route::post('/admin/gaji/pegawai', [GajiController::class, 'pegawaiGaji'])->name('gaji.pegawai');
+
 
     Route::resource('/admin/barcode', BarcodeController::class);
     Route::get('/download-qrcode', [BarcodeController::class ,'downloadQr'])->name('barcode.download');
