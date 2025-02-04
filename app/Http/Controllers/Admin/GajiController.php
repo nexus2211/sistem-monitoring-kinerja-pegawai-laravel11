@@ -13,10 +13,37 @@ use Intervention\Image\Colors\Rgb\Channels\Red;
 
 class GajiController extends Controller
 {
-    public function index(){
-        $pegawai = pegawai::with('jabatan','bagian','gaji')->get();
+    public function index(Request $request){
+        $currentDateTime = Carbon::now();
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+        $startOfLastYear = Carbon::now()->subYear()->startOfYear();
+        $thisMonthLabel = $startOfMonth->format('F, Y');
+        $monthinput = Carbon::parse($request->monthInputs);
+        $monthInputStatus = Carbon::parse($monthinput)->format('F, Y');
 
-        return view('admin.gaji.gaji', compact('pegawai'));
+
+        // Mendapatkan bulan untuk select
+        $months = [];
+        while ($startOfLastYear->lte($startOfMonth)) {
+            $months[] = [
+                'label' => $startOfLastYear->format('F, Y'),
+                'value' => $startOfLastYear->format('Y-m-01'),
+                'has_events' => false, // Default tidak ada event
+                'is_current' => $startOfLastYear->format('F, Y') === $thisMonthLabel
+            ];
+            $startOfLastYear->addMonth();
+        }
+
+        $pegawai = pegawai::whereHas('gaji', function ($query) use ($monthinput) {
+            $query->whereYear('periode', $monthinput->year)
+            ->whereMonth('periode', $monthinput->month);
+        })
+        ->with(['gaji', 'jabatan', 'bagian', 'tunjangan', 'potongan'])
+        ->get();
+
+        return view('admin.gaji.gaji', compact('pegawai','months','monthInputStatus'));
+        
     }
 
     public function create(Request $request){
@@ -72,6 +99,9 @@ class GajiController extends Controller
 
     public function store(Request $request){
 
+        $currentDateTime = Carbon::now();
+
+
         // dd($request->all());
         $bulanInput = $request->bulanValue;
         $pegawaiInput = $request->namaInput;
@@ -87,7 +117,18 @@ class GajiController extends Controller
         $absenInput = $request->absenInput;
         $potlainInput = $request->potlainInput;
 
+
         $pegawai = Pegawai::with('gaji','tunjangan','potongan')->find($pegawaiInput);
+
+        // Cek Apakah Ada Data Gaji Pegawai Untuk Bulan Ini
+        $gaji_bulan_ini = gaji::where('pegawai_id', $pegawai->id)
+            ->whereYear('periode', $currentDateTime->year)
+            ->whereMonth('periode', $currentDateTime->month)
+            ->exists();
+
+        if ($gaji_bulan_ini) {
+            return redirect()->route('gaji.create')->with('gagal','Pegawai Sudah Ada Data Gaji Bulan Ini');
+        }
 
         $request->validate([
             'namaInput'  => 'required',

@@ -35,6 +35,8 @@
               <li class="{{ Request::routeIs('sop.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sop.index') }}"><i class="fa far fa-file"></i> <span>SOP Pegawai</span></a></li>
     
               <li class="{{ Request::routeIs('task.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('task.index') }}"><i class="fa far fa-tasks"></i> <span>Tugas Pegawai</span></a></li>
+
+              <li class="{{ Request::routeIs('gaji.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.index') }}"><i class="fa far fa-money-bill-wave"></i> <span>Gaji Pegawai</span></a></li>
     
               <li class="menu-header">Attendances</li>
     

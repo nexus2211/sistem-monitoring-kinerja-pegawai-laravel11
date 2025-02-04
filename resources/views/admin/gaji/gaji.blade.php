@@ -1,5 +1,8 @@
 @extends('layout.app')
 
+@section('konten-title', 'Gaji Pegawai')
+
+
 @section('konten-header')
     <div class="section-header">
         <h1>Gaji Pegawai</h1>
@@ -18,6 +21,26 @@
                     </div>
                 </div>
                 <div class="card-body">
+                  <form action="#" method="get">
+                  <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label for="nip" class="col-form-label">Bulan Ke :</label>
+                        <select class="custom-select form-control" name="monthInputs" id="month">
+                              @foreach($months as $month)
+                                    <option value="{{ $month['value'] }}" @if($month['is_current']) selected @endif>{{ $month['label'] }}</option>
+                              @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-2" >
+                      <label for="btnfilter" class="col-form-label">&nbsp;</label>
+                      <button class="btn btn-info form-control" name="btnfilter"><i class="fa fas fa-filter"></i> Filter</button>
+                  </div>
+                  </div>
+                </form>
+                
+                <div class="d-flex justify-content-end">
+                  Bulan : {{ $monthInputStatus }}
+                </div>
                     <div class="table-responsive">
                       <table class="table table-striped" id="table-1">
                         <thead>
@@ -43,6 +66,7 @@
                               <td>{{ $data->nama_pegawai }}</td>
                               <td>Rp. {{ $data->gaji_pokok }}</td>
                               <td>Rp. {{ $data->gaji->total_gaji ?? '-' }}</td>
+                              <td>Gaji</td>
                               <td class="d-flex align-items-start">
                                   <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
                                   
