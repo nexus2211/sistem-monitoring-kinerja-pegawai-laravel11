@@ -46,6 +46,21 @@ class pegawai extends Model
         return $this->hasMany(Attendance::class);
     }
 
+    public function gaji()
+    {
+        return $this->hasOne(gaji::class, 'pegawai_id');
+    }
+
+    public function tunjangan()
+    {
+        return $this->belongsToMany(tunjangan::class, 'pegawai_tunjangan', 'pegawai_id', 'tunjangan_id');
+    }
+
+    public function potongan()
+    {
+        return $this->belongsToMany(potongan::class, 'pegawai_potongan', 'pegawai_id', 'potongan_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

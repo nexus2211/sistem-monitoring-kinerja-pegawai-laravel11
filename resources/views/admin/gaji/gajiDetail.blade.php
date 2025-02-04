@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('konten-title','Gaji Pegawai')
+    
 @section('konten-header')
     <div class="section-header">
         <h1>Tambah Gaji</h1>
@@ -63,14 +65,15 @@
                 </div>
             </div>
 
+            <form action="{{ route('gaji.store') }}" method="post" enctype="multipart/form-data" id="gajiForm">
             <div class="card card-primary">
                 <div class="card-header">
                     <h4>Gaji Pegawai Bulan : </h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" method="get">
+                    
                         @csrf
-                        <input type="hidden" name="bulanValue" id="" value="{{ $bulan }}">
+                        <input type="hidden" name="bulanValue" id="" value="{{ $bulan }}" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row mb-2">
@@ -78,6 +81,7 @@
                                     <div class="form-group">       
                                         <label for="pegawai">Nama Pegawai</label>        
                                         <select class="custom-select form-control" name="namaInput" id="nama">
+                                            <option value="" disabled selected>Pilih Pegawai</option>
                                             @foreach($pegawai as $pegawai)
                                                 <option value="{{ $pegawai->id }}" >{{ $pegawai->nama_pegawai }}</option>
                                             @endforeach
@@ -115,7 +119,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                
                 </div>
             </div>
 
@@ -268,12 +272,14 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end mt-2">
-                            <a href="{{ route('gaji.index') }}" class="btn btn-danger mr-2">Back</a>
+                            {{-- <a href="{{ route('gaji.index') }}" class="btn btn-danger mr-2">Back</a> --}}
                             <button class="btn btn-primary">Submit</button>
+                        </form>
                         </div>
                     </div>
                 </div>
             </div>
+        
         </div>
     </div>
 @endsection
@@ -308,8 +314,16 @@
                 numeralDecimalScale: 0,
             });
         });
+
+        // Saat form disubmit, ubah nilai ke integer sebelum dikirim ke server
+        document.getElementById("gajiForm").addEventListener("submit", function () {
+            document.querySelectorAll(".currency").forEach(function (input) {
+                input.value = input.value.replace(/\./g, ""); // Hapus semua titik (pemisah ribuan)
+            });
+        });
+
     });
-    
+
         document.addEventListener("DOMContentLoaded", function () {
             // Format Cleave.js untuk input gaji
             var cleaveC = new Cleave("#gajiPokokInput", {
@@ -319,6 +333,12 @@
                 numeralDecimalMark: ",",
                 numeralDecimalScale: 0,
 
+            });
+
+            // Saat form disubmit, ubah nilai ke integer sebelum dikirim ke server
+            document.getElementById("gajiForm").addEventListener("submit", function () {
+                var gajiPokokInput = document.getElementById("gajiPokokInput");
+                gajiPokokInput.value = gajiPokokInput.value.replace(/\./g, ""); // Hapus semua titik (pemisah ribuan)
             });
         
             // Event saat pegawai dipilih

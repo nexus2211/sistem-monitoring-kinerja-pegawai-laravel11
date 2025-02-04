@@ -28,6 +28,7 @@
                             <th class="text-center">NIP</th>
                             <th>Nama Pegawai</th>
                             <th>Gaji Pokok</th>
+                            <th>Total Gaji</th>
                             <th>Slip Gaji</th>
                             <th>Aksi</th>
                             
@@ -41,6 +42,7 @@
                               <td>{{ $data->nip }}</td>
                               <td>{{ $data->nama_pegawai }}</td>
                               <td>Rp. {{ $data->gaji_pokok }}</td>
+                              <td>Rp. {{ $data->gaji->total_gaji ?? '-' }}</td>
                               <td class="d-flex align-items-start">
                                   <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
                                   

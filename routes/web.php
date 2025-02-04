@@ -148,8 +148,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     Route::get('/admin/task/statusDetail/bukti/{id}', [TaskController::class, 'buktiTask'])->name('task.bukti');
     
     Route::resource('/admin/gaji', GajiController::class);
-    Route::post('/admin/gaji/pegawai', [GajiController::class, 'pegawaiGaji'])->name('gaji.pegawai');
-    Route::get('/admin/gaji/{id}/gaji-pokok', [GajiController::class, 'getGajiPokok']);
+    Route::get('/admin/gaji/{id}/gaji-pokok', [GajiController::class, 'getGajiPokok'])->name('gaji.api');
+    // Route::post('/admin/gaji/tambah', [GajiController::class, 'getGajiPokok'])->name('gaji.test');
 
 
     Route::resource('/admin/barcode', BarcodeController::class);
