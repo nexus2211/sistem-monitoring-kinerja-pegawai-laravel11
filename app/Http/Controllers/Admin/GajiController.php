@@ -181,4 +181,11 @@ class GajiController extends Controller
         return redirect()->route('gaji.index');
         
     }
+
+    public function viewpdfGaji($id){
+        $mpdf = new \Mpdf\Mpdf();
+        $pegawai = Pegawai::with(['gaji', 'tunjangan', 'potongan','jabatan','bagian'])->findOrFail($id);
+        $mpdf->WriteHTML(view("admin.import-export.export-slip-gaji", compact('pegawai')));
+        $mpdf->Output('pdf-slip-gaji','I');
+    }
 }

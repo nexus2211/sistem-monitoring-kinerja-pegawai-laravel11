@@ -150,6 +150,7 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
     Route::resource('/admin/gaji', GajiController::class);
     Route::get('/admin/gaji/{id}/gaji-pokok', [GajiController::class, 'getGajiPokok'])->name('gaji.api');
     // Route::post('/admin/gaji/tambah', [GajiController::class, 'getGajiPokok'])->name('gaji.test');
+    Route::get('/slip-gaji/{id}', [GajiController::class, 'viewpdfGaji'])->name('slip.gaji');
 
 
     Route::resource('/admin/barcode', BarcodeController::class);
