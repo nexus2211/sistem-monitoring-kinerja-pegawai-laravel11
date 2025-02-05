@@ -28,7 +28,7 @@
                             </ul>
                         </div>
                     @endif
-                <form action="{{ route('pegawai.update', $pegawai->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('pegawai.update', $pegawai->id) }}" method="post" id="gajiForm" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div>
@@ -60,6 +60,9 @@
                                     <option value="2" {{ $pegawai->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                               </div>
+
+                            <label for="">No Telepon</label>
+                            <input type="text" name="telepon" class="form-control mb-2" id="telepon" value="{{ $pegawai->telepon }}">
                             
                         </div>
                         <div class="col-md-6">
@@ -91,7 +94,7 @@
                             </div>
                                 
                             <label for="">Shift</label>
-                            <div>
+                            <div class="input-group mb-3">
                             <select class="form-control select2" name="shift" required>
                                 <option selected disabled>Pilih Shift..</option>
                                 @foreach($shift as $data_shift)
@@ -100,6 +103,15 @@
                             </select>
                             </div>
                             
+                            <label for="">Gaji Pokok</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        Rp
+                                    </div>
+                                </div>
+                                <input class="form-control currency" type="text" name="gajiInput" value="{{ number_format($pegawai->gaji_pokok, 0, ',', '.') }}">
+                            </div>
                         </div>
                     </div>
                     
@@ -144,6 +156,31 @@ $('.datepicker').datepicker({
             previewImage.src = ''; // Reset src jika tidak ada file
             previewImage.style.display = 'none'; // Sembunyikan gambar
         }
+    });
+
+    document.getElementById("telepon").addEventListener("input", function (e) {
+        this.value = this.value.replace(/[^0-9]/g, "");
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Pilih semua elemen dengan class 'currency'
+        document.querySelectorAll(".currency").forEach(function (input) {
+            new Cleave(input, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+                delimiter: ".",
+                numeralDecimalMark: ",",
+                numeralDecimalScale: 0,
+            });
+        });
+
+        // Saat form disubmit, ubah nilai ke integer sebelum dikirim ke server
+        document.getElementById("gajiForm").addEventListener("submit", function () {
+            document.querySelectorAll(".currency").forEach(function (input) {
+                input.value = input.value.replace(/\./g, ""); // Hapus semua titik (pemisah ribuan)
+            });
+        });
+
     });
 </script>
 

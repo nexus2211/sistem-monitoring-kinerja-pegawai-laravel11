@@ -35,10 +35,11 @@
                       <th class="text-center">NIP</th>
                       <th>Nama Pegawai</th>
                       <th>Alamat</th>
+                      <th>Telepon</th>
                       <th>Jabatan</th>
                       <th>Bagian</th>
                       <th>Shift</th>
-                      <th style="width: 150px;">Aksi</th>
+                      <th>Aksi</th>
                       
                     </tr>
                   </thead>
@@ -50,6 +51,7 @@
                         <td>{{ $data->nip }}</td>
                         <td>{{ $data->nama_pegawai }}</td>
                         <td>{{ $data->alamat }}</td>
+                        <td>{{ $data->telepon }}</td>
                         {{-- <td>{{ $data->gender }}</td> --}}
                         {{-- <td class="text-center">{{ $data->tgl_lahir }}</td> --}}
                         <td>{{ $data->jabatan->jabatan }}</td>

@@ -110,6 +110,8 @@ class PegawaiController extends Controller
             'bagian_id' => $request->bagian,
             'shift_id' => $request->shift,
             'foto' => isset($image_name)?$image_name:null,
+            'telepon' => $request->telepon,
+            'gaji_pokok' => $request->gajiInput
             // 'foto' => $request->foto,
         ];
 
@@ -263,6 +265,8 @@ class PegawaiController extends Controller
             'bagian_id' => $request->input('bagian'),
             'shift_id' => $request->input('shift'),
             'foto' => isset($image_name)?$image_name:$pegawai->foto,
+            'telepon' => $request->telepon,
+            'gaji_pokok' => $request->gajiInput
         ];
 
        // dd($data);

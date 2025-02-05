@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                     @endif
-                <form action="{{ route('pegawai.post') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('pegawai.post') }}" method="post" id="gajiForm" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -53,11 +53,13 @@
                                 </select>
                               </div>
                             
-                            
+                            <label for="">No Telepon</label>
+                            <input type="text" name="telepon" class="form-control mb-2" id="telepon">
+
                         </div>
                         <div class="col-md-6">
                             <label for="">Tanggal Lahir</label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date mb-3" data-provide="datepicker">
                                 <input type="date" class="form-control" name="tgl_lahir">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
@@ -85,7 +87,7 @@
                             </div>
 
                             <label for="">Shift</label>
-                            <div>
+                            <div class="input-group mb-3">
                             <select class="form-control select2" name="shift" required>
                                 <option selected disabled>Pilih Shift..</option>
                                 @foreach($shift as $data_shift)
@@ -94,6 +96,15 @@
                             </select>
                             </div>
                             
+                            <label for="">Gaji Pokok</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        Rp
+                                    </div>
+                                </div>
+                                <input class="form-control currency" type="text" name="gajiInput">
+                            </div>
                            
                         </div>
                     </div>
@@ -129,6 +140,31 @@
             previewImage.src = ''; // Reset src jika tidak ada file
             previewImage.style.display = 'none'; // Sembunyikan gambar
         }
+    });
+
+    document.getElementById("telepon").addEventListener("input", function (e) {
+        this.value = this.value.replace(/[^0-9]/g, "");
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Pilih semua elemen dengan class 'currency'
+        document.querySelectorAll(".currency").forEach(function (input) {
+            new Cleave(input, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+                delimiter: ".",
+                numeralDecimalMark: ",",
+                numeralDecimalScale: 0,
+            });
+        });
+
+        // Saat form disubmit, ubah nilai ke integer sebelum dikirim ke server
+        document.getElementById("gajiForm").addEventListener("submit", function () {
+            document.querySelectorAll(".currency").forEach(function (input) {
+                input.value = input.value.replace(/\./g, ""); // Hapus semua titik (pemisah ribuan)
+            });
+        });
+
     });
 </script>
 

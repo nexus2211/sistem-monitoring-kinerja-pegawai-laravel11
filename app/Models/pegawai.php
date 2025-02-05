@@ -12,7 +12,7 @@ class pegawai extends Model
 {
     use HasFactory;
     protected $table = "pegawai";
-    protected $fillable = ["nip","nama_pegawai","alamat","gender","tgl_lahir","jabatan_id","bagian_id","shift_id","foto","user_id"];
+    protected $fillable = ["nip","nama_pegawai","alamat","gender","tgl_lahir","jabatan_id","bagian_id","shift_id","foto","telepon","gaji_pokok","user_id"];
 
     // Aksesors dan Mutator untuk 'gender'
     public function getGenderAttribute($value)

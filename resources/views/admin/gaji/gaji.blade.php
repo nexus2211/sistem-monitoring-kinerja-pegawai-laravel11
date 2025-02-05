@@ -37,7 +37,7 @@
                   </div>
                   </div>
                 </form>
-                
+
                 <div class="d-flex justify-content-end">
                   Bulan : {{ $monthInputStatus }}
                 </div>
@@ -64,9 +64,9 @@
                               <td class="text-center">{{ $no+1 }}</td>
                               <td>{{ $data->nip }}</td>
                               <td>{{ $data->nama_pegawai }}</td>
-                              <td>Rp. {{ $data->gaji_pokok }}</td>
-                              <td>Rp. {{ $data->gaji->total_gaji ?? '-' }}</td>
-                              <td>Gaji</td>
+                              <td>Rp. {{ number_format($data->gaji_pokok, 0, ',', '.') }}</td>
+                              <td>Rp. {{ number_format($data->gaji->total_gaji, 0, ',', '.') }}</td>
+                              <td><a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-success btn-sm me-2 mr-2 "><i class="fa fas fa-file-invoice-dollar"></i> Slip Gaji</a></td>
                               <td class="d-flex align-items-start">
                                   <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
                                   
