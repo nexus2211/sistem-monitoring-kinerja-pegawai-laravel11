@@ -73,7 +73,38 @@
               </div>
             </div>
           </div>
+
+          <div class="card card-primary">
+              <div class="card-header">
+                  <h4>Import/Export Data</h4>
+              </div>
+              <div class="card-body">
+                <div class="col-6">
+                  <label for="">Import Excel</label>
+                  <form action="{{ route('import.pegawai') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="d-flex justify-content-between">
+                    <input type="file" name="file" id="file" class="form-control mr-2">
+                    <input type="submit" value="Import" class="btn btn-sm btn-primary">
+                  </div>
+                  </form>
+
+                  <div class="d-flex align-items-start mt-3">
+                    <a href="/admin/export-excel-pegawai" class="btn btn-success me-2 mr-2" target="_blank"> 
+                        <i class="fas fa-file-excel me-2"></i> Download Excel
+                    </a>
+  
+                    <a href="{{ route('export-pegawai') }}" class="btn btn-danger" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                  </div>
+              
+                </div>
+              </div>
+          </div>
+
         </div>
+
       </div>
   
 

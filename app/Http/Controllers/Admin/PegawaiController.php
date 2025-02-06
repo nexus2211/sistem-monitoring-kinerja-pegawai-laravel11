@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BagianExport;
+use App\Exports\JabatanExport;
+use App\Exports\PegawaiExport;
+use App\Exports\ShiftExport;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\shift;
@@ -11,7 +15,13 @@ use App\Models\pegawai;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Imports\BagianImport;
+use App\Imports\JabatanImport;
+use App\Imports\PegawaiImport;
+use App\Imports\ShiftImport;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class PegawaiController extends Controller
 {
@@ -417,5 +427,89 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::with(['jabatan','bagian','shift'])->orderBy('nip', 'asc')->get();
         $mpdf->WriteHTML(view("admin.import-export.export-pegawai", compact('pegawai')));
         $mpdf->Output('pdf-pegawai','I');
+    }
+
+    public function excelBagian() 
+    {
+        // return Excel::download(new BagianExport, 'bagian-'.Carbon::now()->timestamp.'.xlsx');
+        return (new BagianExport)->download('bagian-'.Carbon::now()->timestamp.'.xlsx');
+
+    }
+
+    public function excelJabatan() 
+    {
+        // return Excel::download(new BagianExport, 'bagian-'.Carbon::now()->timestamp.'.xlsx');
+        return (new JabatanExport)->download('jabatan-'.Carbon::now()->timestamp.'.xlsx');
+
+    }
+
+    public function excelShift() 
+    {
+        // return Excel::download(new BagianExport, 'bagian-'.Carbon::now()->timestamp.'.xlsx');
+        return (new ShiftExport)->download('shift-'.Carbon::now()->timestamp.'.xlsx');
+
+    }
+
+    public function excelPegawai() 
+    {
+        // return Excel::download(new BagianExport, 'bagian-'.Carbon::now()->timestamp.'.xlsx');
+        return (new PegawaiExport)->download('pegawai-'.Carbon::now()->timestamp.'.xlsx');
+
+    }
+
+    public function excelBagianImport(Request $request) 
+    {
+        // dd($request->file('file'));
+        if ($request->hasFile('file')) {
+            Excel::import(new BagianImport, $request->file('file'));
+        } else {
+            return back()->withErrors('No file uploaded');
+        }
+        
+        
+        return redirect()->route('bagian');
+
+    }
+
+    public function excelJabatanImport(Request $request) 
+    {
+        // dd($request->file('file'));
+        if ($request->hasFile('file')) {
+            Excel::import(new JabatanImport, $request->file('file'));
+        } else {
+            return back()->withErrors('No file uploaded');
+        }
+        
+        
+        return redirect()->route('jabatan');
+
+    }
+
+    public function excelShiftImport(Request $request) 
+    {
+        // dd($request->file('file'));
+        if ($request->hasFile('file')) {
+            Excel::import(new ShiftImport, $request->file('file'));
+        } else {
+            return back()->withErrors('No file uploaded');
+        }
+        
+        
+        return redirect()->route('shift');
+
+    }
+
+    public function excelPegawaiImport(Request $request) 
+    {
+        // dd($request->file('file'));
+        if ($request->hasFile('file')) {
+            Excel::import(new PegawaiImport, $request->file('file'));
+        } else {
+            return back()->withErrors('No file uploaded');
+        }
+        
+        
+        return redirect()->route('pegawai');
+
     }
 }

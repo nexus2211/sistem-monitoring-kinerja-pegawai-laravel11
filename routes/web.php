@@ -84,6 +84,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
         Route::delete('/admin/pegawai/{id}','PegawaiDelete')->name('pegawai.delete');
 
         Route::get('/export-pegawai/view/pdf','viewpdfPegawai')->name('export-pegawai');
+        Route::get('/admin/export-excel-pegawai','excelPegawai')->name('excel.pegawai');
+        Route::post('/admin/import-excel-pegawai','excelPegawaiImport')->name('import.pegawai');
 
         // JABATAN ROUTE
         Route::get('/admin/jabatan','JabatanIndex')->name('jabatan');
@@ -91,6 +93,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
         Route::delete('/admin/jabatan/{id}','JabatanDelete')->name('jabatan.delete');
         Route::get('/admin/jabatan/edit/{id}','JabatanEdit')->name('jabatan.edit');
         Route::put('/admin/jabatan/edit/{id}','JabatanUpdate')->name('jabatan.update');
+        Route::get('/admin/export-excel-jabatan','excelJabatan')->name('excel.jabatan');
+        Route::post('/admin/import-excel-jabatan','excelJabatanImport')->name('import.jabatan');
 
         // BAGIAN ROUTE
         Route::get('/admin/bagian','BagianIndex')->name('bagian');
@@ -98,6 +102,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
         Route::delete('/admin/bagian/{id}','BagianDelete')->name('bagian.delete');
         Route::get('/admin/bagian/edit/{id}','BagianEdit')->name('bagian.edit');
         Route::put('/admin/bagian/edit/{id}','BagianUpdate')->name('bagian.update');
+        Route::get('/admin/export-excel-bagian','excelBagian')->name('excel.bagian');
+        Route::post('/admin/import-excel-bagian','excelBagianImport')->name('import.bagian');
 
         // SHIFT ROUTE
         Route::get('/admin/shift','ShiftIndex')->name('shift');
@@ -105,6 +111,8 @@ Route::middleware('auth','admin:admin,manager')->group(function () {
         Route::delete('/admin/shift/{id}','ShiftDelete')->name('shift.delete');
         Route::get('/admin/shift/edit/{id}','ShiftEdit')->name('shift.edit');
         Route::put('/admin/shift/edit/{id}','ShiftUpdate')->name('shift.update');
+        Route::get('/admin/export-excel-shift','excelShift')->name('excel.shift');
+        Route::post('/admin/import-excel-shift','excelShiftImport')->name('import.shift');
 
     });
 

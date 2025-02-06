@@ -64,6 +64,7 @@
                 <div class="card-body">
                     <form action="{{ route('bagian.post') }}" method="post">
                         @csrf
+                        
                         <label for="">Nama bagian</label>
                         <input type="text" name="bagian" class="form-control mb-2">
                         <label for="">Deskripsi</label>
@@ -74,6 +75,27 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card card-primary">
+              <div class="card-header">
+                  <h4>Import/Export Data</h4>
+              </div>
+              <div class="card-body">
+                <label for="">Import Excel</label>
+                <form action="{{ route('import.bagian') }}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  <div class="d-flex justify-content-between">
+                  <input type="file" name="file" id="file" class="form-control mr-2">
+                  <input type="submit" value="Import" class="btn btn-sm btn-primary">
+                </div>
+                </form>
+
+                <div class="d-flex justify-content-between mt-4">
+                  <a href="/admin/export-excel-bagian" class="btn btn-success" target="__blank"><i class="fa fas fa-file-excel"></i> Download Excel</a>
+                  <a href="/admin/export-excel-bagian" class="btn btn-danger"><i class="fa fas fa-file-pdf"></i> Download pdf</a>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
   
