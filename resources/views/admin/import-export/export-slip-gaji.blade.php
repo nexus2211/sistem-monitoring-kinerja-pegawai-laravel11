@@ -10,11 +10,11 @@
         </tr>
         <tr>
             <th>Jabatan</th>
-            <td>{{ $pegawai->jabatan->jabatan }}</td>
+            <td>{{ $pegawai->pegawai->jabatan->jabatan }}</td>
         </tr>
         <tr>
             <th>Bagian</th>
-            <td>{{ $pegawai->bagian->bagian }}</td>
+            <td>{{ $pegawai->pegawai->bagian->bagian }}</td>
         </tr>
     </table>
 
@@ -22,9 +22,9 @@
     <table class="table">
         <tr>
             <th>Gaji Pokok</th>
-            <td>Rp {{ number_format($pegawai->gaji_pokok, 0, ',', '.') }}</td>
+            <td>Rp {{ number_format($pegawai->pegawai->gaji_pokok, 0, ',', '.') }}</td>
         </tr>
-        @foreach($pegawai->tunjangan as $tunjangan)
+        @foreach($pegawai->pegawai->tunjangan as $tunjangan)
         <tr>
             <th>Tunjangan kehadiran</th>
             <td>Rp {{ number_format($tunjangan->kehadiran, 0, ',', '.') }}</td>
@@ -54,7 +54,7 @@
 
     <h5 class="mt-4">Potongan</h5>
     <table class="table">
-        @foreach($pegawai->potongan as $potongan)
+        @foreach($pegawai->pegawai->potongan as $potongan)
         <tr>
             <th>Potongan Asuransi</th>
             <td>Rp -{{ number_format($potongan->asuransi, 0, ',', '.') }}</td>
@@ -74,7 +74,7 @@
         @endforeach
     </table>
 
-    <h4 class="mt-4 text-center">Total Gaji: Rp {{ number_format($pegawai->gaji->total_gaji, 0, ',', '.') }}</h4>
+    <h4 class="mt-4 text-center">Total Gaji: Rp {{ number_format($pegawai->total_gaji, 0, ',', '.') }}</h4>
 
     <div class="footer">
         <p>Terima kasih atas kerja keras Anda.</p>

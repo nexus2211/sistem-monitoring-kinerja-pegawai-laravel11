@@ -184,7 +184,8 @@ class GajiController extends Controller
 
     public function viewpdfGaji($id){
         $mpdf = new \Mpdf\Mpdf();
-        $pegawai = Pegawai::with(['gaji', 'tunjangan', 'potongan','jabatan','bagian'])->findOrFail($id);
+        // $pegawai = Pegawai::with(['gaji', 'tunjangan', 'potongan','jabatan','bagian'])->findOrFail($id);
+        $pegawai = gaji::with(['pegawai'])->findOrFail($id);
         $mpdf->WriteHTML(view("admin.import-export.export-slip-gaji", compact('pegawai')));
         $mpdf->Output('pdf-slip-gaji','I');
     }

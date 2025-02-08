@@ -68,7 +68,7 @@
                               <td>Rp. {{ number_format($data->gaji->total_gaji, 0, ',', '.') }}</td>
                               <td><a href="{{ route('slip.gaji', $data->gaji->id) }}" class="btn btn-success btn-sm me-2 mr-2 " target="__blank"><i class="fa fas fa-file-invoice-dollar"></i> Slip Gaji</a></td>
                               <td class="d-flex align-items-start">
-                                  <a href="{{ route('pegawai.edit', $data->gaji->id) }}" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
+                                  <a href="#" class="btn btn-primary btn-sm me-2 mr-2 ">Detail</a>
                                   
                               </td>
                           </tr>

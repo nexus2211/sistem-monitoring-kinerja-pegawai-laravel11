@@ -16,15 +16,12 @@
                     <h4>Infromasi Pegawai</h4>
                 </div>
                 <div class="card-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @if (session('gagal'))
+                        <div class="alert alert-danger">
+                            {{ session('gagal') }}
+                        </div>
                     @endif
+
                     <form action="#" method="get">
                     <div class="row">
                         <div class="col-md-12">
