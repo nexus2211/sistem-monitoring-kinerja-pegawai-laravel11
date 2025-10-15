@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bagian>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Shift>
  */
-class BagianFactory extends Factory
+class shiftFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class BagianFactory extends Factory
     public function definition(): array
     {
         return [
-            'bagian' => fake()->sentence(1),
-            'deskripsi' => fake()->sentence(3),
+            'shift' => fake()->sentence(1),
+            'waktu_mulai' => fake()->time(),
+            'waktu_akhir' => fake()->time(),
         ];
     }
 }

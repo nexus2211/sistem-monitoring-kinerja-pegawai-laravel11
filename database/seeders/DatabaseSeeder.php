@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\bagian;
 use App\Models\jabatan;
-use App\Models\pegawai;
+use App\Models\Pegawai;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

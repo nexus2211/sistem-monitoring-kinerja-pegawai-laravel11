@@ -40,7 +40,7 @@ class attendance extends Model
 
     public function pegawai(): BelongsTo
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(pegawai::class);
     }
 
     

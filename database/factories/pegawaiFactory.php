@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pegawai>
  */
-class PegawaiFactory extends Factory
+class pegawaiFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class PegawaiFactory extends Factory
     public function definition(): array
     {
         return [
-            'nip' => fake()->nik(),
+            'nip' => fake()->numerify('################'),
             'nama_pegawai' => fake()->name(),
             'alamat' => fake()->sentence(3),
             'gender' => fake()->numberBetween(0,3),
